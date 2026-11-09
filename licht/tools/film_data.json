@@ -1,0 +1,3379 @@
+{
+ "moments": [
+  "Grundraster",
+  "M1 · Leichtbau als erste Antwort",
+  "M2 · Der Kontaktpunkt zur Straße",
+  "M3 · Kraft kontrollierbar machen",
+  "M4 · Die Bremse wird Hightech",
+  "M5 · Sicherheit von Grund auf",
+  "M6 · Rückkehr zur Ausgangsfrage"
+ ],
+ "beats": [
+  {
+   "i": 0,
+   "m": 0,
+   "t": "Grundraster – stille Silhouetten",
+   "reg": "ambient",
+   "hold": 3,
+   "holdS": 3,
+   "revealAt": 200,
+   "dur": 4100,
+   "steps": [],
+   "c": {
+    "0": "s:a2",
+    "1": "s:mr",
+    "2": "s:pd",
+    "3": "s:det",
+    "4": "s:tt",
+    "5": "s:pscb",
+    "6": "s:bremse",
+    "7": "s:procon"
+   },
+   "bridge": null,
+   "warn": null
+  },
+  {
+   "i": 1,
+   "m": 0,
+   "t": "Kapitel-Titel",
+   "reg": "Erzählerin",
+   "hold": null,
+   "holdS": 6.166666666666666,
+   "revealAt": 1110,
+   "dur": 8176.666666666666,
+   "steps": [
+    [
+     {
+      "id": 0,
+      "name": "P1",
+      "r": [
+       0,
+       0,
+       5,
+       3
+      ],
+      "f": null
+     },
+     {
+      "id": 1,
+      "name": "P2",
+      "r": [
+       5,
+       0,
+       5,
+       2
+      ],
+      "f": null
+     },
+     {
+      "id": 3,
+      "name": "P4",
+      "r": [
+       5,
+       2,
+       5,
+       3
+      ],
+      "f": null
+     },
+     {
+      "id": 4,
+      "name": "P5",
+      "r": [
+       5,
+       2,
+       5,
+       3
+      ],
+      "f": null
+     }
+    ]
+   ],
+   "c": {
+    "0": "title"
+   },
+   "bridge": null,
+   "warn": null
+  },
+  {
+   "i": 2,
+   "m": 1,
+   "t": "Kachel öffnet sich: Audi A2 Karosse",
+   "reg": "Ich-Form",
+   "hold": null,
+   "holdS": 11,
+   "revealAt": 2020,
+   "dur": 13920,
+   "steps": [
+    [
+     {
+      "id": 0,
+      "name": "P1",
+      "r": [
+       0,
+       0,
+       4,
+       3
+      ],
+      "f": null
+     },
+     {
+      "id": 2,
+      "name": "P3",
+      "r": [
+       4,
+       0,
+       7,
+       3
+      ],
+      "f": null
+     }
+    ],
+    [
+     {
+      "id": 0,
+      "name": "P1",
+      "r": [
+       0,
+       0,
+       4,
+       5
+      ],
+      "f": null
+     },
+     {
+      "id": 5,
+      "name": "P6",
+      "r": [
+       0,
+       5,
+       3,
+       5
+      ],
+      "f": null
+     },
+     {
+      "id": 6,
+      "name": "P7",
+      "r": [
+       3,
+       5,
+       4,
+       5
+      ],
+      "f": null
+     },
+     {
+      "id": 2,
+      "name": "P3",
+      "r": [
+       4,
+       0,
+       7,
+       2
+      ],
+      "f": null
+     },
+     {
+      "id": 7,
+      "name": "P8",
+      "r": [
+       4,
+       2,
+       7,
+       5
+      ],
+      "f": null
+     }
+    ]
+   ],
+   "c": {
+    "0": "a2",
+    "2": "a2lab",
+    "7": "a2q"
+   },
+   "bridge": null,
+   "warn": null
+  },
+  {
+   "i": 3,
+   "m": 1,
+   "t": "Grid faltet sich zurück",
+   "reg": "ambient",
+   "hold": 2.5,
+   "holdS": 2.5,
+   "revealAt": 2930,
+   "dur": 6330,
+   "steps": [
+    [
+     {
+      "id": 0,
+      "name": "P1",
+      "r": [
+       0,
+       0,
+       4,
+       3
+      ],
+      "f": null
+     },
+     {
+      "id": 8,
+      "name": "z1",
+      "r": [
+       0,
+       3,
+       4,
+       5
+      ],
+      "f": [
+       0,
+       5,
+       4,
+       5
+      ]
+     },
+     {
+      "id": 2,
+      "name": "P3",
+      "r": [
+       4,
+       0,
+       7,
+       3
+      ],
+      "f": null
+     },
+     {
+      "id": 7,
+      "name": "P8",
+      "r": [
+       4,
+       3,
+       7,
+       5
+      ],
+      "f": null
+     }
+    ],
+    [
+     {
+      "id": 0,
+      "name": "P1",
+      "r": [
+       0,
+       0,
+       2,
+       3
+      ],
+      "f": null
+     },
+     {
+      "id": 2,
+      "name": "P3",
+      "r": [
+       2,
+       0,
+       5,
+       3
+      ],
+      "f": null
+     },
+     {
+      "id": 9,
+      "name": "z2",
+      "r": [
+       5,
+       0,
+       7,
+       3
+      ],
+      "f": [
+       7,
+       0,
+       7,
+       3
+      ]
+     },
+     {
+      "id": 8,
+      "name": "z1",
+      "r": [
+       0,
+       3,
+       3,
+       5
+      ],
+      "f": null
+     },
+     {
+      "id": 10,
+      "name": "z3",
+      "r": [
+       3,
+       3,
+       4,
+       5
+      ],
+      "f": [
+       4,
+       3,
+       4,
+       5
+      ]
+     }
+    ],
+    [
+     {
+      "id": 2,
+      "name": "P3",
+      "r": [
+       2,
+       0,
+       5,
+       2
+      ],
+      "f": null
+     },
+     {
+      "id": 11,
+      "name": "z4",
+      "r": [
+       2,
+       2,
+       3,
+       3
+      ],
+      "f": [
+       2,
+       3,
+       3,
+       3
+      ]
+     },
+     {
+      "id": 12,
+      "name": "z5",
+      "r": [
+       3,
+       2,
+       5,
+       3
+      ],
+      "f": [
+       3,
+       3,
+       5,
+       3
+      ]
+     }
+    ]
+   ],
+   "c": {
+    "0": "s:a2",
+    "2": "s:mr",
+    "7": "s:procon",
+    "8": "s:pscb",
+    "9": "s:pd",
+    "10": "s:bremse",
+    "11": "s:det",
+    "12": "s:tt"
+   },
+   "bridge": null,
+   "warn": null
+  },
+  {
+   "i": 4,
+   "m": 2,
+   "t": "Kachel öffnet sich: VW Detroit Felge",
+   "reg": "Ich-Form",
+   "hold": null,
+   "holdS": 11,
+   "revealAt": 1110,
+   "dur": 13010,
+   "steps": [
+    [
+     {
+      "id": 0,
+      "name": "P1",
+      "r": [
+       0,
+       0,
+       4,
+       3
+      ],
+      "f": null
+     },
+     {
+      "id": 2,
+      "name": "P2",
+      "r": [
+       4,
+       0,
+       4,
+       2
+      ],
+      "f": null
+     },
+     {
+      "id": 11,
+      "name": "P4",
+      "r": [
+       4,
+       2,
+       4,
+       3
+      ],
+      "f": null
+     },
+     {
+      "id": 12,
+      "name": "P5",
+      "r": [
+       4,
+       2,
+       4,
+       3
+      ],
+      "f": null
+     },
+     {
+      "id": 9,
+      "name": "P3",
+      "r": [
+       4,
+       0,
+       7,
+       3
+      ],
+      "f": null
+     },
+     {
+      "id": 8,
+      "name": "P6",
+      "r": [
+       0,
+       3,
+       5,
+       5
+      ],
+      "f": null
+     },
+     {
+      "id": 10,
+      "name": "P7",
+      "r": [
+       5,
+       3,
+       5,
+       5
+      ],
+      "f": null
+     },
+     {
+      "id": 7,
+      "name": "P8",
+      "r": [
+       5,
+       3,
+       7,
+       5
+      ],
+      "f": null
+     }
+    ]
+   ],
+   "c": {
+    "0": "det",
+    "7": "tt",
+    "8": "detlab",
+    "9": "detq"
+   },
+   "bridge": null,
+   "warn": null
+  },
+  {
+   "i": 5,
+   "m": 2,
+   "t": "Zweite Kachel daneben: Porsche Turbo Twist",
+   "reg": "Ich-Form",
+   "hold": null,
+   "holdS": 11,
+   "revealAt": 2020,
+   "dur": 13920,
+   "steps": [
+    [
+     {
+      "id": 8,
+      "name": "P6",
+      "r": [
+       0,
+       3,
+       4,
+       5
+      ],
+      "f": null
+     },
+     {
+      "id": 7,
+      "name": "P8",
+      "r": [
+       4,
+       3,
+       7,
+       5
+      ],
+      "f": null
+     }
+    ],
+    [
+     {
+      "id": 7,
+      "name": "P8",
+      "r": [
+       4,
+       0,
+       7,
+       5
+      ],
+      "f": null
+     },
+     {
+      "id": 9,
+      "name": "P3",
+      "r": [
+       4,
+       0,
+       7,
+       0
+      ],
+      "f": null
+     }
+    ]
+   ],
+   "c": {
+    "8": "ttq"
+   },
+   "bridge": null,
+   "warn": null
+  },
+  {
+   "i": 6,
+   "m": 2,
+   "t": "Dritte Kachel, Vollbild: Lamborghini Phone Dial",
+   "reg": "Bild",
+   "hold": 4,
+   "holdS": 4,
+   "revealAt": 1110,
+   "dur": 6010,
+   "steps": [
+    [
+     {
+      "id": 7,
+      "name": "P8",
+      "r": [
+       0,
+       0,
+       7,
+       5
+      ],
+      "f": null
+     },
+     {
+      "id": 0,
+      "name": "P1",
+      "r": [
+       0,
+       0,
+       0,
+       3
+      ],
+      "f": null
+     },
+     {
+      "id": 8,
+      "name": "P6",
+      "r": [
+       0,
+       3,
+       0,
+       5
+      ],
+      "f": null
+     }
+    ]
+   ],
+   "c": {
+    "7": "pd"
+   },
+   "bridge": null,
+   "warn": null
+  },
+  {
+   "i": 7,
+   "m": 2,
+   "t": "Phone Dial spricht · Erzählerin schließt",
+   "reg": "Ich-Form + Erzählerin",
+   "hold": null,
+   "holdS": 11,
+   "revealAt": 1110,
+   "dur": 13010,
+   "steps": [
+    [
+     {
+      "id": 7,
+      "name": "P8",
+      "r": [
+       0,
+       0,
+       4,
+       5
+      ],
+      "f": null
+     },
+     {
+      "id": 1,
+      "name": "q",
+      "r": [
+       4,
+       0,
+       7,
+       3
+      ],
+      "f": [
+       7,
+       0,
+       7,
+       3
+      ]
+     },
+     {
+      "id": 3,
+      "name": "n",
+      "r": [
+       4,
+       3,
+       7,
+       5
+      ],
+      "f": [
+       7,
+       3,
+       7,
+       5
+      ]
+     }
+    ]
+   ],
+   "c": {
+    "1": "pdq",
+    "3": "n2"
+   },
+   "bridge": null,
+   "warn": null
+  },
+  {
+   "i": 8,
+   "m": 2,
+   "t": "Grid faltet sich zurück",
+   "reg": "ambient",
+   "hold": 2.5,
+   "holdS": 2.5,
+   "revealAt": 2930,
+   "dur": 6330,
+   "steps": [
+    [
+     {
+      "id": 7,
+      "name": "P8",
+      "r": [
+       0,
+       0,
+       4,
+       3
+      ],
+      "f": null
+     },
+     {
+      "id": 4,
+      "name": "z1",
+      "r": [
+       0,
+       3,
+       4,
+       5
+      ],
+      "f": [
+       0,
+       5,
+       4,
+       5
+      ]
+     }
+    ],
+    [
+     {
+      "id": 7,
+      "name": "P8",
+      "r": [
+       0,
+       0,
+       2,
+       3
+      ],
+      "f": null
+     },
+     {
+      "id": 1,
+      "name": "q",
+      "r": [
+       2,
+       0,
+       5,
+       3
+      ],
+      "f": null
+     },
+     {
+      "id": 5,
+      "name": "z2",
+      "r": [
+       5,
+       0,
+       7,
+       3
+      ],
+      "f": [
+       7,
+       0,
+       7,
+       3
+      ]
+     },
+     {
+      "id": 4,
+      "name": "z1",
+      "r": [
+       0,
+       3,
+       3,
+       5
+      ],
+      "f": null
+     },
+     {
+      "id": 6,
+      "name": "z3",
+      "r": [
+       3,
+       3,
+       4,
+       5
+      ],
+      "f": [
+       4,
+       3,
+       4,
+       5
+      ]
+     }
+    ],
+    [
+     {
+      "id": 1,
+      "name": "q",
+      "r": [
+       2,
+       0,
+       5,
+       2
+      ],
+      "f": null
+     },
+     {
+      "id": 13,
+      "name": "z4",
+      "r": [
+       2,
+       2,
+       3,
+       3
+      ],
+      "f": [
+       2,
+       3,
+       3,
+       3
+      ]
+     },
+     {
+      "id": 14,
+      "name": "z5",
+      "r": [
+       3,
+       2,
+       5,
+       3
+      ],
+      "f": [
+       3,
+       3,
+       5,
+       3
+      ]
+     }
+    ]
+   ],
+   "c": {
+    "1": "s:mr",
+    "3": "s:procon",
+    "4": "s:pscb",
+    "5": "s:pd",
+    "6": "s:bremse",
+    "7": "s:a2",
+    "13": "s:det",
+    "14": "s:tt"
+   },
+   "bridge": null,
+   "warn": null
+  },
+  {
+   "i": 9,
+   "m": 3,
+   "t": "Kachel öffnet sich: Audi Magnetic Ride",
+   "reg": "Ich-Form",
+   "hold": null,
+   "holdS": 11,
+   "revealAt": 1110,
+   "dur": 13010,
+   "steps": [
+    [
+     {
+      "id": 7,
+      "name": "P1",
+      "r": [
+       0,
+       0,
+       5,
+       3
+      ],
+      "f": null
+     },
+     {
+      "id": 1,
+      "name": "P2",
+      "r": [
+       5,
+       0,
+       5,
+       2
+      ],
+      "f": null
+     },
+     {
+      "id": 13,
+      "name": "P4",
+      "r": [
+       5,
+       2,
+       5,
+       3
+      ],
+      "f": null
+     },
+     {
+      "id": 14,
+      "name": "P5",
+      "r": [
+       5,
+       2,
+       5,
+       3
+      ],
+      "f": null
+     },
+     {
+      "id": 4,
+      "name": "P6",
+      "r": [
+       0,
+       3,
+       4,
+       5
+      ],
+      "f": null
+     },
+     {
+      "id": 6,
+      "name": "P7",
+      "r": [
+       4,
+       3,
+       4,
+       5
+      ],
+      "f": null
+     }
+    ]
+   ],
+   "c": {
+    "3": "mrf",
+    "4": "mrimg",
+    "5": "mrq",
+    "7": "mrvid"
+   },
+   "bridge": null,
+   "warn": null
+  },
+  {
+   "i": 10,
+   "m": 3,
+   "t": "Zweite Kachel: Porsche 911 Windkanalmodell",
+   "reg": "Ich-Form · Rückverweis Kap. 1",
+   "hold": null,
+   "holdS": 11,
+   "revealAt": 1110,
+   "dur": 13010,
+   "steps": [
+    [
+     {
+      "id": 7,
+      "name": "P1",
+      "r": [
+       0,
+       0,
+       2,
+       3
+      ],
+      "f": null
+     },
+     {
+      "id": 0,
+      "name": "w1",
+      "r": [
+       2,
+       0,
+       5,
+       3
+      ],
+      "f": [
+       5,
+       0,
+       5,
+       3
+      ]
+     },
+     {
+      "id": 2,
+      "name": "w2",
+      "r": [
+       0,
+       3,
+       5,
+       5
+      ],
+      "f": [
+       0,
+       3,
+       0,
+       5
+      ]
+     },
+     {
+      "id": 4,
+      "name": "P6",
+      "r": [
+       5,
+       3,
+       5,
+       5
+      ],
+      "f": null
+     },
+     {
+      "id": 3,
+      "name": "P8",
+      "r": [
+       5,
+       3,
+       7,
+       5
+      ],
+      "f": null
+     }
+    ]
+   ],
+   "c": {
+    "0": "airf",
+    "2": "air",
+    "3": "n3",
+    "5": "airq"
+   },
+   "bridge": {
+    "from": "B-B-5",
+    "to": "B-A-5"
+   },
+   "warn": "Kein Bild des Modells im Footage – Strömungsgrafik als Platzhalter"
+  },
+  {
+   "i": 11,
+   "m": 3,
+   "t": "Grid faltet sich zurück",
+   "reg": "ambient",
+   "hold": 2.5,
+   "holdS": 2.5,
+   "revealAt": 2020,
+   "dur": 5420,
+   "steps": [
+    [
+     {
+      "id": 2,
+      "name": "w2",
+      "r": [
+       0,
+       3,
+       3,
+       5
+      ],
+      "f": null
+     },
+     {
+      "id": 8,
+      "name": "v3",
+      "r": [
+       3,
+       3,
+       4,
+       5
+      ],
+      "f": [
+       5,
+       3,
+       5,
+       5
+      ]
+     },
+     {
+      "id": 3,
+      "name": "P8",
+      "r": [
+       4,
+       3,
+       7,
+       5
+      ],
+      "f": null
+     }
+    ],
+    [
+     {
+      "id": 0,
+      "name": "w1",
+      "r": [
+       2,
+       0,
+       5,
+       2
+      ],
+      "f": null
+     },
+     {
+      "id": 9,
+      "name": "v1",
+      "r": [
+       2,
+       2,
+       3,
+       3
+      ],
+      "f": [
+       2,
+       3,
+       3,
+       3
+      ]
+     },
+     {
+      "id": 10,
+      "name": "v2",
+      "r": [
+       3,
+       2,
+       5,
+       3
+      ],
+      "f": [
+       3,
+       3,
+       5,
+       3
+      ]
+     }
+    ]
+   ],
+   "c": {
+    "0": "s:mr",
+    "2": "s:pscb",
+    "3": "s:procon",
+    "5": "s:pd",
+    "7": "s:a2",
+    "8": "s:bremse",
+    "9": "s:det",
+    "10": "s:tt"
+   },
+   "bridge": null,
+   "warn": null
+  },
+  {
+   "i": 12,
+   "m": 4,
+   "t": "Kachel öffnet sich: Porsche PSCB",
+   "reg": "Ich-Form",
+   "hold": null,
+   "holdS": 11,
+   "revealAt": 2020,
+   "dur": 13920,
+   "steps": [
+    [
+     {
+      "id": 7,
+      "name": "P1",
+      "r": [
+       0,
+       0,
+       4,
+       3
+      ],
+      "f": null
+     },
+     {
+      "id": 0,
+      "name": "P2",
+      "r": [
+       4,
+       0,
+       4,
+       2
+      ],
+      "f": null
+     },
+     {
+      "id": 9,
+      "name": "P4",
+      "r": [
+       4,
+       2,
+       4,
+       3
+      ],
+      "f": null
+     },
+     {
+      "id": 10,
+      "name": "P5",
+      "r": [
+       4,
+       2,
+       4,
+       3
+      ],
+      "f": null
+     },
+     {
+      "id": 5,
+      "name": "P3",
+      "r": [
+       4,
+       0,
+       7,
+       3
+      ],
+      "f": null
+     },
+     {
+      "id": 2,
+      "name": "P6",
+      "r": [
+       0,
+       3,
+       4,
+       5
+      ],
+      "f": null
+     },
+     {
+      "id": 8,
+      "name": "P7",
+      "r": [
+       4,
+       3,
+       4,
+       5
+      ],
+      "f": null
+     }
+    ],
+    [
+     {
+      "id": 7,
+      "name": "P1",
+      "r": [
+       0,
+       0,
+       4,
+       5
+      ],
+      "f": null
+     },
+     {
+      "id": 2,
+      "name": "P6",
+      "r": [
+       0,
+       5,
+       4,
+       5
+      ],
+      "f": null
+     }
+    ]
+   ],
+   "c": {
+    "3": "pscbf",
+    "5": "pscbq",
+    "7": "pscb"
+   },
+   "bridge": null,
+   "warn": null
+  },
+  {
+   "i": 13,
+   "m": 4,
+   "t": "Kontrast: Porsche Formel-E-Bremse",
+   "reg": "Ich-Form + Erzählerin",
+   "hold": null,
+   "holdS": 11,
+   "revealAt": 1110,
+   "dur": 13010,
+   "steps": [
+    [
+     {
+      "id": 7,
+      "name": "P1",
+      "r": [
+       0,
+       0,
+       2,
+       5
+      ],
+      "f": null
+     },
+     {
+      "id": 1,
+      "name": "u",
+      "r": [
+       2,
+       0,
+       4,
+       5
+      ],
+      "f": [
+       4,
+       0,
+       4,
+       5
+      ]
+     }
+    ]
+   ],
+   "c": {
+    "1": "discs",
+    "3": "n4",
+    "5": "feq"
+   },
+   "bridge": null,
+   "warn": "Kein Bild der Formel-E-Bremse – Größenvergleich als Grafik"
+  },
+  {
+   "i": 14,
+   "m": 4,
+   "t": "Vorverweis: Bugatti Chiron Rekord",
+   "reg": "Fakt + Erzählerin",
+   "hold": null,
+   "holdS": 10.166666666666668,
+   "revealAt": 1110,
+   "dur": 12176.666666666668,
+   "steps": [
+    [
+     {
+      "id": 7,
+      "name": "P1",
+      "r": [
+       0,
+       0,
+       4,
+       5
+      ],
+      "f": null
+     },
+     {
+      "id": 1,
+      "name": "u",
+      "r": [
+       4,
+       0,
+       4,
+       5
+      ],
+      "f": null
+     }
+    ]
+   ],
+   "c": {
+    "3": "n5",
+    "5": "f490",
+    "7": "chpass"
+   },
+   "bridge": null,
+   "warn": null
+  },
+  {
+   "i": 15,
+   "m": 4,
+   "t": "Vierte Kachel, Vollbild: Bugatti 3D-Bremse",
+   "reg": "Bild",
+   "hold": 4,
+   "holdS": 4,
+   "revealAt": 1110,
+   "dur": 6010,
+   "steps": [
+    [
+     {
+      "id": 7,
+      "name": "P1",
+      "r": [
+       0,
+       0,
+       7,
+       5
+      ],
+      "f": null
+     },
+     {
+      "id": 5,
+      "name": "P3",
+      "r": [
+       7,
+       0,
+       7,
+       3
+      ],
+      "f": null
+     },
+     {
+      "id": 3,
+      "name": "P8",
+      "r": [
+       7,
+       3,
+       7,
+       5
+      ],
+      "f": null
+     }
+    ]
+   ],
+   "c": {
+    "7": "bremse"
+   },
+   "bridge": null,
+   "warn": null
+  },
+  {
+   "i": 16,
+   "m": 4,
+   "t": "Bremse · Steckbrief",
+   "reg": "Ich-Form",
+   "hold": null,
+   "holdS": 11,
+   "revealAt": 2020,
+   "dur": 13920,
+   "steps": [
+    [
+     {
+      "id": 7,
+      "name": "P1",
+      "r": [
+       2,
+       0,
+       7,
+       5
+      ],
+      "f": null
+     },
+     {
+      "id": 4,
+      "name": "s1",
+      "r": [
+       0,
+       0,
+       2,
+       2
+      ],
+      "f": [
+       0,
+       0,
+       0,
+       2
+      ]
+     },
+     {
+      "id": 6,
+      "name": "s2",
+      "r": [
+       0,
+       2,
+       2,
+       5
+      ],
+      "f": [
+       0,
+       2,
+       0,
+       5
+      ]
+     }
+    ],
+    [
+     {
+      "id": 7,
+      "name": "P1",
+      "r": [
+       2,
+       0,
+       7,
+       3
+      ],
+      "f": null
+     },
+     {
+      "id": 11,
+      "name": "s3",
+      "r": [
+       2,
+       3,
+       4,
+       5
+      ],
+      "f": [
+       2,
+       5,
+       4,
+       5
+      ]
+     },
+     {
+      "id": 12,
+      "name": "s4",
+      "r": [
+       4,
+       3,
+       7,
+       5
+      ],
+      "f": [
+       4,
+       5,
+       7,
+       5
+      ]
+     }
+    ]
+   ],
+   "c": {
+    "4": "btitle",
+    "6": "bq",
+    "7": "bdet",
+    "11": "b29",
+    "12": "b2213"
+   },
+   "bridge": null,
+   "warn": null
+  },
+  {
+   "i": 17,
+   "m": 4,
+   "t": "Bremse · Konflikt",
+   "reg": "Erzählerin",
+   "hold": null,
+   "holdS": 11,
+   "revealAt": 2020,
+   "dur": 13920,
+   "steps": [
+    [
+     {
+      "id": 4,
+      "name": "s1",
+      "r": [
+       0,
+       0,
+       2,
+       3
+      ],
+      "f": null
+     },
+     {
+      "id": 6,
+      "name": "s2",
+      "r": [
+       0,
+       3,
+       2,
+       5
+      ],
+      "f": null
+     }
+    ],
+    [
+     {
+      "id": 4,
+      "name": "s1",
+      "r": [
+       0,
+       0,
+       5,
+       3
+      ],
+      "f": null
+     },
+     {
+      "id": 7,
+      "name": "P1",
+      "r": [
+       5,
+       0,
+       7,
+       3
+      ],
+      "f": null
+     },
+     {
+      "id": 6,
+      "name": "s2",
+      "r": [
+       0,
+       3,
+       7,
+       5
+      ],
+      "f": null
+     },
+     {
+      "id": 11,
+      "name": "s3",
+      "r": [
+       7,
+       3,
+       7,
+       5
+      ],
+      "f": null
+     },
+     {
+      "id": 12,
+      "name": "s4",
+      "r": [
+       7,
+       3,
+       7,
+       5
+      ],
+      "f": null
+     }
+    ]
+   ],
+   "c": {
+    "4": "n490",
+    "6": "fire",
+    "7": "bk"
+   },
+   "bridge": null,
+   "warn": null
+  },
+  {
+   "i": 18,
+   "m": 4,
+   "t": "Bremse · Beziehung – Vorverweis Kapitel 4",
+   "reg": "Ich-Form",
+   "hold": null,
+   "holdS": 11,
+   "revealAt": 1110,
+   "dur": 13010,
+   "steps": [
+    [
+     {
+      "id": 4,
+      "name": "s1",
+      "r": [
+       0,
+       0,
+       4,
+       3
+      ],
+      "f": null
+     },
+     {
+      "id": 7,
+      "name": "P1",
+      "r": [
+       4,
+       0,
+       7,
+       3
+      ],
+      "f": null
+     },
+     {
+      "id": 6,
+      "name": "s2",
+      "r": [
+       0,
+       3,
+       3,
+       5
+      ],
+      "f": null
+     },
+     {
+      "id": 13,
+      "name": "r1",
+      "r": [
+       3,
+       3,
+       5,
+       5
+      ],
+      "f": [
+       7,
+       3,
+       7,
+       5
+      ]
+     },
+     {
+      "id": 14,
+      "name": "r2",
+      "r": [
+       5,
+       3,
+       7,
+       5
+      ],
+      "f": [
+       7,
+       3,
+       7,
+       5
+      ]
+     }
+    ]
+   ],
+   "c": {
+    "4": "chrear",
+    "6": "bz1",
+    "7": "bvon",
+    "13": "bz2",
+    "14": "rad"
+   },
+   "bridge": {
+    "from": "C-A-5",
+    "to": "C-D-4"
+   },
+   "warn": null
+  },
+  {
+   "i": 19,
+   "m": 4,
+   "t": "Grid faltet sich zurück",
+   "reg": "ambient",
+   "hold": 2.5,
+   "holdS": 2.5,
+   "revealAt": 2020,
+   "dur": 5420,
+   "steps": [
+    [
+     {
+      "id": 4,
+      "name": "s1",
+      "r": [
+       0,
+       0,
+       2,
+       3
+      ],
+      "f": null
+     },
+     {
+      "id": 7,
+      "name": "P1",
+      "r": [
+       2,
+       0,
+       5,
+       3
+      ],
+      "f": null
+     },
+     {
+      "id": 15,
+      "name": "q2",
+      "r": [
+       5,
+       0,
+       7,
+       3
+      ],
+      "f": [
+       7,
+       0,
+       7,
+       3
+      ]
+     },
+     {
+      "id": 13,
+      "name": "r1",
+      "r": [
+       3,
+       3,
+       4,
+       5
+      ],
+      "f": null
+     },
+     {
+      "id": 14,
+      "name": "r2",
+      "r": [
+       4,
+       3,
+       7,
+       5
+      ],
+      "f": null
+     }
+    ],
+    [
+     {
+      "id": 7,
+      "name": "P1",
+      "r": [
+       2,
+       0,
+       5,
+       2
+      ],
+      "f": null
+     },
+     {
+      "id": 16,
+      "name": "q3",
+      "r": [
+       2,
+       2,
+       3,
+       3
+      ],
+      "f": [
+       2,
+       3,
+       3,
+       3
+      ]
+     },
+     {
+      "id": 17,
+      "name": "q4",
+      "r": [
+       3,
+       2,
+       5,
+       3
+      ],
+      "f": [
+       3,
+       3,
+       5,
+       3
+      ]
+     }
+    ]
+   ],
+   "c": {
+    "4": "s:a2",
+    "6": "s:pscb",
+    "7": "s:mr",
+    "13": "s:bremse",
+    "14": "s:procon",
+    "15": "s:pd",
+    "16": "s:det",
+    "17": "s:tt"
+   },
+   "bridge": null,
+   "warn": null
+  },
+  {
+   "i": 20,
+   "m": 5,
+   "t": "Kachel öffnet sich: Audi Procon-Ten",
+   "reg": "Ich-Form",
+   "hold": null,
+   "holdS": 11,
+   "revealAt": 1110,
+   "dur": 13010,
+   "steps": [
+    [
+     {
+      "id": 4,
+      "name": "P1",
+      "r": [
+       0,
+       0,
+       4,
+       3
+      ],
+      "f": null
+     },
+     {
+      "id": 7,
+      "name": "P2",
+      "r": [
+       4,
+       0,
+       4,
+       2
+      ],
+      "f": null
+     },
+     {
+      "id": 16,
+      "name": "P4",
+      "r": [
+       4,
+       2,
+       4,
+       3
+      ],
+      "f": null
+     },
+     {
+      "id": 17,
+      "name": "P5",
+      "r": [
+       4,
+       2,
+       4,
+       3
+      ],
+      "f": null
+     },
+     {
+      "id": 15,
+      "name": "P3",
+      "r": [
+       4,
+       0,
+       7,
+       3
+      ],
+      "f": null
+     },
+     {
+      "id": 6,
+      "name": "P6",
+      "r": [
+       0,
+       3,
+       4,
+       5
+      ],
+      "f": null
+     },
+     {
+      "id": 13,
+      "name": "P7",
+      "r": [
+       4,
+       3,
+       4,
+       5
+      ],
+      "f": null
+     }
+    ]
+   ],
+   "c": {
+    "4": "pccrash",
+    "6": "pcmech",
+    "14": "pcf",
+    "15": "pcq"
+   },
+   "bridge": null,
+   "warn": null
+  },
+  {
+   "i": 21,
+   "m": 5,
+   "t": "Zweite Kachel, Vollbild: VW ESVW 1",
+   "reg": "Ich-Form",
+   "hold": null,
+   "holdS": 11,
+   "revealAt": 2020,
+   "dur": 13920,
+   "steps": [
+    [
+     {
+      "id": 14,
+      "name": "P8",
+      "r": [
+       0,
+       3,
+       7,
+       5
+      ],
+      "f": null
+     },
+     {
+      "id": 6,
+      "name": "P6",
+      "r": [
+       0,
+       3,
+       0,
+       5
+      ],
+      "f": null
+     }
+    ],
+    [
+     {
+      "id": 14,
+      "name": "P8",
+      "r": [
+       0,
+       0,
+       7,
+       5
+      ],
+      "f": null
+     },
+     {
+      "id": 4,
+      "name": "P1",
+      "r": [
+       0,
+       0,
+       4,
+       0
+      ],
+      "f": null
+     },
+     {
+      "id": 15,
+      "name": "P3",
+      "r": [
+       4,
+       0,
+       7,
+       0
+      ],
+      "f": null
+     }
+    ]
+   ],
+   "c": {
+    "14": "esvw"
+   },
+   "bridge": null,
+   "warn": "Kein ESVW-Bild im Footage – typografisch gesetzt"
+  },
+  {
+   "i": 22,
+   "m": 5,
+   "t": "Fusion: Erzählerin schlägt Brücke zu Kapitel 1",
+   "reg": "Erzählerin",
+   "hold": null,
+   "holdS": 6.5,
+   "revealAt": 1110,
+   "dur": 8510,
+   "steps": [
+    [
+     {
+      "id": 14,
+      "name": "P8",
+      "r": [
+       0,
+       0,
+       4,
+       5
+      ],
+      "f": null
+     },
+     {
+      "id": 0,
+      "name": "nb",
+      "r": [
+       4,
+       0,
+       7,
+       5
+      ],
+      "f": [
+       7,
+       0,
+       7,
+       5
+      ]
+     }
+    ]
+   ],
+   "c": {
+    "0": "n6"
+   },
+   "bridge": null,
+   "warn": null
+  },
+  {
+   "i": 23,
+   "m": 5,
+   "t": "Grid faltet sich zurück",
+   "reg": "ambient",
+   "hold": 2.5,
+   "holdS": 2.5,
+   "revealAt": 2930,
+   "dur": 6330,
+   "steps": [
+    [
+     {
+      "id": 14,
+      "name": "P8",
+      "r": [
+       0,
+       0,
+       4,
+       3
+      ],
+      "f": null
+     },
+     {
+      "id": 0,
+      "name": "nb",
+      "r": [
+       4,
+       0,
+       7,
+       3
+      ],
+      "f": null
+     },
+     {
+      "id": 1,
+      "name": "m1",
+      "r": [
+       0,
+       3,
+       4,
+       5
+      ],
+      "f": [
+       0,
+       5,
+       4,
+       5
+      ]
+     },
+     {
+      "id": 2,
+      "name": "m2",
+      "r": [
+       4,
+       3,
+       7,
+       5
+      ],
+      "f": [
+       4,
+       5,
+       7,
+       5
+      ]
+     }
+    ],
+    [
+     {
+      "id": 14,
+      "name": "P8",
+      "r": [
+       0,
+       0,
+       2,
+       3
+      ],
+      "f": null
+     },
+     {
+      "id": 3,
+      "name": "m3",
+      "r": [
+       2,
+       0,
+       5,
+       3
+      ],
+      "f": [
+       4,
+       0,
+       4,
+       3
+      ]
+     },
+     {
+      "id": 0,
+      "name": "nb",
+      "r": [
+       5,
+       0,
+       7,
+       3
+      ],
+      "f": null
+     },
+     {
+      "id": 1,
+      "name": "m1",
+      "r": [
+       0,
+       3,
+       3,
+       5
+      ],
+      "f": null
+     },
+     {
+      "id": 5,
+      "name": "m4",
+      "r": [
+       3,
+       3,
+       4,
+       5
+      ],
+      "f": [
+       4,
+       3,
+       4,
+       5
+      ]
+     }
+    ],
+    [
+     {
+      "id": 3,
+      "name": "m3",
+      "r": [
+       2,
+       0,
+       5,
+       2
+      ],
+      "f": null
+     },
+     {
+      "id": 8,
+      "name": "m5",
+      "r": [
+       2,
+       2,
+       3,
+       3
+      ],
+      "f": [
+       2,
+       3,
+       3,
+       3
+      ]
+     },
+     {
+      "id": 9,
+      "name": "m6",
+      "r": [
+       3,
+       2,
+       5,
+       3
+      ],
+      "f": [
+       3,
+       3,
+       5,
+       3
+      ]
+     }
+    ]
+   ],
+   "c": {
+    "0": "s:pd",
+    "1": "s:pscb",
+    "2": "s:procon",
+    "3": "s:mr",
+    "5": "s:bremse",
+    "8": "s:det",
+    "9": "s:tt",
+    "14": "s:a2"
+   },
+   "bridge": null,
+   "warn": null
+  },
+  {
+   "i": 24,
+   "m": 6,
+   "t": "Fünf Antworten",
+   "reg": "Erzählerin",
+   "hold": null,
+   "holdS": 7.5,
+   "revealAt": 200,
+   "dur": 8600,
+   "steps": [],
+   "c": {
+    "0": "k2",
+    "1": "k4",
+    "2": "k5",
+    "3": "k1",
+    "5": "s:tt",
+    "8": "s:det",
+    "9": "k3",
+    "14": "kq"
+   },
+   "bridge": null,
+   "warn": null
+  },
+  {
+   "i": 25,
+   "m": 6,
+   "t": "Vollbild: Erzählerin schließt",
+   "reg": "Erzählerin",
+   "hold": null,
+   "holdS": 8.5,
+   "revealAt": 2020,
+   "dur": 11420,
+   "steps": [
+    [
+     {
+      "id": 14,
+      "name": "P1",
+      "r": [
+       0,
+       0,
+       7,
+       3
+      ],
+      "f": null
+     },
+     {
+      "id": 3,
+      "name": "P2",
+      "r": [
+       7,
+       0,
+       7,
+       2
+      ],
+      "f": null
+     },
+     {
+      "id": 8,
+      "name": "P4",
+      "r": [
+       7,
+       2,
+       7,
+       3
+      ],
+      "f": null
+     },
+     {
+      "id": 9,
+      "name": "P5",
+      "r": [
+       7,
+       2,
+       7,
+       3
+      ],
+      "f": null
+     },
+     {
+      "id": 0,
+      "name": "P3",
+      "r": [
+       7,
+       0,
+       7,
+       3
+      ],
+      "f": null
+     }
+    ],
+    [
+     {
+      "id": 14,
+      "name": "P1",
+      "r": [
+       0,
+       0,
+       7,
+       5
+      ],
+      "f": null
+     },
+     {
+      "id": 1,
+      "name": "P6",
+      "r": [
+       0,
+       5,
+       3,
+       5
+      ],
+      "f": null
+     },
+     {
+      "id": 5,
+      "name": "P7",
+      "r": [
+       3,
+       5,
+       4,
+       5
+      ],
+      "f": null
+     },
+     {
+      "id": 2,
+      "name": "P8",
+      "r": [
+       4,
+       5,
+       7,
+       5
+      ],
+      "f": null
+     }
+    ]
+   ],
+   "c": {
+    "14": "n7"
+   },
+   "bridge": null,
+   "warn": null
+  },
+  {
+   "i": 26,
+   "m": 6,
+   "t": "Rückkehr zum Grundraster – Cluster-Ende",
+   "reg": "ambient",
+   "hold": 3,
+   "holdS": 3,
+   "revealAt": 2930,
+   "dur": 6830,
+   "steps": [
+    [
+     {
+      "id": 14,
+      "name": "P1",
+      "r": [
+       0,
+       0,
+       7,
+       3
+      ],
+      "f": null
+     },
+     {
+      "id": 4,
+      "name": "l1",
+      "r": [
+       0,
+       3,
+       3,
+       5
+      ],
+      "f": [
+       0,
+       5,
+       3,
+       5
+      ]
+     },
+     {
+      "id": 6,
+      "name": "l2",
+      "r": [
+       3,
+       3,
+       4,
+       5
+      ],
+      "f": [
+       3,
+       5,
+       4,
+       5
+      ]
+     },
+     {
+      "id": 7,
+      "name": "l3",
+      "r": [
+       4,
+       3,
+       7,
+       5
+      ],
+      "f": [
+       4,
+       5,
+       7,
+       5
+      ]
+     }
+    ],
+    [
+     {
+      "id": 14,
+      "name": "P1",
+      "r": [
+       0,
+       0,
+       2,
+       3
+      ],
+      "f": null
+     },
+     {
+      "id": 10,
+      "name": "l4",
+      "r": [
+       2,
+       0,
+       5,
+       3
+      ],
+      "f": [
+       7,
+       0,
+       7,
+       3
+      ]
+     },
+     {
+      "id": 11,
+      "name": "l5",
+      "r": [
+       5,
+       0,
+       7,
+       3
+      ],
+      "f": [
+       7,
+       0,
+       7,
+       3
+      ]
+     }
+    ],
+    [
+     {
+      "id": 10,
+      "name": "l4",
+      "r": [
+       2,
+       0,
+       5,
+       2
+      ],
+      "f": null
+     },
+     {
+      "id": 12,
+      "name": "l6",
+      "r": [
+       2,
+       2,
+       3,
+       3
+      ],
+      "f": [
+       2,
+       3,
+       3,
+       3
+      ]
+     },
+     {
+      "id": 13,
+      "name": "l7",
+      "r": [
+       3,
+       2,
+       5,
+       3
+      ],
+      "f": [
+       3,
+       3,
+       5,
+       3
+      ]
+     }
+    ]
+   ],
+   "c": {
+    "4": "s:pscb",
+    "6": "s:bremse",
+    "7": "s:procon",
+    "10": "s:mr",
+    "11": "s:pd",
+    "12": "s:det",
+    "13": "s:tt",
+    "14": "s:a2"
+   },
+   "bridge": null,
+   "warn": null
+  }
+ ],
+ "total": 276,
+ "P0": [
+  [
+   0,
+   0,
+   2,
+   3
+  ],
+  [
+   2,
+   0,
+   5,
+   2
+  ],
+  [
+   5,
+   0,
+   7,
+   3
+  ],
+  [
+   2,
+   2,
+   3,
+   3
+  ],
+  [
+   3,
+   2,
+   5,
+   3
+  ],
+  [
+   0,
+   3,
+   3,
+   5
+  ],
+  [
+   3,
+   3,
+   4,
+   5
+  ],
+  [
+   4,
+   3,
+   7,
+   5
+  ]
+ ],
+ "content": {
+  "s:a2": {
+   "cls": "layer sil",
+   "media": {
+    "cls": "media",
+    "kind": "img",
+    "file": "a2.jpg",
+    "pos": "50% 50%"
+   }
+  },
+  "s:pd": {
+   "cls": "layer sil",
+   "media": {
+    "cls": "media",
+    "kind": "img",
+    "file": "phonedial.jpg",
+    "pos": "50% 50%"
+   }
+  },
+  "s:pscb": {
+   "cls": "layer sil",
+   "media": {
+    "cls": "media",
+    "kind": "img",
+    "file": "pscb.jpg",
+    "pos": "50% 50%"
+   }
+  },
+  "s:procon": {
+   "cls": "layer sil",
+   "media": {
+    "cls": "media",
+    "kind": "img",
+    "file": "procon_still.jpg",
+    "pos": "50% 50%"
+   }
+  },
+  "s:det": {
+   "cls": "layer sil",
+   "media": {
+    "cls": "media",
+    "kind": "img",
+    "file": "detroit.jpg",
+    "pos": "30% 60%"
+   }
+  },
+  "s:tt": {
+   "cls": "layer sil",
+   "media": {
+    "cls": "media",
+    "kind": "img",
+    "file": "turbotwist.jpg",
+    "pos": "45% 50%"
+   }
+  },
+  "s:mr": {
+   "cls": "layer sil",
+   "media": {
+    "cls": "media",
+    "kind": "img",
+    "file": "magride.jpg",
+    "pos": "50% 50%"
+   }
+  },
+  "s:bremse": {
+   "cls": "layer sil",
+   "media": {
+    "cls": "media",
+    "kind": "img",
+    "file": "p1_bremse.jpg",
+    "pos": "50% 50%"
+   }
+  },
+  "title": {
+   "cls": "layer txt dark",
+   "kids": [
+    {
+     "cls": "kick",
+     "html": "Kapitel 2",
+     "style": ""
+    },
+    {
+     "cls": "h xl",
+     "html": "Fahrdynamik<br>&amp; Sicherheit",
+     "style": ""
+    },
+    {
+     "cls": "n s",
+     "html": "Wie beherrscht man die Kräfte, die man selbst erzeugt?",
+     "style": "margin-top:26px;opacity:.85"
+    }
+   ]
+  },
+  "a2": {
+   "cls": "layer media-l",
+   "media": {
+    "cls": "media  kb",
+    "kind": "img",
+    "file": "a2.jpg",
+    "pos": "50% 50%",
+    "chip": "Audi Space Frame"
+   }
+  },
+  "a2lab": {
+   "cls": "layer txt bot",
+   "kids": [
+    {
+     "cls": "h m",
+     "html": "Audi A2",
+     "style": ""
+    },
+    {
+     "cls": "meta",
+     "html": "Space Frame · 1999",
+     "style": ""
+    }
+   ]
+  },
+  "a2q": {
+   "cls": "layer txt ",
+   "kids": [
+    {
+     "cls": "kick",
+     "html": "Audi A2 · 1999",
+     "style": ""
+    },
+    {
+     "cls": "q ",
+     "html": "„Ich bin aus Aluminium gebaut, wo andere auf Stahl beharrten – jedes eingesparte Kilo ist mein Argument gegen die Trägheit der Masse.“",
+     "style": ""
+    }
+   ]
+  },
+  "det": {
+   "cls": "layer media-l",
+   "media": {
+    "cls": "media  kb",
+    "kind": "img",
+    "file": "detroit.jpg",
+    "pos": "30% 60%",
+    "chip": "VW „Detroit“"
+   }
+  },
+  "detlab": {
+   "cls": "layer txt bot",
+   "kids": [
+    {
+     "cls": "h m",
+     "html": "VW „Detroit“",
+     "style": ""
+    },
+    {
+     "cls": "meta",
+     "html": "Felge · 2004",
+     "style": ""
+    }
+   ]
+  },
+  "detq": {
+   "cls": "layer txt ",
+   "kids": [
+    {
+     "cls": "kick",
+     "html": "VW „Detroit“-Felge · 2004",
+     "style": ""
+    },
+    {
+     "cls": "q l",
+     "html": "„Ich sehe nicht nach viel aus, aber ich halte das Auto in der Spur, wenn es darauf ankommt. Meine Linien sind Kult – meine Aufgabe ist Haftung.“",
+     "style": ""
+    }
+   ]
+  },
+  "tt": {
+   "cls": "layer media-l",
+   "media": {
+    "cls": "media  kb",
+    "kind": "img",
+    "file": "turbotwist.jpg",
+    "pos": "49% 50%",
+    "chip": "Porsche Turbo Twist"
+   }
+  },
+  "ttq": {
+   "cls": "layer txt ",
+   "kids": [
+    {
+     "cls": "kick",
+     "html": "Porsche „Turbo Twist“ · 1995",
+     "style": ""
+    },
+    {
+     "cls": "q l",
+     "html": "„Ich drehe mich nicht nur – ich zeichne die Kurve, bevor sie kommt. Meine Speichen tragen das Gewicht der Geschwindigkeit und geben es als Haftung an den Asphalt zurück.“",
+     "style": ""
+    }
+   ]
+  },
+  "pd": {
+   "cls": "layer media-l",
+   "media": {
+    "cls": "media  kb",
+    "kind": "img",
+    "file": "phonedial.jpg",
+    "pos": "50% 50%",
+    "chip": "Lamborghini „Phone Dial“"
+   }
+  },
+  "pdq": {
+   "cls": "layer txt ",
+   "kids": [
+    {
+     "cls": "kick",
+     "html": "Lamborghini „Phone Dial“ · 1985",
+     "style": ""
+    },
+    {
+     "cls": "q ",
+     "html": "„Man hält mich für Zierde, doch ich bin das letzte Glied zwischen Wahnsinn und Straße. Was der Motor entfesselt, muss durch mich hindurch – oder es geschieht gar nicht.“",
+     "style": ""
+    }
+   ]
+  },
+  "n2": {
+   "cls": "layer txt dark ",
+   "kids": [
+    {
+     "cls": "n s",
+     "html": "Leichtbau und Motorkraft enden hier – am letzten Zentimeter zwischen Auto und Asphalt.",
+     "style": ""
+    }
+   ]
+  },
+  "mrimg": {
+   "cls": "layer media-l",
+   "media": {
+    "cls": "media white contain ",
+    "kind": "img",
+    "file": "magride.jpg",
+    "pos": "50% 50%"
+   }
+  },
+  "mrvid": {
+   "cls": "layer media-l",
+   "media": {
+    "cls": "media ",
+    "kind": "video",
+    "file": "magride.mp4",
+    "pos": "50% 50%",
+    "chip": "Audi Magnetic Ride"
+   }
+  },
+  "mrq": {
+   "cls": "layer txt ",
+   "kids": [
+    {
+     "cls": "kick",
+     "html": "Audi Magnetic Ride · 2007",
+     "style": ""
+    },
+    {
+     "cls": "q ",
+     "html": "„Ich fühle jede Unebenheit, bevor du sie spürst. Ein Magnetfeld genügt, und aus weich wird straff – ich bin das Fahrwerk, das mit dir mitdenkt.“",
+     "style": ""
+    }
+   ]
+  },
+  "mrf": {
+   "cls": "layer txt",
+   "kids": [
+    {
+     "cls": "kick",
+     "html": "Prinzip",
+     "style": ""
+    },
+    {
+     "cls": "h s",
+     "html": "Magneto­rheologisch.",
+     "style": ""
+    },
+    {
+     "cls": "q",
+     "html": "Unter Strom ändert die Dämpferflüssigkeit ihre Härte – in Millisekunden.",
+     "style": "margin-top:16px"
+    }
+   ]
+  },
+  "n3": {
+   "cls": "layer txt dark ",
+   "kids": [
+    {
+     "cls": "n s",
+     "html": "Kraftkontrolle durch Aerodynamik statt Mechanik.",
+     "style": ""
+    }
+   ]
+  },
+  "air": {
+   "cls": "layer",
+   "fx": "airflow"
+  },
+  "airq": {
+   "cls": "layer txt ",
+   "kids": [
+    {
+     "cls": "kick",
+     "html": "Porsche 911 · Windkanalmodell",
+     "style": ""
+    },
+    {
+     "cls": "q ",
+     "html": "„Ich bin nur sechs Kilo schwer und keinen Meter lang, doch im Windkanal entscheide ich, welche Linie den Sturm übersteht. Bevor der erste Motor läuft, kenne ich schon den Weg der Luft.“",
+     "style": ""
+    }
+   ]
+  },
+  "airf": {
+   "cls": "layer txt ",
+   "kids": [
+    {
+     "cls": "kick",
+     "html": "Windkanalmodell",
+     "style": ""
+    },
+    {
+     "cls": "num ",
+     "html": "<span data-count=\"96\" data-fmt=\"int\">0</span> CM",
+     "style": ""
+    },
+    {
+     "cls": "unit",
+     "html": "Länge · rund 6 kg<br>Glasfaser-Modell",
+     "style": ""
+    }
+   ]
+  },
+  "pscb": {
+   "cls": "layer media-l",
+   "media": {
+    "cls": "media white contain ",
+    "kind": "img",
+    "file": "pscb.jpg",
+    "pos": "50% 50%",
+    "chip": "Porsche PSCB"
+   }
+  },
+  "pscbq": {
+   "cls": "layer txt ",
+   "kids": [
+    {
+     "cls": "kick",
+     "html": "Porsche Surface Coated Brake",
+     "style": ""
+    },
+    {
+     "cls": "q l",
+     "html": "„Ich bin hart wie Diamant und sauber wie kein Bremssystem vor mir – ich bringe die Kraft zum Stehen, ohne Spuren zu hinterlassen.“",
+     "style": ""
+    }
+   ]
+  },
+  "pscbf": {
+   "cls": "layer txt ",
+   "kids": [
+    {
+     "cls": "kick",
+     "html": "Oberfläche",
+     "style": ""
+    },
+    {
+     "cls": "num s",
+     "html": "WOLFRAM­KARBID",
+     "style": ""
+    },
+    {
+     "cls": "unit",
+     "html": "Beschichtung – härter als Stahl, fast ohne Bremsstaub",
+     "style": ""
+    }
+   ]
+  },
+  "discs": {
+   "cls": "layer",
+   "fx": "discs"
+  },
+  "feq": {
+   "cls": "layer txt ",
+   "kids": [
+    {
+     "cls": "kick",
+     "html": "Porsche Formel-E-Bremse · 2025",
+     "style": ""
+    },
+    {
+     "cls": "q ",
+     "html": "„Man erwartet mich wuchtig, doch ich bin winzig – weil ich das Bremsen mit dem Motor teile. Was du für Schwäche hältst, ist meine effizienteste Form.“",
+     "style": ""
+    }
+   ]
+  },
+  "n4": {
+   "cls": "layer txt dark ",
+   "kids": [
+    {
+     "cls": "n s",
+     "html": "Die eine bremst mit roher Härte, die andere fast gar nicht mehr selbst – beides ist Fortschritt.",
+     "style": ""
+    }
+   ]
+  },
+  "chpass": {
+   "cls": "layer media-l",
+   "media": {
+    "cls": "media ",
+    "kind": "video",
+    "file": "chiron_pass.mp4",
+    "pos": "50% 50%",
+    "chip": "Ehra-Lessien · 2. August 2019"
+   }
+  },
+  "f490": {
+   "cls": "layer txt ",
+   "kids": [
+    {
+     "cls": "kick",
+     "html": "Rekord 2019",
+     "style": ""
+    },
+    {
+     "cls": "num ",
+     "html": "<span data-count=\"490.48\" data-fmt=\"dec2\">0</span>",
+     "style": ""
+    },
+    {
+     "cls": "unit",
+     "html": "km/h · Bugatti Chiron<br>Super Sport 300+",
+     "style": ""
+    }
+   ]
+  },
+  "n5": {
+   "cls": "layer txt dark ",
+   "kids": [
+    {
+     "cls": "n s",
+     "html": "Ein Rekord, der eine Bremse braucht, die es vorher nicht gab.",
+     "style": ""
+    }
+   ]
+  },
+  "bremse": {
+   "cls": "layer media-l",
+   "media": {
+    "cls": "media contain sheen ",
+    "kind": "img",
+    "file": "p1_bremse.jpg",
+    "pos": "50% 50%"
+   }
+  },
+  "btitle": {
+   "cls": "layer txt",
+   "kids": [
+    {
+     "cls": "h m",
+     "html": "Leichter.<br>Komplexer.<br>Belastbarer.",
+     "style": ""
+    },
+    {
+     "cls": "meta",
+     "html": "Bugatti Chiron · 3D-gedruckter Titan-Bremssattel · 2018",
+     "style": ""
+    }
+   ]
+  },
+  "bq": {
+   "cls": "layer txt ",
+   "kids": [
+    {
+     "cls": "kick",
+     "html": "Bugatti Chiron Bremse",
+     "style": ""
+    },
+    {
+     "cls": "q ",
+     "html": "„Man hat mich nicht gegossen, man hat mich Schicht für Schicht gedacht. Ich bin fast halb so leicht wie mein geschmiedeter Vorgänger – und halte trotzdem stand, wenn andere längst kapitulieren.“",
+     "style": ""
+    }
+   ]
+  },
+  "bdet": {
+   "cls": "layer media-l",
+   "media": {
+    "cls": "media sheen kb",
+    "kind": "img",
+    "file": "p2_detail.jpg",
+    "pos": "50% 50%"
+   }
+  },
+  "b29": {
+   "cls": "layer txt ",
+   "kids": [
+    {
+     "cls": "num ",
+     "html": "<span data-count=\"2.9\" data-fmt=\"dec\">0</span> KG",
+     "style": ""
+    },
+    {
+     "cls": "unit",
+     "html": "Titan",
+     "style": ""
+    }
+   ]
+  },
+  "b2213": {
+   "cls": "layer txt ",
+   "kids": [
+    {
+     "cls": "num ",
+     "html": "<span data-count=\"2213\" data-fmt=\"int\">0</span>",
+     "style": ""
+    },
+    {
+     "cls": "unit",
+     "html": "gedruckte<br>Schichten",
+     "style": ""
+    }
+   ]
+  },
+  "n490": {
+   "cls": "layer txt dark ",
+   "kids": [
+    {
+     "cls": "n l",
+     "html": "490 km/h zu erreichen ist die eine Hälfte der Geschichte. Aus 490 km/h wieder herunterzukommen – diese hier.",
+     "style": ""
+    }
+   ]
+  },
+  "bk": {
+   "cls": "layer txt",
+   "kids": [
+    {
+     "cls": "q",
+     "html": "Ich kämpfe gegen Masse und Hitze. Ich muss standhalten, ohne unnötig schwer zu werden.",
+     "style": ""
+    }
+   ]
+  },
+  "fire": {
+   "cls": "layer media-l",
+   "media": {
+    "cls": "media fire ",
+    "kind": "img",
+    "file": "p3_feuer.jpg",
+    "pos": "50% 50%",
+    "fx": "sparks"
+   }
+  },
+  "chrear": {
+   "cls": "layer media-l",
+   "media": {
+    "cls": "media ",
+    "kind": "video",
+    "file": "chiron_rear.mp4",
+    "pos": "50% 50%"
+   }
+  },
+  "bvon": {
+   "cls": "layer txt",
+   "kids": [
+    {
+     "cls": "h s",
+     "html": "Von Höchst­geschwindig­keit zu Kontrolle.",
+     "style": ""
+    }
+   ]
+  },
+  "bz1": {
+   "cls": "layer txt",
+   "kids": [
+    {
+     "cls": "q",
+     "html": "Ich zeige die andere Seite extremer Performance: Wie kommt ein Fahrzeug sicher wieder zum Stillstand?",
+     "style": ""
+    }
+   ]
+  },
+  "bz2": {
+   "cls": "layer txt",
+   "kids": [
+    {
+     "cls": "q",
+     "html": "Zwischen Fahrdynamik, Sicherheit und Motorsport verbinde ich den Rekord mit der Herausforderung, Geschwindigkeit zu beherrschen.",
+     "style": ""
+    }
+   ]
+  },
+  "rad": {
+   "cls": "layer media-l",
+   "media": {
+    "cls": "media  kb",
+    "kind": "img",
+    "file": "p4_rad.jpg",
+    "pos": "50% 50%"
+   }
+  },
+  "pccrash": {
+   "cls": "layer media-l",
+   "media": {
+    "cls": "media ",
+    "kind": "video",
+    "file": "procon_crash.mp4",
+    "pos": "50% 50%",
+    "chip": "Audi Procon-Ten · Crashtest"
+   }
+  },
+  "pcmech": {
+   "cls": "layer media-l",
+   "media": {
+    "cls": "media ",
+    "kind": "video",
+    "file": "procon_mech.mp4",
+    "pos": "50% 50%"
+   }
+  },
+  "pcq": {
+   "cls": "layer txt ",
+   "kids": [
+    {
+     "cls": "kick",
+     "html": "Audi Procon-Ten · 1985",
+     "style": ""
+    },
+    {
+     "cls": "q ",
+     "html": "„Wenn es kracht, ziehe ich mich zurück – nicht aus Feigheit, sondern aus Kalkül. Meine Drahtseile spannen sich, und in dem Moment, in dem alles zu spät scheint, schaffe ich den entscheidenden Zentimeter Freiraum.“",
+     "style": ""
+    }
+   ]
+  },
+  "pcf": {
+   "cls": "layer txt",
+   "kids": [
+    {
+     "cls": "kick",
+     "html": "Prinzip",
+     "style": ""
+    },
+    {
+     "cls": "h s",
+     "html": "Rein mechanisch.",
+     "style": ""
+    },
+    {
+     "cls": "q",
+     "html": "Der Motor wird beim Aufprall nach hinten gedrückt, ein Stahlseil zieht das Lenkrad vom Fahrer weg und strafft die Gurte.",
+     "style": "margin-top:18px"
+    }
+   ]
+  },
+  "esvw": {
+   "cls": "layer txt",
+   "kids": [
+    {
+     "cls": "kick",
+     "html": "Experimental Safety Volkswagen · 1972",
+     "style": ""
+    },
+    {
+     "cls": "h xxl",
+     "html": "ESVW 1",
+     "style": ""
+    },
+    {
+     "cls": "rule",
+     "html": "",
+     "style": ""
+    },
+    {
+     "cls": "q l",
+     "html": "„Ich bin nicht gebaut, um zu gefallen – ich bin gebaut, um zu bewahren. Jede meiner Beulen ist eine Antwort auf die Frage, was ein Körper aushält.“",
+     "style": "max-width:1100px"
+    }
+   ]
+  },
+  "n6": {
+   "cls": "layer txt dark ",
+   "kids": [
+    {
+     "cls": "n ",
+     "html": "Dieselbe Physik, die im Motor Kraft erzeugt, muss hier wieder eingefangen werden.",
+     "style": ""
+    }
+   ]
+  },
+  "k1": {
+   "cls": "layer media-l",
+   "media": {
+    "cls": "media  kb",
+    "kind": "img",
+    "file": "a2.jpg",
+    "pos": "50% 50%",
+    "chip": "Leichtbau"
+   }
+  },
+  "k2": {
+   "cls": "layer media-l",
+   "media": {
+    "cls": "media  kb",
+    "kind": "img",
+    "file": "phonedial.jpg",
+    "pos": "50% 50%",
+    "chip": "Kontaktpunkt"
+   }
+  },
+  "k3": {
+   "cls": "layer media-l",
+   "media": {
+    "cls": "media ",
+    "kind": "video",
+    "file": "magride.mp4",
+    "pos": "50% 50%",
+    "chip": "Fahrwerk"
+   }
+  },
+  "k4": {
+   "cls": "layer media-l",
+   "media": {
+    "cls": "media contain ",
+    "kind": "img",
+    "file": "p1_bremse.jpg",
+    "pos": "50% 50%",
+    "chip": "Bremse"
+   }
+  },
+  "k5": {
+   "cls": "layer media-l",
+   "media": {
+    "cls": "media ",
+    "kind": "video",
+    "file": "procon_crash.mp4",
+    "pos": "50% 50%",
+    "chip": "Sicherheitszelle"
+   }
+  },
+  "kq": {
+   "cls": "layer txt dark ",
+   "kids": [
+    {
+     "cls": "kick",
+     "html": "Kapitel 2",
+     "style": ""
+    },
+    {
+     "cls": "n s",
+     "html": "Wie beherrscht man die Kräfte, die man selbst erzeugt?",
+     "style": ""
+    }
+   ]
+  },
+  "n7": {
+   "cls": "layer txt dark ",
+   "kids": [
+    {
+     "cls": "n l",
+     "html": "Leichtbau, Kontaktpunkt, Fahrwerk, Bremse, Sicherheitszelle – fünf Antworten auf eine Kraft, die das Kapitel zuvor selbst erzeugt hat.",
+     "style": ""
+    }
+   ]
+  }
+ }
+}

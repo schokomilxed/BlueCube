@@ -1,0 +1,898 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Wand und Film</title>
+<style>
+@font-face {
+  font-family: 'Barlow';
+  font-style: italic;
+  font-weight: 500;
+  font-display: swap;
+  src: url(data:font/woff2;base64,<<B64>>) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Barlow';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(data:font/woff2;base64,<<B64>>) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Barlow';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url(data:font/woff2;base64,<<B64>>) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Barlow';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url(data:font/woff2;base64,<<B64>>) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Barlow';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url(data:font/woff2;base64,<<B64>>) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+</style>
+<style>
+/* Bento-Film · gemeinsame Stile für Film- und Wand-Vorschau */
+:root{
+  --bg:#1b1b1d; --tile-a:#f4f4f4; --tile-b:#dedede; --ink:#141414; --line:#c9c9c9; --dark:#151517;
+  --ease:cubic-bezier(.77,0,.18,1); --step:.85s;
+  --gap:2px; --radius:0px; --pad:0px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+#stage{position:absolute;left:0;top:0;width:1680px;height:900px;transform-origin:0 0;background:var(--line);overflow:hidden}
+body.bento #stage{background:#d6d6d6}
+
+.tile{position:absolute;overflow:hidden;border-radius:var(--radius);
+  background:radial-gradient(120% 120% at 30% 25%,var(--tile-a),var(--tile-b));
+  transition:left var(--step) var(--ease),top var(--step) var(--ease),width var(--step) var(--ease),height var(--step) var(--ease),border-radius .6s ease;
+  will-change:left,top,width,height}
+body.bento .tile{box-shadow:0 10px 30px rgba(0,0,0,.12)}
+body.bento .tile.collapsed{box-shadow:none}
+
+.layer{position:absolute;inset:0;opacity:0;transition:opacity .35s ease}
+.layer.on{opacity:1;transition:opacity .5s ease}
+/* media enters with an axis-aligned wipe, never a diagonal scale */
+.layer.media-l{opacity:1;clip-path:inset(0 100% 0 0);transition:clip-path .35s ease}
+.layer.media-l.on{clip-path:inset(0 0 0 0);transition:clip-path .9s var(--ease)}
+.layer.dark{background:var(--dark);color:#f2f2f2}
+
+/* text blocks: children rise in one after another */
+.layer.txt{padding:46px 44px;display:flex;flex-direction:column;justify-content:center;color:var(--ink)}
+.layer.txt.dark{color:#f2f2f2}
+.layer.txt.top{justify-content:flex-start}
+.layer.txt.bot{justify-content:flex-end}
+.layer.txt>*{opacity:0;transform:translateY(28px);transition:opacity .4s ease,transform .4s ease}
+.layer.txt.on>*{opacity:1;transform:none;transition:opacity .7s ease,transform .9s var(--ease)}
+.layer.txt.on>*:nth-child(2){transition-delay:.12s}
+.layer.txt.on>*:nth-child(3){transition-delay:.24s}
+.layer.txt.on>*:nth-child(4){transition-delay:.36s}
+
+.kick{font-weight:600;font-size:20px;letter-spacing:.12em;text-transform:uppercase;opacity:.6;margin-bottom:18px}
+.h{font-weight:700;letter-spacing:.01em;line-height:1.06;text-transform:uppercase}
+.h.xxl{font-size:150px;line-height:.95}
+.h.xl{font-size:96px}
+.h.l{font-size:64px}
+.h.m{font-size:46px}
+.h.s{font-size:36px}
+.meta{font-weight:600;font-size:24px;text-transform:uppercase;margin-top:20px;line-height:1.25}
+.q{font-weight:500;font-size:26px;line-height:1.38}
+.q.l{font-size:32px}
+.n{font-weight:500;font-style:italic;font-size:38px;line-height:1.25}
+.n.l{font-size:58px;line-height:1.18}
+.n.s{font-size:30px}
+.num{font-weight:700;font-size:110px;line-height:1;letter-spacing:-.01em}
+.num.s{font-size:84px}
+.unit{font-weight:600;font-size:26px;text-transform:uppercase;margin-top:14px;line-height:1.2}
+.rule{width:56px;height:4px;background:currentColor;margin:22px 0}
+
+/* media */
+.media{position:absolute;inset:0;overflow:hidden;background:#000}
+.media img,.media video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transform:scale(1.02)}
+.media.contain img{object-fit:contain}
+.media.white{background:#fff}
+.layer.on .media.kb img{animation:kb 10s ease-out forwards}
+@keyframes kb{from{transform:scale(1.02)}to{transform:scale(1.1)}}
+.media .chip{position:absolute;left:28px;bottom:26px;background:#f4f4f4;color:#141414;font-weight:700;font-size:22px;letter-spacing:.06em;text-transform:uppercase;padding:9px 14px}
+.sil .media{background:#111}
+.sil .media img{filter:grayscale(1) contrast(1.15) brightness(.42)}
+.sheen::after{content:"";position:absolute;inset:-20%;background:linear-gradient(105deg,transparent 40%,rgba(255,255,255,.38) 50%,transparent 60%);transform:translateX(-120%)}
+.layer.on .sheen::after{animation:sheen 2.4s ease-in-out 1.4s forwards}
+@keyframes sheen{to{transform:translateX(120%)}}
+.fire::after{content:"";position:absolute;inset:0;mix-blend-mode:screen;background:radial-gradient(60% 80% at 45% 70%,rgba(255,140,20,.55),transparent 70%);opacity:0}
+.layer.on .fire::after{animation:flick 1.3s steps(1) infinite}
+@keyframes flick{0%{opacity:.25}13%{opacity:.6}27%{opacity:.3}41%{opacity:.75}55%{opacity:.4}69%{opacity:.65}83%{opacity:.2}}
+canvas.fx{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+
+/* Invertieren: weiße Textfelder werden dunkel mit heller Schrift; die Erzählerin-Felder tauschen ins Helle, damit die Register unterscheidbar bleiben */
+body.inv{--tile-a:#202227;--tile-b:#141518;--ink:#eef0f3;--line:#2c2f36;--dark:#ececee}
+body.inv .layer.txt.dark{color:#141414}
+body.inv .media .chip{background:#141518;color:#eef0f3}
+</style>
+<style>
+:root{--sweep:#e9eef6;--wall:#0d1015;--strip:#171b22;--cell:#131820;--cellLine:#1c222c;--warm:255,226,186}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;background:#08090c;color:#ddd;font-family:Barlow,"Helvetica Neue",Arial,sans-serif;overflow:hidden}
+#app{position:absolute;inset:0;display:flex;flex-direction:column}
+#view{position:relative;flex:1;overflow:hidden;cursor:grab}
+#world{position:absolute;left:0;top:0;width:8400px;height:1260px;transform-origin:0 0;background:var(--wall)}
+/* wall */
+.strip{position:absolute;left:0;width:8400px;height:180px;background:var(--strip)}
+.strip span{position:absolute;top:50%;transform:translateY(-50%);font-size:26px;letter-spacing:.2em;text-transform:uppercase;color:#4a5260;font-weight:600;white-space:nowrap}
+.wallsep{position:absolute;top:0;width:4px;height:1260px;background:#2b3240}
+.cell{position:absolute;width:240px;height:180px;border:2px solid var(--cellLine);background:var(--cell)}
+.door{position:absolute;background:#050608;border:3px solid #3a2a1e}
+.door span{position:absolute;left:24px;top:24px;font-size:24px;letter-spacing:.14em;color:#6d5440;font-weight:600}
+/* exhibits */
+.ex{position:absolute}
+.ex .body{position:absolute;inset:4px;background:#1d232d;overflow:hidden;box-shadow:inset 0 0 0 2px #262e3a}
+.ex .lit{position:absolute;inset:0;opacity:0;background:rgb(var(--warm))}
+/* picture mode: Airtable image fills the compartment; light = full brightness + flat warm frame instead of a fill */
+.ex .pic{position:absolute;inset:0;background-size:cover;background-position:center;display:none}
+body.pics .ex .pic{display:block}
+body.pics .ex .lit{background:none;box-shadow:inset 0 0 0 10px rgb(var(--warm))}
+body.pics .ex .nm{right:auto;max-width:calc(100% - 24px);background:rgba(13,16,21,.82);padding:4px 8px;color:#c3cad6}
+body.pics .ex .id{background:rgba(13,16,21,.82);padding:2px 6px}
+.ex .bar{position:absolute;left:0;right:0;bottom:0;height:8px;opacity:.85}
+.ex .nm{position:absolute;left:16px;right:12px;top:12px;font-size:24px;line-height:1.15;font-weight:600;color:#8a93a3;overflow:hidden;max-height:calc(100% - 30px)}
+.ex .id{position:absolute;right:14px;bottom:14px;font-size:20px;font-weight:600;color:#58606d;letter-spacing:.04em}
+body.nolabels .ex .nm,body.nolabels .ex .id{display:none}
+.ex.k2 .body{box-shadow:inset 0 0 0 2px #3a3326}
+/* motion light: flat fills, exactly one compartment each – no glow, no soft fields */
+#sweep{position:absolute;inset:0;pointer-events:none;z-index:2}
+#sweep div{position:absolute;width:232px;height:172px;margin:4px 0 0 4px;opacity:0;background:var(--sweep)}
+/* film sits in the wall at the media surface: B g6–m2 = cols 14–20, rows 1–5 */
+#stage{left:3360px;top:180px;box-shadow:0 0 0 3px #2c3340}
+/* hud */
+#hud{flex:none;padding:10px 16px 12px;background:#0f1115;border-top:1px solid #23262d}
+#info{font-size:13px;color:#aaa;line-height:1.5;min-height:40px;text-align:center}
+#info b{color:#c79be0;font-weight:600}
+#info .spot{color:#ffd166}
+#info .warn{color:#ff8a65}
+#info .lit{color:#ffe2b8}
+#ui{display:flex;flex-wrap:wrap;justify-content:center;gap:6px;align-items:center;font-size:13px;color:#aaa;margin-top:8px}
+#ui button{background:#2a2a2e;color:#ddd;border:1px solid #3a3a3f;border-radius:6px;padding:6px 11px;font:inherit;cursor:pointer;white-space:nowrap}
+#ui button.on{background:#6b2a8c;border-color:#8a3fb0;color:#fff}
+#ui label{display:flex;align-items:center;gap:8px;margin-left:8px}
+#zoom{width:220px;accent-color:#c79a5a}
+#bar{position:absolute;left:0;bottom:0;height:3px;background:#8a3fb0;width:0;z-index:2}
+body.clean #hud{display:none}
+</style>
+</head>
+<body>
+<div id="app">
+  <div id="view"><div id="world"><div id="wall"></div><div id="sweep"></div><div id="stage"></div></div><div id="bar"></div></div>
+  <div id="hud">
+    <div id="info"></div>
+    <div id="ui">
+      <button id="play">Pause</button>
+      <button id="prev">◀</button><button id="next">▶</button>
+      <span id="moments"></span>
+      <button id="tempo">Standzeit ×1</button>
+      <label>Zoom <button id="zMedia">Medienfläche</button><input type="range" id="zoom" min="0" max="1" step="0.001" value="0"><button id="zWall">Ganze Wand</button></label>
+      <button id="section" class="on">Testschleife M2</button>
+      <button id="inv">Invertieren</button>
+      <button id="labels" class="on">Beschriftung</button>
+      <button id="pics">Bilder</button>
+      <button id="fs">Vollbild</button>
+    </div>
+  </div>
+</div>
+
+<script>
+/* Kapitel 2 – Fahrdynamik & Sicherheit · Grid-Choreografie
+   Medienfläche: 7 × 5 Zellen à 80 × 60 cm (560 × 300 cm). Rects sind [x0,y0,x1,y1] in Zellen.
+   x0==x1 oder y0==y1 = eingeklappt an einer Kante (unsichtbar).
+
+   Jeder Beat besteht aus Schritten. In einem Schritt bewegt sich jede Kachel nur auf EINER Achse.
+   Namen P1–P8 meinen die Positionen des Grundrasters; alle anderen Namen sind Kacheln, die in
+   diesem Moment neu hereingeschoben werden ({r, f}: f = Startkante, an der sie eingeklappt warten). */
+(function(root){
+const COLS=7,ROWS=5,SLOTS=18;
+const P={P1:[0,0,2,3],P2:[2,0,5,2],P3:[5,0,7,3],P4:[2,2,3,3],P5:[3,2,5,3],P6:[0,3,3,5],P7:[3,3,4,5],P8:[4,3,7,5]};
+// Grundraster: stille Silhouetten nur aktiver Kapitel-2-Exponate (gleiche Belegung bei jeder Rückfaltung)
+const SIL={P1:'s:a2',P2:'s:mr',P3:'s:pd',P4:'s:det',P5:'s:tt',P6:'s:pscb',P7:'s:bremse',P8:'s:procon'};
+// silhouettes keyed by the logical names a fold ends with: [P1,P2,P3,P4,P5,P6,P7,P8]
+const sil=(...n)=>Object.fromEntries(n.map((k,i)=>[k,Object.values(SIL)[i]]));
+const e=(r,f)=>({r,f});
+
+const MOMENTS=['Grundraster','M1 · Leichtbau als erste Antwort','M2 · Der Kontaktpunkt zur Straße','M3 · Kraft kontrollierbar machen','M4 · Die Bremse wird Hightech','M5 · Sicherheit von Grund auf','M6 · Rückkehr zur Ausgangsfrage'];
+
+/* folding back to the base grid from the two most common end states */
+const foldFromLeftBlock=(L,R1,R2)=>[ // L = big block [0,0,4,5]; R1/R2 = right column halves
+  {[L]:[0,0,4,3],z1:e([0,3,4,5],[0,5,4,5])},
+  {[L]:[0,0,2,3],[R1]:[2,0,5,3],z2:e([5,0,7,3],[7,0,7,3]),z1:[0,3,3,5],z3:e([3,3,4,5],[4,3,4,5])},
+  {[R1]:[2,0,5,2],z4:e([2,2,3,3],[2,3,3,3]),z5:e([3,2,5,3],[3,3,5,3])},
+];
+
+const BEATS=[
+ {m:0,rebind:true,t:'Grundraster – stille Silhouetten',reg:'ambient',spot:'ruht',hold:3,steps:[],c:{...SIL}},
+ {m:0,t:'Kapitel-Titel',reg:'Erzählerin',spot:'ruht',steps:[
+   {P1:[0,0,5,3],P2:[5,0,5,2],P4:[5,2,5,3],P5:[5,2,5,3]}],c:{P1:'title'}},
+
+ // M1 Leichtbau
+ {m:1,t:'Kachel öffnet sich: Audi A2 Karosse',reg:'Ich-Form',spot:'A-A-6 (Audi A2)',steps:[
+   {P1:[0,0,4,3],P3:[4,0,7,3]},
+   {P1:[0,0,4,5],P6:[0,5,3,5],P7:[3,5,4,5],P3:[4,0,7,2],P8:[4,2,7,5]}],
+   c:{P1:'a2',P3:'a2lab',P8:'a2q'}},
+ {m:1,t:'Grid faltet sich zurück',reg:'ambient',spot:'ruht',hold:2.5,steps:[
+   {P1:[0,0,4,3],z1:e([0,3,4,5],[0,5,4,5]),P3:[4,0,7,3],P8:[4,3,7,5]},
+   {P1:[0,0,2,3],P3:[2,0,5,3],z2:e([5,0,7,3],[7,0,7,3]),z1:[0,3,3,5],z3:e([3,3,4,5],[4,3,4,5])},
+   {P3:[2,0,5,2],z4:e([2,2,3,3],[2,3,3,3]),z5:e([3,2,5,3],[3,3,5,3])}],
+   c:sil('P1','P3','z2','z4','z5','z1','z3','P8')},
+
+ // M2 Kontaktpunkt
+ {m:2,rebind:true,t:'Kachel öffnet sich: VW Detroit Felge',reg:'Ich-Form',spot:'A-C-2 (Detroit)',steps:[
+   {P1:[0,0,4,3],P2:[4,0,4,2],P4:[4,2,4,3],P5:[4,2,4,3],P3:[4,0,7,3],P6:[0,3,5,5],P7:[5,3,5,5],P8:[5,3,7,5]}],
+   c:{P1:'det',P3:'detq',P6:'detlab',P8:'tt'}},
+ {m:2,t:'Zweite Kachel daneben: Porsche Turbo Twist',reg:'Ich-Form',spot:'A-D-2 (Turbo Twist)',steps:[
+   {P6:[0,3,4,5],P8:[4,3,7,5]},
+   {P8:[4,0,7,5],P3:[4,0,7,0]}],c:{P6:'ttq'}},
+ {m:2,t:'Dritte Kachel, Vollbild: Lamborghini Phone Dial',reg:'Bild',spot:'A-A-2 (Phone Dial)',hold:4,steps:[
+   {P8:[0,0,7,5],P1:[0,0,0,3],P6:[0,3,0,5]}],c:{P8:'pd'}},
+ {m:2,t:'Phone Dial spricht · Erzählerin schließt',reg:'Ich-Form + Erzählerin',spot:'A-A-2 (Phone Dial)',steps:[
+   {P8:[0,0,4,5],q:e([4,0,7,3],[7,0,7,3]),n:e([4,3,7,5],[7,3,7,5])}],c:{q:'pdq',n:'n2'}},
+ {m:2,t:'Grid faltet sich zurück',reg:'ambient',spot:'ruht',hold:2.5,steps:foldFromLeftBlock('P8','q','n'),
+   c:sil('P8','q','z2','z4','z5','z1','z3','n')},
+
+ // M3 Kraft kontrollierbar machen
+ {m:3,rebind:true,t:'Kachel öffnet sich: Audi Magnetic Ride',reg:'Ich-Form',spot:'B-E-5 (Magnetic Ride)',steps:[
+   {P1:[0,0,5,3],P2:[5,0,5,2],P4:[5,2,5,3],P5:[5,2,5,3],P6:[0,3,4,5],P7:[4,3,4,5]}],
+   c:{P1:'mrvid',P3:'mrq',P6:'mrimg',P8:'mrf'}},
+ {m:3,t:'Zweite Kachel: Porsche 911 Windkanalmodell',reg:'Ich-Form · Rückverweis Kap. 1',spot:'B-B-5 (911) · Lichtbrücke → B-A-5 (Boxer Ur-Motor, Kap. 1) und zurück',
+   warn:'Kein Bild des Modells im Footage – Strömungsgrafik als Platzhalter',bridge:{from:'B-B-5',to:'B-A-5'},steps:[
+   {P1:[0,0,2,3],w1:e([2,0,5,3],[5,0,5,3]),w2:e([0,3,5,5],[0,3,0,5]),P6:[5,3,5,5],P8:[5,3,7,5]}],
+   c:{w1:'airf',P3:'airq',w2:'air',P8:'n3'}},
+ {m:3,t:'Grid faltet sich zurück',reg:'ambient',spot:'ruht',hold:2.5,steps:[
+   {w2:[0,3,3,5],v3:e([3,3,4,5],[5,3,5,5]),P8:[4,3,7,5]},
+   {w1:[2,0,5,2],v1:e([2,2,3,3],[2,3,3,3]),v2:e([3,2,5,3],[3,3,5,3])}],
+   c:sil('P1','w1','P3','v1','v2','w2','v3','P8')},
+
+ // M4 Bremse
+ {m:4,rebind:true,t:'Kachel öffnet sich: Porsche PSCB',reg:'Ich-Form',spot:'C-A-6 (PSCB)',steps:[
+   {P1:[0,0,4,3],P2:[4,0,4,2],P4:[4,2,4,3],P5:[4,2,4,3],P3:[4,0,7,3],P6:[0,3,4,5],P7:[4,3,4,5]},
+   {P1:[0,0,4,5],P6:[0,5,4,5]}],c:{P1:'pscb',P3:'pscbq',P8:'pscbf'}},
+ {m:4,t:'Kontrast: Porsche Formel-E-Bremse',reg:'Ich-Form + Erzählerin',spot:'C-A-4 (Formel E)',
+   warn:'Kein Bild der Formel-E-Bremse – Größenvergleich als Grafik',steps:[
+   {P1:[0,0,2,5],u:e([2,0,4,5],[4,0,4,5])}],c:{u:'discs',P3:'feq',P8:'n4'}},
+ {m:4,t:'Vorverweis: Bugatti Chiron Rekord',reg:'Fakt + Erzählerin',spot:'C-D-4 (Chiron Heckspoiler)',steps:[
+   {P1:[0,0,4,5],u:[4,0,4,5]}],c:{P1:'chpass',P3:'f490',P8:'n5'}},
+ {m:4,t:'Vierte Kachel, Vollbild: Bugatti 3D-Bremse',reg:'Bild',spot:'C-A-5 (Bremse)',hold:4,steps:[
+   {P1:[0,0,7,5],P3:[7,0,7,3],P8:[7,3,7,5]}],c:{P1:'bremse'}},
+ {m:4,t:'Bremse · Steckbrief',reg:'Ich-Form',spot:'C-A-5 (Bremse)',steps:[
+   {P1:[2,0,7,5],s1:e([0,0,2,2],[0,0,0,2]),s2:e([0,2,2,5],[0,2,0,5])},
+   {P1:[2,0,7,3],s3:e([2,3,4,5],[2,5,4,5]),s4:e([4,3,7,5],[4,5,7,5])}],
+   c:{P1:'bdet',s1:'btitle',s2:'bq',s3:'b29',s4:'b2213'}},
+ {m:4,t:'Bremse · Konflikt',reg:'Erzählerin',spot:'C-A-5 (Bremse)',steps:[
+   {s1:[0,0,2,3],s2:[0,3,2,5]},
+   {s1:[0,0,5,3],P1:[5,0,7,3],s2:[0,3,7,5],s3:[7,3,7,5],s4:[7,3,7,5]}],
+   c:{s1:'n490',P1:'bk',s2:'fire'}},
+ {m:4,t:'Bremse · Beziehung – Vorverweis Kapitel 4',reg:'Ich-Form',spot:'C-A-5 → Lichtbrücke C-D-4 (Chiron Rekord, Kap. 4) und zurück',bridge:{from:'C-A-5',to:'C-D-4'},steps:[
+   {s1:[0,0,4,3],P1:[4,0,7,3],s2:[0,3,3,5],r1:e([3,3,5,5],[7,3,7,5]),r2:e([5,3,7,5],[7,3,7,5])}],
+   c:{s1:'chrear',P1:'bvon',s2:'bz1',r1:'bz2',r2:'rad'}},
+ {m:4,t:'Grid faltet sich zurück',reg:'ambient',spot:'ruht',hold:2.5,steps:[
+   {s1:[0,0,2,3],P1:[2,0,5,3],q2:e([5,0,7,3],[7,0,7,3]),r1:[3,3,4,5],r2:[4,3,7,5]},
+   {P1:[2,0,5,2],q3:e([2,2,3,3],[2,3,3,3]),q4:e([3,2,5,3],[3,3,5,3])}],
+   c:sil('s1','P1','q2','q3','q4','s2','r1','r2')},
+
+ // M5 Sicherheit
+ {m:5,rebind:true,t:'Kachel öffnet sich: Audi Procon-Ten',reg:'Ich-Form',spot:'C-C-5 (Procon-Ten)',steps:[
+   {P1:[0,0,4,3],P2:[4,0,4,2],P4:[4,2,4,3],P5:[4,2,4,3],P3:[4,0,7,3],P6:[0,3,4,5],P7:[4,3,4,5]}],
+   c:{P1:'pccrash',P3:'pcq',P6:'pcmech',P8:'pcf'}},
+ {m:5,t:'Zweite Kachel, Vollbild: VW ESVW 1',reg:'Ich-Form',spot:'A-G-6 (ESVW 1)',warn:'Kein ESVW-Bild im Footage – typografisch gesetzt',steps:[
+   {P8:[0,3,7,5],P6:[0,3,0,5]},
+   {P8:[0,0,7,5],P1:[0,0,4,0],P3:[4,0,7,0]}],c:{P8:'esvw'}},
+ {m:5,t:'Fusion: Erzählerin schlägt Brücke zu Kapitel 1',reg:'Erzählerin',spot:'C-C-5 + A-G-6',steps:[
+   {P8:[0,0,4,5],nb:e([4,0,7,5],[7,0,7,5])}],c:{nb:'n6'}},
+ {m:5,t:'Grid faltet sich zurück',reg:'ambient',spot:'ruht',hold:2.5,steps:[
+   {P8:[0,0,4,3],nb:[4,0,7,3],m1:e([0,3,4,5],[0,5,4,5]),m2:e([4,3,7,5],[4,5,7,5])},
+   {P8:[0,0,2,3],m3:e([2,0,5,3],[4,0,4,3]),nb:[5,0,7,3],m1:[0,3,3,5],m4:e([3,3,4,5],[4,3,4,5])},
+   {m3:[2,0,5,2],m5:e([2,2,3,3],[2,3,3,3]),m6:e([3,2,5,3],[3,3,5,3])}],
+   c:sil('P8','m3','nb','m5','m6','m1','m4','m2')},
+
+ // M6 Klammer
+ {m:6,rebind:true,t:'Fünf Antworten',reg:'Erzählerin',spot:'alle Kapitel-2-Fächer nacheinander',steps:[],
+   c:{P1:'kq',P2:'k1',P3:'k2',P4:'s:det',P5:'k3',P6:'k4',P7:'s:tt',P8:'k5'}},
+ {m:6,t:'Vollbild: Erzählerin schließt',reg:'Erzählerin',spot:'Raum gesamt',steps:[
+   {P1:[0,0,7,3],P2:[7,0,7,2],P4:[7,2,7,3],P5:[7,2,7,3],P3:[7,0,7,3]},
+   {P1:[0,0,7,5],P6:[0,5,3,5],P7:[3,5,4,5],P8:[4,5,7,5]}],c:{P1:'n7'}},
+ {m:6,t:'Rückkehr zum Grundraster – Cluster-Ende',reg:'ambient',spot:'ruht',hold:3,steps:[
+   {P1:[0,0,7,3],l1:e([0,3,3,5],[0,5,3,5]),l2:e([3,3,4,5],[3,5,4,5]),l3:e([4,3,7,5],[4,5,7,5])},
+   {P1:[0,0,2,3],l4:e([2,0,5,3],[7,0,7,3]),l5:e([5,0,7,3],[7,0,7,3])},
+   {l4:[2,0,5,2],l6:e([2,2,3,3],[2,3,3,3]),l7:e([3,2,5,3],[3,3,5,3])}],
+   c:sil('P1','l4','l5','l6','l7','l1','l2','l3')},
+];
+
+/* resolve logical names to physical tiles */
+const collapsed=r=>r[0]===r[2]||r[1]===r[3];
+function build(){
+  const order=Object.keys(P);
+  const pos=[...Array(SLOTS)].map((_,i)=>i<8?P[order[i]].slice():[COLS,ROWS,COLS,ROWS]);
+  let bind={};
+  return BEATS.map((b,bi)=>{
+    if(b.rebind){bind={};for(const k of order){const i=pos.findIndex(r=>r.join()===P[k].join());if(i<0)throw Error(`Beat ${bi}: base position ${k} not occupied`);bind[k]=i}}
+    const get=name=>{if(!(name in bind)){const used=new Set(Object.values(bind));const i=pos.findIndex((r,i)=>collapsed(r)&&!used.has(i));if(i<0)throw Error(`Beat ${bi}: no free tile for ${name}`);bind[name]=i}return bind[name]};
+    const steps=b.steps.map(st=>Object.entries(st).map(([name,v])=>({id:get(name),name,r:(Array.isArray(v)?v:v.r).slice(),f:Array.isArray(v)?null:v.f})));
+    steps.forEach(st=>st.forEach(x=>{pos[x.id]=x.r.slice()}));
+    const c={};for(const [name,key] of Object.entries(b.c||{}))c[get(name)]=key;
+    return {...b,steps,c};
+  });
+}
+const api={COLS,ROWS,SLOTS,P,MOMENTS,BEATS:build(),collapsed};
+if(typeof module!=='undefined')module.exports=api;else root.CHOREO=api;
+})(this);
+
+</script>
+<script>
+/* Blauer Kubus · Wandabwicklung A · B · C – Snapshot aus Airtable (Base appd9oVo78FNTrPDd), Stand 15.10.2026
+   Nur Exponate mit „Aktiv“. Raster: Modul 80 × 60 cm, 7 Reihen; Reihe 0 (oben) und 6 (unten) sind keine Fächer mehr.
+   Fach-ID „W-S-N“: Wand, Spalte (Buchstabe), Reihe N von unten (1 = unten) – Anker = obere linke Ecke.
+   Fußabdruck wie in kubus-live.html: größte zwei Maße (+ Luft, Standard 5 cm), gedreht = getauscht. */
+(function(root){
+const WALLS={A:{off:0,w:8},B:{off:8,w:21},C:{off:29,w:6}};
+const COLS=35,ROWS=7,FIELD_ROWS=[1,5];          // Fächer nur in den Reihen 1–5
+const MEDIA={c0:14,c1:20,y0:1,y1:5};             // Abzüge: Medienfläche B g6–m2
+const DOOR={c0:26,c1:27,y0:3,y1:6};              // Abzüge: Fluchtwegtür B s4–t1
+
+// [Name, Fach-ID, L, B, H (cm, geschätzt), gedreht, Luft, Cluster, StoryCluster, Jahr]
+const EXPONATE=[
+ ['VW G60 Schneckenkompressor Corrado','A-F-2',30,25,28,0,5,'Corrado-Technik','3',1986],
+ ['VW T2 Elektro Transporter','B-C-4',35,20,20,0,5,'Bulli-Elektro','1',1979],
+ ['Porsche 919 Hybrid Rennwagen','B-U-4',40,40,5,1,5,'Porsche Hybrid','14',2019],
+ ['Audi AI:ME Modell','B-F-5',43,19,15,0,5,'Autonomes Fahren','3',2019],
+ ['Audi A8 Matrix LED Scheinwerfer','B-S-6',40,45,25,0,5,'Lichttechnik','3',2013],
+ ['VW Sedric Modell','B-E-6',65,30,35,0,5,'Autonomes Fahren','3',2016],
+ ['Bugatti Veyron Rekord','C-E-4',150,35,25,1,5,'Rekordfahrten','4',2005],
+ ['VW Nils concept Modell','B-B-6',32,14,12,0,5,'Konzeptstudien','3',2011],
+ ['Audi 5 Zylinder Turbo Motor','B-P-3',70,85,75,0,5,'Rallye & Bergrennen','41',1985],
+ ['Audi Procon-Ten Sicherheitssystem','C-C-5',110,45,45,1,5,'Sicherheit','2',1985],
+ ['VW Augmented Reality Head Up Display','B-U-5',25,22,12,0,5,'Digitalcockpit','3',2020],
+ ['Audi Pikes Peak Rennwagen','B-Q-4',42,18,12,1,5,'Rallye & Bergrennen','4',1987],
+ ['Porsche 909 Kugeltank','B-R-5',35,35,45,0,5,'Rallye & Bergrennen','4',1970],
+ ['VW Active Info Display','B-U-6',20,40,25,1,5,'Digitalcockpit','3',2012],
+ ['VW W12 Motor','B-E-3',65,70,75,0,20,'Motoren – VR/W','1',2002],
+ ['VW / Porsche Boxer Ur-Motor','B-A-5',50,90,60,1,5,'Motoren – Boxer/911','1',1938],
+ ['VW Race Touareg Rallye Dakar','C-F-5',35,35,12,0,5,'Rallye & Bergrennen','41',2005],
+ ['1.9 TDI','C-C-3',50,60,70,1,5,'Motoren – TDI','1',1998],
+ ['Audi LMX Laser Scheinwerfer','B-R-6',40,45,25,0,5,'Lichttechnik','3',2014],
+ ['VW ESVW 1 experimental Safety Vehicle US','A-G-6',47,18,14,0,5,'Sicherheit','2',1972],
+ ['Porsche Felge Turbo Twist','A-D-2',46,46,30,0,5,'Felgen','2',1995],
+ ['Lamborghini Felge „Phone Dial“ Pair','A-A-2',44,80,44,0,5,'Felgen','2',1985],
+ ['Skoda Simply Clever Eiskratzer Türkantenschutz','A-E-2',15,8,3,0,5,'Skoda Simply Clever','',2025],
+ ['VW 1 Millionster Volkswagen','C-B-6',10,145,24,0,5,'Wirtschaftswunder','4',1955],
+ ['VW Testgelände Ehra-Lessien','C-F-4',160,50,5,1,5,'Rekordfahrten','4',1969],
+ ['VW Stanley','B-F-4',20,16,16,0,5,'Autonomes Fahren','34',2005],
+ ['Audi RS-Q e-tron Rallyefahrzeug','B-Q-5',45,23,20,0,5,'Rallye & Bergrennen','4',2024],
+ ['VW Phaeton (Kofferraum Scharniere)','C-B-4',70,45,35,0,5,'Luxus/Verarbeitung','4',2001],
+ ['VW VR6 Motor','B-A-3',52,42,68,0,15,'Motoren – VR/W','1',1985],
+ ['VW ID.R Pikes Peak','B-R-3',35,20,12,0,5,'Rallye & Bergrennen','4',2018],
+ ['Porsche Semper Vivus mit Radnabenmotoren','B-U-3',35,35,25,0,5,'Porsche Hybrid','14',1900],
+ ['VW Corrado Heckspoiler','A-H-4',20,90,15,1,5,'Corrado-Technik','3',1995],
+ ['VW W16 Motor','B-C-3',100,80,80,0,5,'Motoren – VR/W','1',2005],
+ ['VW Fusca 1300 Álcool Brasilien','C-F-6',41,16,15,0,5,'Antriebstechnik – Sonderbauformen','14',1977],
+ ['Porsche 959','B-R-2',28,45,45,0,5,'Rallye & Bergrennen','4',1986],
+ ['VW W12 Nardo','C-E-5',44,19,11,0,5,'Rekordfahrten','4',1997],
+ ['VW V10 TDI Motor','C-A-3',100,90,90,0,5,'Motoren – TDI','1',2003],
+ ['Audi Magnetic Ride (TT)','B-E-5',20,20,60,1,5,'Fahrwerk','2',2007],
+ ['VW Futura Modell','B-D-6',43,18,15,0,5,'Konzeptstudien','3',1989],
+ ['VW Chicco Concept','B-C-6',31,16,15,1,5,'Konzeptstudien','3',1982],
+ ['Audi NSU Wankelmotor','A-G-4',30,11,37,0,5,'Antriebstechnik – Sonderbauformen','1',1969],
+ ['VW Digifiz','B-T-6',30,12,9,0,5,'Digitalcockpit','3',1980],
+ ['Porsche PDK Getriebe','A-G-3',45,121,55,1,5,'Antriebstechnik – Sonderbauformen','1',1988],
+ ['Bidi Laden ID.Buzz','B-B-4',50,50,50,1,5,'Bulli-Elektro','1',2022],
+ ['VW Bulli','C-D-6',42,17,19,0,5,'Wirtschaftswunder','4',1955],
+ ['VW Formel E Spritsparmodelle','B-P-6',45,35,25,1,5,'Effizienz','1',1980],
+ ['Porsche PSCB Surface Coated Brakes','C-A-6',41,41,11,1,5,'Bremsen','2',2017],
+ ['VW Golf 4 Klarglasscheinwerfer','B-Q-6',25,50,30,0,5,'Lichttechnik','3',1997],
+ ['Audi RS7 Piloted Driving','B-F-6',60,24,18,0,5,'Autonomes Fahren','3',2016],
+ ['VW Lupo 3L – Motor 1.2 TDI','B-P-5',60,45,55,0,10,'Effizienz','1',1999],
+ ['Bugatti Chiron 3D gedruckte Bremse','C-A-5',15,45,50,1,5,'Bremsen','24',2018],
+ ['Audi A2 Karosse','A-A-6',430,167,155,0,25,'Leichtbau','2',1999],
+ ['Porsche 919 Hybrid Rekuperator','B-U-2',20,45,25,1,5,'Porsche Hybrid','14',2019],
+ ['VW 1972 Weltrekordkäfer','C-E-6',41,15,15,0,5,'Wirtschaftswunder','4',1972],
+ ['VW XL1 Monocoque','B-N-6',185,150,118,1,5,'Effizienz','1',2013],
+ ['VW Detroit Felge','A-C-2',46,20,46,0,5,'Felgen','2',2004],
+ ['Porsche Bremse Formel E Rennwagen','C-A-4',10,29,33,0,5,'Bremsen','2',2025],
+ ['Porsche 911 Windkanalmodell','B-B-5',96,38,24,0,5,'Motoren – Boxer/911','12',1963],
+ ['Bugatti Chiron Rekord','C-D-4',140,35,25,1,5,'Rekordfahrten','42',2019],
+];
+const CLCOL={"Motoren – VR/W":"#6f93e6","Motoren – TDI":"#5fa6e6","Motoren – Boxer/911":"#45c2d4","Porsche Hybrid":"#22b0a0",
+"Corrado-Technik":"#6fbf5b","Lichttechnik":"#e6bf46","Digitalcockpit":"#e8cf5c","Bremsen":"#ee9440","Fahrwerk":"#f0a960",
+"Leichtbau":"#808d99","Effizienz":"#8ed06f","Rekordfahrten":"#e94b3c","Autonomes Fahren":"#9d6fd0","Felgen":"#9aa6b2",
+"Wirtschaftswunder":"#f2872e","Sicherheit":"#d76b6b","Rallye & Bergrennen":"#ec86b6","Bulli-Elektro":"#58c6d6",
+"Konzeptstudien":"#b98fd9","Luxus/Verarbeitung":"#e9a6cb","Skoda Simply Clever":"#5fa6e6","Antriebstechnik – Sonderbauformen":"#5fa6e6"};
+
+function fach(id){const m=id.match(/^([A-C])-([A-Z])-(\d)$/);const w=WALLS[m[1]];return{wall:m[1],col:w.off+m[2].charCodeAt(0)-65,row:ROWS-parseInt(m[3],10)}}
+function foot(L,B,H,rot,air){const ds=[L,B,H].filter(d=>d>0).sort((a,b)=>b-a);const d0=ds[0],d1=ds[1]||ds[0];
+  const wcm=(rot?d1:d0)+air,hcm=(rot?d0:d1)+air;return[Math.max(1,Math.ceil(wcm/80)),Math.max(1,Math.ceil(hcm/60))]}
+
+/* place every exhibit: anchor at its Fach, spread over its footprint inside its wall and inside the field rows,
+   never over media, door or another exhibit (largest first, like kubus-live) */
+function layout(){
+  const blocked=[...Array(ROWS)].map((_,y)=>[...Array(COLS)].map((_,x)=>
+    y<FIELD_ROWS[0]||y>FIELD_ROWS[1]||(x>=MEDIA.c0&&x<=MEDIA.c1&&y>=MEDIA.y0&&y<=MEDIA.y1)||(x>=DOOR.c0&&x<=DOOR.c1&&y>=DOOR.y0&&y<=DOOR.y1)));
+  const owner=blocked.map(r=>r.map(()=>-1));
+  const objs=EXPONATE.map(([name,id,L,B,H,rot,air,cluster,story,year],i)=>{const f=fach(id);const [cols,rows]=foot(L,B,H,rot,air);
+    return{i,name,id,wall:f.wall,col:f.col,row:f.row,cols,rows,cluster,color:CLCOL[cluster]||'#9aa6b2',story,year,cells:[]}});
+  const warn=[];
+  [...objs].sort((a,b)=>b.cols*b.rows-a.cols*a.rows).forEach(o=>{
+    const w=WALLS[o.wall],wl=w.off,wr=w.off+w.w-1;
+    for(let y=o.row;y<Math.min(o.row+o.rows,FIELD_ROWS[1]+1);y++)for(let x=o.col;x<=Math.min(o.col+o.cols-1,wr);x++)
+      if(!blocked[y][x]&&owner[y][x]<0){owner[y][x]=o.i;o.cells.push([x,y])}
+    if(!o.cells.length){warn.push(o.id+' '+o.name+': Fach belegt');if(!blocked[o.row][o.col]){o.cells.push([o.col,o.row])}}
+  });
+  objs.forEach(o=>{const xs=o.cells.map(c=>c[0]),ys=o.cells.map(c=>c[1]);
+    o.rect=o.cells.length?{x:Math.min(...xs),y:Math.min(...ys),w:Math.max(...xs)-Math.min(...xs)+1,h:Math.max(...ys)-Math.min(...ys)+1}:null});
+  return{objs,warn,owner,blocked};
+}
+const api={WALLS,COLS,ROWS,FIELD_ROWS,MEDIA,DOOR,EXPONATE,CLCOL,fach,layout};
+if(typeof module!=='undefined')module.exports=api;else root.WAND=api;
+})(this);
+
+</script>
+<script>window.ASSETS={"a2.jpg": "data:image/jpeg;base64,<<B64>>", "chiron_pass.mp4": "data:video/mp4;base64,<<B64>>", "chiron_rear.mp4": "data:video/mp4;base64,<<B64>>", "detroit.jpg": "data:image/jpeg;base64,<<B64>>", "magride.jpg": "data:image/jpeg;base64,<<B64>>", "magride.mp4": "data:video/mp4;base64,<<B64>>", "p1_bremse.jpg": "data:image/jpeg;base64,<<B64>>", "p2_detail.jpg": "data:image/jpeg;base64,<<B64>>", "p3_feuer.jpg": "data:image/jpeg;base64,<<B64>>", "p4_rad.jpg": "data:image/jpeg;base64,<<B64>>", "phonedial.jpg": "data:image/jpeg;base64,<<B64>>", "procon_crash.mp4": "data:video/mp4;base64,<<B64>>", "procon_mech.mp4": "data:video/mp4;base64,<<B64>>", "procon_still.jpg": "data:image/jpeg;base64,<<B64>>", "pscb.jpg": "data:image/jpeg;base64,<<B64>>", "turbotwist.jpg": "data:image/jpeg;base64,<<B64>>", "exponate/A-A-2.jpg": "data:image/jpeg;base64,<<B64>>", "exponate/A-A-6.jpg": "data:image/jpeg;base64,<<B64>>", "exponate/A-C-2.jpg": "data:image/jpeg;base64,<<B64>>", "exponate/A-D-2.jpg": "data:image/jpeg;base64,<<B64>>", "exponate/A-E-2.jpg": "data:image/jpeg;base64,<<B64>>", "exponate/A-F-2.jpg": "data:image/jpeg;base64,<<B64>>", "exponate/A-G-3.jpg": "data:image/jpeg;base64,<<B64>>", "exponate/A-G-4.jpg": "data:image/jpeg;base64,<<B64>>", "exponate/A-G-6.jpg": "data:image/jpeg;base64,<<B64>>", "exponate/A-H-4.jpg": "data:image/jpeg;base64,<<B64>>", "exponate/B-A-3.jpg": "data:image/jpeg;base64,<<B64>>", "exponate/B-A-5.jpg": "data:image/jpeg;base64,<<B64>>", "exponate/B-B-4.jpg": "data:image/jpeg;base64,<<B64>>", "exponate/B-B-5.jpg": "data:image/jpeg;base64,<<B64>>", "exponate/B-B-6.jpg": "data:image/jpeg;base64,<<B64>>", "exponate/B-C-3.jpg": "data:image/jpeg;base64,<<B64>>", "exponate/B-C-4.jpg": "data:image/jpeg;base64,<<B64>>", "exponate/B-C-6.jpg": "data:image/jpeg;base64,<<B64>>", "exponate/B-D-6.jpg": "data:image/jpeg;base64,<<B64>>", "exponate/B-E-3.jpg": "data:image/jpeg;base64,<<B64>>", "exponate/B-E-5.jpg": "data:image/jpeg;base64,<<B64>>", "exponate/B-E-6.jpg": "data:image/jpeg;base64,<<B64>>", "exponate/B-F-4.jpg": "data:image/jpeg;base64,<<B64>>", "exponate/B-F-5.jpg": "data:image/jpeg;base64,<<B64>>", "exponate/B-F-6.jpg": "data:image/jpeg;base64,<<B64>>", "exponate/B-N-6.jpg": "data:image/jpeg;base64,<<B64>>", "exponate/B-P-3.jpg": "data:image/jpeg;base64,<<B64>>", "exponate/B-P-5.jpg": "data:image/jpeg;base64,<<B64>>", "exponate/B-P-6.jpg": "data:image/jpeg;base64,<<B64>>", "exponate/B-Q-4.jpg": "data:image/jpeg;base64,<<B64>>", "exponate/B-Q-5.jpg": "data:image/jpeg;base64,<<B64>>", "exponate/B-Q-6.jpg": "data:image/jpeg;base64,<<B64>>", "exponate/B-R-2.jpg": "data:image/jpeg;base64,<<B64>>", "exponate/B-R-3.jpg": "data:image/jpeg;base64,<<B64>>", "exponate/B-R-5.jpg": "data:image/jpeg;base64,<<B64>>", "exponate/B-R-6.jpg": "data:image/jpeg;base64,<<B64>>", "exponate/B-S-6.jpg": "data:image/jpeg;base64,<<B64>>", "exponate/B-T-6.jpg": "data:image/jpeg;base64,<<B64>>", "exponate/B-U-2.jpg": "data:image/jpeg;base64,<<B64>>", "exponate/B-U-3.jpg": "data:image/jpeg;base64,<<B64>>", "exponate/B-U-4.jpg": "data:image/jpeg;base64,<<B64>>", "exponate/B-U-5.jpg": "data:image/jpeg;base64,<<B64>>", "exponate/B-U-6.jpg": "data:image/jpeg;base64,<<B64>>", "exponate/C-A-3.jpg": "data:image/jpeg;base64,<<B64>>", "exponate/C-A-4.jpg": "data:image/jpeg;base64,<<B64>>", "exponate/C-A-5.jpg": "data:image/jpeg;base64,<<B64>>", "exponate/C-A-6.jpg": "data:image/jpeg;base64,<<B64>>", "exponate/C-B-4.jpg": "data:image/jpeg;base64,<<B64>>", "exponate/C-B-6.jpg": "data:image/jpeg;base64,<<B64>>", "exponate/C-C-3.jpg": "data:image/jpeg;base64,<<B64>>", "exponate/C-C-5.jpg": "data:image/jpeg;base64,<<B64>>", "exponate/C-D-4.jpg": "data:image/jpeg;base64,<<B64>>", "exponate/C-D-6.jpg": "data:image/jpeg;base64,<<B64>>", "exponate/C-E-4.jpg": "data:image/jpeg;base64,<<B64>>", "exponate/C-E-5.jpg": "data:image/jpeg;base64,<<B64>>", "exponate/C-E-6.jpg": "data:image/jpeg;base64,<<B64>>", "exponate/C-F-4.jpg": "data:image/jpeg;base64,<<B64>>", "exponate/C-F-5.jpg": "data:image/jpeg;base64,<<B64>>", "exponate/C-F-6.jpg": "data:image/jpeg;base64,<<B64>>"};</script>
+<script>
+/* Bento-Film · Kapitel 2 – Fahrdynamik & Sicherheit
+   Inhalte + Engine, gemeinsam genutzt von index.html (nur Film) und wand.html (Wand + Licht + Film).
+   Erwartet: CHOREO (choreo.js) und ein Element #stage (1680 × 900 px = 7 × 5 Zellen à 240 × 180 px).
+   Optional: window.ASSETS = {datei: dataURI} für die eigenständige Version. */
+const FILM=(function(){
+const W=1680,H=900,COLS=CHOREO.COLS,ROWS=CHOREO.ROWS;
+const src=f=>(window.ASSETS&&window.ASSETS[f])||('assets/'+f);
+
+/* ---------- content building blocks ---------- */
+const img=(f,o={})=>`<div class="layer media-l"><div class="media ${o.cls||''} ${o.kb===false?'':'kb'}"><img src="${src(f)}" style="object-position:${o.pos||'50% 50%'}">${o.chip?`<span class="chip">${o.chip}</span>`:''}${o.fx?`<canvas class="fx" data-fx="${o.fx}"></canvas>`:''}</div></div>`;
+const vid=(f,o={})=>`<div class="layer media-l"><div class="media ${o.cls||''}"><video src="${src(f)}" muted loop playsinline preload="auto" style="object-position:${o.pos||'50% 50%'}"></video>${o.chip?`<span class="chip">${o.chip}</span>`:''}</div></div>`;
+const sil=(f,pos)=>`<div class="layer sil"><div class="media"><img src="${src(f)}" style="object-position:${pos||'50% 50%'}"></div></div>`;
+const quo=(head,text,o={})=>`<div class="layer txt ${o.cls||''}"><div class="kick">${head}</div><div class="q ${o.size||''}">„${text}“</div></div>`;
+const nar=(text,o={})=>`<div class="layer txt dark ${o.cls||''}">${o.kick?`<div class="kick">${o.kick}</div>`:''}<div class="n ${o.size||''}">${text}</div></div>`;
+const lab=(name,meta,o={})=>`<div class="layer txt ${o.cls||'bot'}"><div class="h ${o.size||'m'}">${name}</div><div class="meta">${meta}</div></div>`;
+const fact=(num,unit,o={})=>`<div class="layer txt ${o.cls||''}">${o.kick?`<div class="kick">${o.kick}</div>`:''}<div class="num ${o.size||''}">${num}</div><div class="unit">${unit}</div></div>`;
+const gfx=type=>`<div class="layer"><canvas class="fx" data-fx="${type}"></canvas></div>`;
+const cnt=(v,fmt)=>`<span data-count="${v}" data-fmt="${fmt}">0</span>`;
+
+const C={
+ // silhouettes for the ambient base grid (nur aktive Exponate)
+ 's:a2':sil('a2.jpg'),'s:pd':sil('phonedial.jpg'),'s:pscb':sil('pscb.jpg'),'s:procon':sil('procon_still.jpg'),
+ 's:det':sil('detroit.jpg','30% 60%'),'s:tt':sil('turbotwist.jpg','45% 50%'),'s:mr':sil('magride.jpg'),'s:bremse':sil('p1_bremse.jpg'),
+
+ title:`<div class="layer txt dark"><div class="kick">Kapitel 2</div><div class="h xl">Fahrdynamik<br>&amp; Sicherheit</div><div class="n s" style="margin-top:26px;opacity:.85">Wie beherrscht man die Kräfte, die man selbst erzeugt?</div></div>`,
+
+ // M1 Leichtbau
+ a2:img('a2.jpg',{chip:'Audi Space Frame'}),
+ a2lab:lab('Audi A2','Space Frame · 1999'),
+ a2q:quo('Audi A2 · 1999','Ich bin aus Aluminium gebaut, wo andere auf Stahl beharrten – jedes eingesparte Kilo ist mein Argument gegen die Trägheit der Masse.'),
+
+ // M2 Kontaktpunkt
+ det:img('detroit.jpg',{pos:'30% 60%',chip:'VW „Detroit“'}),
+ detlab:lab('VW „Detroit“','Felge · 2004'),
+ detq:quo('VW „Detroit“-Felge · 2004','Ich sehe nicht nach viel aus, aber ich halte das Auto in der Spur, wenn es darauf ankommt. Meine Linien sind Kult – meine Aufgabe ist Haftung.',{size:'l'}),
+ tt:img('turbotwist.jpg',{pos:'49% 50%',chip:'Porsche Turbo Twist'}),
+ ttq:quo('Porsche „Turbo Twist“ · 1995','Ich drehe mich nicht nur – ich zeichne die Kurve, bevor sie kommt. Meine Speichen tragen das Gewicht der Geschwindigkeit und geben es als Haftung an den Asphalt zurück.',{size:'l'}),
+ pd:img('phonedial.jpg',{chip:'Lamborghini „Phone Dial“'}),
+ pdq:quo('Lamborghini „Phone Dial“ · 1985','Man hält mich für Zierde, doch ich bin das letzte Glied zwischen Wahnsinn und Straße. Was der Motor entfesselt, muss durch mich hindurch – oder es geschieht gar nicht.'),
+ n2:nar('Leichtbau und Motorkraft enden hier – am letzten Zentimeter zwischen Auto und Asphalt.',{size:'s'}),
+
+ // M3 Kraft kontrollierbar machen
+ mrimg:img('magride.jpg',{cls:'white contain',kb:false}),
+ mrvid:vid('magride.mp4',{chip:'Audi Magnetic Ride'}),
+ mrq:quo('Audi Magnetic Ride · 2007','Ich fühle jede Unebenheit, bevor du sie spürst. Ein Magnetfeld genügt, und aus weich wird straff – ich bin das Fahrwerk, das mit dir mitdenkt.'),
+ mrf:`<div class="layer txt"><div class="kick">Prinzip</div><div class="h s">Magneto&shy;rheologisch.</div><div class="q" style="margin-top:16px">Unter Strom ändert die Dämpferflüssigkeit ihre Härte – in Millisekunden.</div></div>`,
+ n3:nar('Kraftkontrolle durch Aerodynamik statt Mechanik.',{size:'s'}),
+ air:gfx('airflow'),
+ airq:quo('Porsche 911 · Windkanalmodell','Ich bin nur sechs Kilo schwer und keinen Meter lang, doch im Windkanal entscheide ich, welche Linie den Sturm übersteht. Bevor der erste Motor läuft, kenne ich schon den Weg der Luft.'),
+ airf:fact(`${cnt(96,'int')} CM`,'Länge · rund 6 kg<br>Glasfaser-Modell',{kick:'Windkanalmodell'}),
+
+ // M4 Bremse
+ pscb:img('pscb.jpg',{cls:'white contain',kb:false,chip:'Porsche PSCB'}),
+ pscbq:quo('Porsche Surface Coated Brake','Ich bin hart wie Diamant und sauber wie kein Bremssystem vor mir – ich bringe die Kraft zum Stehen, ohne Spuren zu hinterlassen.',{size:'l'}),
+ pscbf:fact('WOLFRAM&shy;KARBID','Beschichtung – härter als Stahl, fast ohne Bremsstaub',{size:'s',kick:'Oberfläche'}),
+ discs:gfx('discs'),
+ feq:quo('Porsche Formel-E-Bremse · 2025','Man erwartet mich wuchtig, doch ich bin winzig – weil ich das Bremsen mit dem Motor teile. Was du für Schwäche hältst, ist meine effizienteste Form.'),
+ n4:nar('Die eine bremst mit roher Härte, die andere fast gar nicht mehr selbst – beides ist Fortschritt.',{size:'s'}),
+ chpass:vid('chiron_pass.mp4',{chip:'Ehra-Lessien · 2. August 2019'}),
+ f490:fact(`${cnt(490.48,'dec2')}`,'km/h · Bugatti Chiron<br>Super Sport 300+',{kick:'Rekord 2019'}),
+ n5:nar('Ein Rekord, der eine Bremse braucht, die es vorher nicht gab.',{size:'s'}),
+ bremse:img('p1_bremse.jpg',{cls:'contain sheen',kb:false}),
+ btitle:`<div class="layer txt"><div class="h m">Leichter.<br>Komplexer.<br>Belastbarer.</div><div class="meta">Bugatti Chiron · 3D-gedruckter Titan-Bremssattel · 2018</div></div>`,
+ bq:quo('Bugatti Chiron Bremse','Man hat mich nicht gegossen, man hat mich Schicht für Schicht gedacht. Ich bin fast halb so leicht wie mein geschmiedeter Vorgänger – und halte trotzdem stand, wenn andere längst kapitulieren.'),
+ bdet:img('p2_detail.jpg',{cls:'sheen'}),
+ b29:fact(`${cnt(2.9,'dec')} KG`,'Titan'),
+ b2213:fact(`${cnt(2213,'int')}`,'gedruckte<br>Schichten'),
+ n490:nar('490 km/h zu erreichen ist die eine Hälfte der Geschichte. Aus 490 km/h wieder herunterzukommen – diese hier.',{size:'l'}),
+ bk:`<div class="layer txt"><div class="q">Ich kämpfe gegen Masse und Hitze. Ich muss standhalten, ohne unnötig schwer zu werden.</div></div>`,
+ fire:img('p3_feuer.jpg',{cls:'fire',fx:'sparks',kb:false}),
+ chrear:vid('chiron_rear.mp4'),
+ bvon:`<div class="layer txt"><div class="h s">Von Höchst&shy;geschwindig&shy;keit zu Kontrolle.</div></div>`,
+ bz1:`<div class="layer txt"><div class="q">Ich zeige die andere Seite extremer Performance: Wie kommt ein Fahrzeug sicher wieder zum Stillstand?</div></div>`,
+ bz2:`<div class="layer txt"><div class="q">Zwischen Fahrdynamik, Sicherheit und Motorsport verbinde ich den Rekord mit der Herausforderung, Geschwindigkeit zu beherrschen.</div></div>`,
+ rad:img('p4_rad.jpg'),
+
+ // M5 Sicherheit
+ pccrash:vid('procon_crash.mp4',{chip:'Audi Procon-Ten · Crashtest'}),
+ pcmech:vid('procon_mech.mp4'),
+ pcq:quo('Audi Procon-Ten · 1985','Wenn es kracht, ziehe ich mich zurück – nicht aus Feigheit, sondern aus Kalkül. Meine Drahtseile spannen sich, und in dem Moment, in dem alles zu spät scheint, schaffe ich den entscheidenden Zentimeter Freiraum.'),
+ pcf:`<div class="layer txt"><div class="kick">Prinzip</div><div class="h s">Rein mechanisch.</div><div class="q" style="margin-top:18px">Der Motor wird beim Aufprall nach hinten gedrückt, ein Stahlseil zieht das Lenkrad vom Fahrer weg und strafft die Gurte.</div></div>`,
+ esvw:`<div class="layer txt"><div class="kick">Experimental Safety Volkswagen · 1972</div><div class="h xxl">ESVW 1</div><div class="rule"></div><div class="q l" style="max-width:1100px">„Ich bin nicht gebaut, um zu gefallen – ich bin gebaut, um zu bewahren. Jede meiner Beulen ist eine Antwort auf die Frage, was ein Körper aushält.“</div></div>`,
+ n6:nar('Dieselbe Physik, die im Motor Kraft erzeugt, muss hier wieder eingefangen werden.'),
+
+ // M6 Klammer
+ k1:img('a2.jpg',{chip:'Leichtbau'}),
+ k2:img('phonedial.jpg',{chip:'Kontaktpunkt'}),
+ k3:vid('magride.mp4',{chip:'Fahrwerk'}),
+ k4:img('p1_bremse.jpg',{cls:'contain',kb:false,chip:'Bremse'}),
+ k5:vid('procon_crash.mp4',{chip:'Sicherheitszelle'}),
+ kq:nar('Wie beherrscht man die Kräfte, die man selbst erzeugt?',{size:'s',kick:'Kapitel 2'}),
+ n7:nar('Leichtbau, Kontaktpunkt, Fahrwerk, Bremse, Sicherheitszelle – fünf Antworten auf eine Kraft, die das Kapitel zuvor selbst erzeugt hat.',{size:'l'}),
+};
+
+/* ---------- engine ----------
+   Jeder Beat = Folge von Schritten (choreo.js); in jedem Schritt bewegt sich jede Kachel nur auf
+   einer Achse. Danach steht der Inhalt so lange, wie man zum Lesen braucht. */
+const {MOMENTS,BEATS,SLOTS:NS,collapsed}=CHOREO;
+const SLOTS=[...Array(NS)].map((_,i)=>i);
+const STEP=850,GAP=60,REVEAL=900;
+const stage=document.getElementById('stage');
+const tiles={};
+const P0=Object.values(CHOREO.P);
+const hooks={beat:null,show:null,step:null};
+SLOTS.forEach(i=>{const t=document.createElement('div');t.className='tile';t._layers={};t._key=null;t._shownAt=0;stage.appendChild(t);tiles[i]=t});
+function initTiles(){SLOTS.forEach(i=>{const t=tiles[i];t._r=i<8?P0[i].slice():[COLS,ROWS,COLS,ROWS];place(t,t._r,true)})}
+
+function layerFor(t,key){
+  if(!t._layers[key]){const w=document.createElement('div');w.innerHTML=C[key];const l=w.firstElementChild;l.dataset.key=key;t.appendChild(l);t._layers[key]=l}
+  return t._layers[key];
+}
+const css=v=>parseFloat(getComputedStyle(document.documentElement).getPropertyValue(v));
+function place(t,r,instant){
+  const g=css('--gap'),p=css('--pad'),cw=(W-2*p-(COLS-1)*g)/COLS,ch=(H-2*p-(ROWS-1)*g)/ROWS;
+  const w=Math.max(0,(r[2]-r[0])*cw+(r[2]-r[0]-1)*g),h=Math.max(0,(r[3]-r[1])*ch+(r[3]-r[1]-1)*g);
+  if(instant)t.style.transition='none';
+  t.style.left=p+r[0]*(cw+g)+'px';t.style.top=p+r[1]*(ch+g)+'px';t.style.width=w+'px';t.style.height=h+'px';
+  t.classList.toggle('collapsed',w===0||h===0);
+  if(instant){t.offsetWidth;t.style.transition=''}
+}
+const relayout=()=>SLOTS.forEach(i=>place(tiles[i],tiles[i]._r));
+
+/* reading time: words of all newly revealed text */
+const words=key=>{const d=document.createElement('div');d.innerHTML=C[key]||'';return (d.textContent.trim().match(/\S+/g)||[]).length};
+BEATS.forEach(b=>{
+  const n=Object.values(b.c).reduce((s,k)=>s+(k.startsWith('s:')?0:words(k)),0);
+  b.holdS=b.hold??Math.min(11,Math.max(4.5,2.5+n/3)); // ~3 words per second, 4.5–11 s
+  b.revealAt=200+b.steps.length*(STEP+GAP);            // ms after beat start when new content appears
+});
+let TEMPO=1; // multiplies only the standing time, never the transitions
+const durOf=b=>b.revealAt+REVEAL+b.holdS*1000*TEMPO;
+
+let cur=-1,timers=[],timer=null,playing=true,beatStart=0;
+const later=(fn,ms)=>timers.push(setTimeout(fn,ms));
+
+function countUp(el,beat){
+  const to=parseFloat(el.dataset.count),fmt=el.dataset.fmt,t0=performance.now()+300,d=1600;
+  const f=v=>fmt==='dec'?v.toFixed(1).replace('.',','):fmt==='dec2'?v.toFixed(2).replace('.',','):Math.round(v).toLocaleString('de-DE');
+  (function step(now){const k=Math.min(1,Math.max(0,(now-t0)/d));el.textContent=f(to*(1-Math.pow(1-k,3)));if(k<1&&cur===beat)requestAnimationFrame(step)})(performance.now());
+}
+/* canvas effects */
+const FX={
+  sparks(cv,alive){const ctx=cv.getContext('2d');let ps=[];(function loop(){if(!alive())return;const w=cv.width=cv.clientWidth,h=cv.height=cv.clientHeight;
+    for(let i=0;i<6;i++)ps.push({x:w*(.42+Math.random()*.12),y:h*(.55+Math.random()*.2),vx:(Math.random()*2-.6)*9,vy:-Math.random()*9-2,l:1});
+    ctx.globalCompositeOperation='lighter';ps=ps.filter(p=>p.l>0);
+    for(const p of ps){p.x+=p.vx;p.y+=p.vy;p.vy+=.35;p.l-=.022;ctx.strokeStyle=`rgba(255,${150+Math.random()*80|0},40,${p.l})`;ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(p.x,p.y);ctx.lineTo(p.x-p.vx*1.6,p.y-p.vy*1.6);ctx.stroke()}
+    requestAnimationFrame(loop)})()},
+  airflow(cv,alive){const ctx=cv.getContext('2d');const t0=performance.now();(function loop(now){if(!alive())return;const w=cv.width=cv.clientWidth*2,h=cv.height=cv.clientHeight*2,t=(now-t0)/1000;
+    ctx.fillStyle='#151517';ctx.fillRect(0,0,w,h);
+    const base=h*.72,cx=w*.5,L=w*.62;
+    // simplified sports-car profile: hood, roof, fastback
+    const prof=x=>{const u=(x-(cx-L/2))/L;if(u<0||u>1)return 0;const hood=.10*Math.sin(Math.PI*Math.min(1,u/.35)*.5);const roof=.30*Math.exp(-Math.pow((u-.52)/.2,2));return h*Math.max(hood,roof)*.9+h*.06*Math.sin(Math.PI*u)};
+    ctx.beginPath();ctx.moveTo(cx-L/2,base);for(let x=cx-L/2;x<=cx+L/2;x+=4)ctx.lineTo(x,base-prof(x));ctx.lineTo(cx+L/2,base);ctx.closePath();ctx.fillStyle='#e9e9e9';ctx.fill();
+    ctx.lineWidth=3;
+    // streamlines hug the body near the surface and relax with distance
+    for(let i=0;i<14;i++){const off=h*.03+i*h*.04,decay=Math.exp(-off/(h*.32));ctx.beginPath();
+      for(let x=0;x<=w;x+=6)ctx.lineTo(x,base-off-prof(x)*decay);
+      ctx.setLineDash([60,40]);ctx.lineDashOffset=-t*260-i*23;ctx.strokeStyle=`rgba(120,200,255,${.8-i*.045})`;ctx.stroke()}
+    ctx.setLineDash([]);ctx.fillStyle='#f2f2f2';ctx.font=`600 ${h*.045}px Barlow`;ctx.fillText('PORSCHE 911 · WINDKANALMODELL',w*.05,h*.1);
+    ctx.font=`500 ${h*.035}px Barlow`;ctx.globalAlpha=.7;ctx.fillText('Grafik-Platzhalter – Modellfoto fehlt',w*.05,h*.16);ctx.globalAlpha=1;
+    requestAnimationFrame(loop)})(t0)},
+  discs(cv,alive){const ctx=cv.getContext('2d');const t0=performance.now();(function loop(now){if(!alive())return;const w=cv.width=cv.clientWidth*2,h=cv.height=cv.clientHeight*2,k=Math.min(1,(now-t0)/1400),e=1-Math.pow(1-k,3);
+    ctx.fillStyle='#151517';ctx.fillRect(0,0,w,h);
+    const disc=(cx,cy,r,label,sub,col)=>{ctx.lineWidth=r*.18;ctx.strokeStyle=col;ctx.beginPath();ctx.arc(cx,cy,r*.82,-Math.PI/2,-Math.PI/2+Math.PI*2*e);ctx.stroke();
+      ctx.lineWidth=4;ctx.strokeStyle='#666';ctx.beginPath();ctx.arc(cx,cy,r*.35,0,Math.PI*2);ctx.stroke();
+      ctx.fillStyle='#f2f2f2';ctx.textAlign='center';ctx.font=`700 ${h*.042}px Barlow`;ctx.fillText(label,cx,cy+r+h*.06);ctx.font=`500 ${h*.03}px Barlow`;ctx.globalAlpha=.7;ctx.fillText(sub,cx,cy+r+h*.1);ctx.globalAlpha=1};
+    disc(w*.5,h*.3,w*.3,'PSCB','Serie · Porsche','#d9d9d9');
+    disc(w*.5,h*.73,w*.12,'FORMEL E','bremst mit dem Motor','#ffb347');
+    requestAnimationFrame(loop)})(t0)},
+};
+
+function showContent(t,key,bi,instant){
+  const old=t._key?t._layers[t._key]:null;const l=layerFor(t,key);t._key=key;t._shownAt=performance.now()-(instant?1e4:0);
+  if(old&&old!==l){old.classList.remove('on');const v=old.querySelector('video');if(v)setTimeout(()=>v.pause(),600)}
+  t.appendChild(l); // newest layer on top so its wipe covers the old one
+  if(instant){l.style.transition='none';l.classList.add('on');l.offsetWidth;l.style.transition='';}
+  else{
+    l.querySelectorAll('img').forEach(im=>{im.style.animation='none';im.offsetWidth;im.style.animation=''});
+    l.classList.add('on');
+    l.querySelectorAll('[data-count]').forEach(el=>countUp(el,bi));
+    l.querySelectorAll('canvas.fx').forEach(cv=>FX[cv.dataset.fx]?.(cv,()=>t._key===key&&l.classList.contains('on')));
+  }
+  const v=l.querySelector('video');if(v){if(!instant)v.currentTime=0;v.play().catch(()=>{})}
+  hooks.show?.(t,key,instant);
+}
+
+function go(bi){
+  timers.forEach(clearTimeout);timers=[];clearTimeout(timer);
+  cur=bi;const B=BEATS[bi];
+  const changed=Object.entries(B.c).filter(([id,k])=>tiles[id]._key!==k).map(([id])=>+id);
+  // old text leaves before the move; old images stay in their frames while the grid moves
+  changed.forEach(id=>{const t=tiles[id];if(t._key){const l=t._layers[t._key];if(!l.classList.contains('media-l')){l.classList.remove('on');t._fading=true}}});
+  let at=200;
+  B.steps.forEach(st=>{
+    later(()=>{const moves=[];st.forEach(x=>{const t=tiles[x.id];
+      if(x.f&&collapsed(t._r)){t._r=x.f.slice();place(t,t._r,true)} // park at entry edge, invisible
+      moves.push({id:x.id,from:t._r.slice(),to:x.r.slice()});
+      t._r=x.r.slice();place(t,t._r)});
+      hooks.step?.(moves,STEP)},at);
+    at+=STEP+GAP;
+  });
+  later(()=>changed.forEach((id,n)=>setTimeout(()=>{tiles[id]._fading=false;showContent(tiles[id],B.c[id],bi)},n*110)),at);
+  beatStart=performance.now();
+  hooks.beat?.(B,bi);
+  if(playing)timer=setTimeout(next,durOf(B));
+}
+// browsers occasionally pause a freshly revealed clip; keep every visible clip running
+setInterval(()=>document.querySelectorAll('.layer.on video').forEach(v=>{if(v.paused)v.play().catch(()=>{})}),1000);
+// the last beat looks exactly like beat 0, so the loop re-syncs invisibly and continues with the title
+let range=null; // [first,last] beat – loops just this section when set
+function next(){
+  if(range){if(cur+1>range[1]||cur<range[0])jump(range[0]);else go(cur+1);return}
+  if(cur+1<BEATS.length)go(cur+1);else{resetToStart();go(1)}}
+function setRange(r){range=r}
+function resetToStart(){timers.forEach(clearTimeout);initTiles();SLOTS.forEach(i=>{const t=tiles[i];t._fading=false;const k=BEATS[0].c[i];if(k)showContent(t,k,0,true);else{if(t._key)t._layers[t._key].classList.remove('on');t._key=null}})}
+// jumping: rebuild the exact grid state before beat bi without animation, then play bi
+function jump(bi){
+  bi=Math.max(0,Math.min(BEATS.length-1,bi));
+  resetToStart();
+  for(let k=1;k<bi;k++){BEATS[k].steps.forEach(st=>st.forEach(x=>{tiles[x.id]._r=x.r.slice();place(tiles[x.id],x.r,true)}));
+    Object.entries(BEATS[k].c).forEach(([id,key])=>{if(tiles[id]._key!==key)showContent(tiles[id],key,k,true)})}
+  go(bi);
+}
+function setPlaying(p){playing=p;if(playing)go(cur);else clearTimeout(timer)}
+function setTempo(t){TEMPO=t}
+const totalSec=()=>Math.round(BEATS.reduce((s,b)=>s+durOf(b),0)/1000);
+function start(){initTiles();resetToStart();setTimeout(()=>go(0),300)}
+
+return {W,H,COLS,ROWS,STEP,C,BEATS,MOMENTS,SLOTS,tiles,hooks,start,go,next,jump,relayout,setPlaying,setTempo,setRange,durOf,totalSec,collapsed,
+  get range(){return range},
+  get cur(){return cur},get playing(){return playing},get beatStart(){return beatStart},get tempo(){return TEMPO}};
+})();
+
+</script>
+<script>
+/* ================= Wand ================= */
+const CW=240,CH=180;                          // eine Zelle = 80 × 60 cm, gleiche Pixel wie im Film
+const WW=WAND.COLS*CW,WH=WAND.ROWS*CH;
+const wall=document.getElementById('wall');
+const {objs,warn}=WAND.layout();
+const el=(cls,css,html='')=>{const d=document.createElement('div');d.className=cls;Object.assign(d.style,css);d.innerHTML=html;wall.appendChild(d);return d};
+// top / bottom row: no compartments any more – drawn as wall, never lit individually
+[0,WAND.ROWS-1].forEach(y=>{const s=el('strip',{top:y*CH+'px'});
+  Object.entries(WAND.WALLS).forEach(([n,w])=>{const t=document.createElement('span');t.style.left=(w.off*CW+30)+'px';t.textContent=(y===0?'Wand '+n+' · ':'')+'keine Fächer';s.appendChild(t)})});
+// field cells (rows 1–5) except media and door
+const inRect=(x,y,r)=>x>=r.c0&&x<=r.c1&&y>=r.y0&&y<=r.y1;
+for(let y=WAND.FIELD_ROWS[0];y<=WAND.FIELD_ROWS[1];y++)for(let x=0;x<WAND.COLS;x++)
+  if(!inRect(x,y,WAND.MEDIA)&&!inRect(x,y,WAND.DOOR))el('cell',{left:x*CW+'px',top:y*CH+'px'});
+const D=WAND.DOOR;el('door',{left:D.c0*CW+'px',top:D.y0*CH+'px',width:(D.c1-D.c0+1)*CW+'px',height:(D.y1-D.y0+1)*CH+'px'},'<span>FLUCHTWEGTÜR</span>');
+Object.values(WAND.WALLS).forEach(w=>{if(w.off)el('wallsep',{left:(w.off*CW-2)+'px'})});
+
+// exhibits
+const EX={};                                  // Fach-ID → {el, light, level}
+objs.forEach(o=>{if(!o.rect)return;const r=o.rect;
+  const d=el('ex'+(o.story.includes('2')?' k2':''),{left:r.x*CW+'px',top:r.y*CH+'px',width:r.w*CW+'px',height:r.h*CH+'px'},
+    `<div class="body"><div class="pic" style="background-image:url('${(window.ASSETS&&window.ASSETS['exponate/'+o.id+'.jpg'])||'assets/exponate/'+o.id+'.jpg'}')"></div><div class="lit"></div><div class="bar" style="background:${o.color}"></div><div class="nm">${o.name}</div><div class="id">${o.id}</div></div>`);
+  d.title=`${o.name} · ${o.id} · ${o.cluster}`;
+  EX[o.id]={o,d,pic:d.querySelector('.pic'),lit:d.querySelector('.lit'),nm:d.querySelector('.nm'),level:0,target:0};
+});
+
+/* ================= Licht = Film =================
+   Jede Kachel, die ein Exponat zeigt, schaltet dessen Fach. Helligkeit = Gewicht × Kachelgröße × Einblendung.
+   Klappt eine Kachel weg, verlischt das Licht mit ihr; ein Vollbild setzt einen kurzen Lichtimpuls. */
+const K2=['A-A-6','A-C-2','A-D-2','A-A-2','B-E-5','B-B-5','C-A-6','C-A-4','C-A-5','C-D-4','C-C-5','A-G-6'];
+const one=(id,w=1)=>[[id,w]],all=w=>K2.map(id=>[id,w]);
+const LIGHT={
+ 's:a2':one('A-A-6',.16),'s:pd':one('A-A-2',.16),'s:pscb':one('C-A-6',.16),'s:procon':one('C-C-5',.16),
+ 's:det':one('A-C-2',.16),'s:tt':one('A-D-2',.16),'s:mr':one('B-E-5',.16),'s:bremse':one('C-A-5',.16),
+ title:all(.22),
+ a2:one('A-A-6'),a2lab:one('A-A-6'),a2q:one('A-A-6'),
+ det:one('A-C-2'),detlab:one('A-C-2'),detq:one('A-C-2'),tt:one('A-D-2'),ttq:one('A-D-2'),pd:one('A-A-2'),pdq:one('A-A-2'),
+ n2:[['A-C-2',.45],['A-D-2',.45],['A-A-2',.45]],
+ mrimg:one('B-E-5'),mrvid:one('B-E-5'),mrq:one('B-E-5'),mrf:one('B-E-5'),
+ air:one('B-B-5'),airq:one('B-B-5'),airf:one('B-B-5'),n3:one('B-B-5',.6),
+ pscb:one('C-A-6'),pscbq:one('C-A-6'),pscbf:one('C-A-6'),discs:[['C-A-4',1],['C-A-6',.6]],feq:one('C-A-4'),n4:[['C-A-6',.5],['C-A-4',.5]],
+ chpass:one('C-D-4'),f490:one('C-D-4'),n5:[['C-D-4',.5],['C-A-5',.5]],
+ bremse:one('C-A-5'),btitle:one('C-A-5'),bq:one('C-A-5'),bdet:one('C-A-5'),b29:one('C-A-5'),b2213:one('C-A-5'),
+ n490:one('C-A-5'),bk:one('C-A-5'),fire:one('C-A-5'),bvon:one('C-A-5'),bz1:one('C-A-5'),bz2:one('C-A-5'),rad:one('C-A-5'),chrear:one('C-D-4',.7),
+ pccrash:one('C-C-5'),pcmech:one('C-C-5'),pcq:one('C-C-5'),pcf:one('C-C-5'),esvw:one('A-G-6'),n6:[['C-C-5',.6],['A-G-6',.6]],
+ k1:one('A-A-6'),k2:[['A-A-2',1],['A-C-2',.7],['A-D-2',.7]],k3:[['B-E-5',1],['B-B-5',.7]],k4:[['C-A-5',1],['C-A-6',.7],['C-A-4',.7]],k5:[['C-C-5',1],['A-G-6',.7]],
+ n7:all(.9),
+};
+const missing=Object.values(LIGHT).flat().map(x=>x[0]).filter(id=>!EX[id]);
+if(missing.length)console.warn('Licht-Zuordnung ohne Fach:',[...new Set(missing)]);
+
+const BR={out:1400,dwell:1700,back:1400,delay:1500};
+const ease=t=>t<.5?2*t*t:1-Math.pow(-2*t+2,2)/2;
+
+// target light per Fach at time `now`, derived only from what the film shows (plus the light bridge)
+function targets(now){
+  const tgt={};
+  FILM.SLOTS.forEach(i=>{const t=FILM.tiles[i];if(!t._key||t._fading)return;const L=LIGHT[t._key];if(!L)return;
+    const cells=t.offsetWidth*t.offsetHeight/(CW*CH);if(cells<.02)return;
+    const size=Math.sqrt(Math.min(1,cells/6)),age=(now-t._shownAt)/1000,ramp=Math.min(1,Math.max(0,age/.7));
+    for(const [id,w] of L){let v=w*size*ramp;if(w>=1&&cells>=30&&age<1.8)v+=.45*(1-age/1.8);tgt[id]=Math.max(tgt[id]||0,v)}});
+  // light bridge: the referenced object in another chapter lights up for a moment (no travelling spot)
+  const B=FILM.BEATS[FILM.cur];
+  if(B&&B.bridge&&EX[B.bridge.to]){
+    const t=now-FILM.beatStart-B.revealAt-BR.delay,T=BR.out+BR.dwell+BR.back;
+    if(t>=0&&t<T&&!B._routed){B._routed=true;route(B.bridge.to,B.bridge.from)}
+    if(t>=0&&t<T){const k=t<BR.out?ease(t/BR.out):t<BR.out+BR.dwell?1:1-ease((t-BR.out-BR.dwell)/BR.back);tgt[B.bridge.to]=Math.max(tgt[B.bridge.to]||0,k)}
+  }
+  return {tgt};
+}
+let lastT=performance.now(),PICS=false;
+function lights(now){
+  const dt=Math.min(.05,(now-lastT)/1000);lastT=now;
+  const {tgt}=targets(now);
+  for(const id in EX){const e=EX[id],T=now<(e.holdUntil||0)?0:(tgt[id]||0);e.level+=(T-e.level)*Math.min(1,dt*(T>e.level?7:2.6));
+    const v=e.level;e.lit.style.opacity=Math.min(1,v);
+    if(PICS){const b=(.28+.72*Math.min(1,v)).toFixed(3);if(e.pb!==b){e.pic.style.opacity=b;e.pb=b}}
+    else e.nm.style.color=v>.35?'#2a1f12':'';}
+  sweepFrame(now);
+  litInfo();
+  requestAnimationFrame(lights);
+}
+
+/* ================= Bewegungslicht =================
+   Jede Kachelbewegung in der Medienfläche läuft in die Fächer daneben weiter – als volle Flächen, exakt im Raster:
+   · seitwärts: die Front tritt auf der Seite der Bewegung aus der Medienfläche und füllt Fach für Fach in denselben Reihen
+   · auf/ab:    links und rechts der Medienfläche füllen sich die Fächer in der Höhe, die die Kante gerade überstreicht
+   Jedes Fach blendet weich ein und aus, mit leicht zufälliger Deckkraft; keine Glows, keine weichen Felder. */
+const MO={x:WAND.MEDIA.c0,y:WAND.MEDIA.y0,w:WAND.MEDIA.c1-WAND.MEDIA.c0+1,h:WAND.MEDIA.y1-WAND.MEDIA.y0+1};
+const SW={amp:.85,randMin:.35,gain:1.8,reach:7,lateral:3,side:3,rise:180,hold:140,fall:650};
+const sweepLayer=document.getElementById('sweep'),SWC=[];
+for(let y=WAND.FIELD_ROWS[0];y<=WAND.FIELD_ROWS[1];y++)for(let x=0;x<WAND.COLS;x++){
+  if(inRect(x,y,WAND.MEDIA)||inRect(x,y,WAND.DOOR))continue;
+  const d=document.createElement('div');d.style.left=x*CW+'px';d.style.top=y*CH+'px';sweepLayer.appendChild(d);SWC.push({x,y,d,v:0})}
+// same easing as the tiles: cubic-bezier(.77,0,.18,1)
+const bez=(()=>{const x1=.77,y1=0,x2=.18,y2=1,B=(t,a,b)=>3*a*t*(1-t)*(1-t)+3*b*t*t*(1-t)+t*t*t;
+  return u=>{let t=u;for(let i=0;i<8;i++){const x=B(t,x1,x2)-u,dx=3*x1*(1-t)*(1-t)+6*(x2-x1)*t*(1-t)+3*(1-x2)*t*t;if(Math.abs(dx)<1e-6)break;t-=x/dx;t=Math.min(1,Math.max(0,t))}return B(t,y1,y2)}})();
+// moment u∈[0,1] at which the eased motion has covered fraction f
+const when=f=>{let lo=0,hi=1;for(let i=0;i<22;i++){const m=(lo+hi)/2;if(bez(m)<f)lo=m;else hi=m}return(lo+hi)/2};
+const rnd=()=>SW.randMin+(1-SW.randMin)*Math.random();
+let waves=[];
+// every moving edge becomes a list of hits: which compartment fills, when, and how strongly
+FILM.hooks.step=(moves,dur)=>{
+  const now=performance.now(),seen=new Set();
+  for(const {from,to} of moves){
+    if(FILM.collapsed(from)&&FILM.collapsed(to))continue;           // invisible parking
+    for(const [axis,i0,i1,p0,p1] of [['x',0,2,1,3],['y',1,3,0,2]])
+      for(const i of [i0,i1]){if(from[i]===to[i])continue;
+        const a=from[i],b=to[i],span=[from[p0],from[p1]];if(span[1]-span[0]<=0)continue;
+        const key=[axis,a,b,span].join();if(seen.has(key))continue;seen.add(key);
+        const hits=[],dist=Math.abs(b-a),dir=Math.sign(b-a);
+        SWC.forEach((c,ci)=>{const cx=c.x+.5,cy=c.y+.5;
+          if(axis==='x'){                         // front leaves the media on the side of the motion
+            const D=dir>0?cx-(MO.x+MO.w):MO.x-cx,row=cy-MO.y;
+            if(D<0||D>dist*SW.gain||row<span[0]||row>span[1])return;
+            hits.push({ci,at:when(D/(dist*SW.gain))*dur,amp:SW.amp*rnd()*Math.exp(-D/SW.reach)});
+          }else{                                  // band at the height of the moving edge, both sides
+            const row=cy-MO.y,left=cx<MO.x,dx=left?MO.x-cx:cx-(MO.x+MO.w);
+            if(dx<0||dx>SW.lateral||(row-a)*(row-b)>0)return;
+            const side=Math.exp(-(left?span[0]:MO.w-span[1])/SW.side);
+            hits.push({ci,at:when(Math.abs(row-a)/dist)*dur,amp:SW.amp*rnd()*Math.exp(-dx/SW.lateral)*side});
+          }});
+        if(hits.length)waves.push({t0:now,hits});
+      }}
+};
+/* Weg zum Highlight: kommt ein Exponat neu ins Licht, läuft die Füllung Fach für Fach von der Medienfläche
+   (bzw. bei einer Lichtbrücke vom Ausgangsexponat) in seinen Reihen bis dorthin – das Fach selbst geht erst bei Ankunft an. */
+const ROUTE={cellMs:60,ampMin:.6,settle:120};
+const SWI={};SWC.forEach((c,i)=>SWI[c.x+','+c.y]=i);
+function route(id,originId){
+  const e=EX[id];if(!e)return;const now=performance.now();
+  if(e.level>.4||(e.routeAt&&now-e.routeAt<3000))return;           // already lit or already on its way
+  const r=e.o.rect,o=originId&&EX[originId]?EX[originId].o.rect:{x:MO.x,y:MO.y,w:MO.w,h:MO.h};
+  let cols=[];
+  if(r.x+r.w<=o.x)for(let x=o.x-1;x>=r.x+r.w;x--)cols.push(x);       // target lies left of the origin
+  else if(r.x>=o.x+o.w)for(let x=o.x+o.w;x<r.x;x++)cols.push(x);     // … or right of it
+  const hits=[];cols.forEach((x,k)=>{for(let y=r.y;y<r.y+r.h;y++){const ci=SWI[x+','+y];
+    if(ci!==undefined)hits.push({ci,at:k*ROUTE.cellMs,amp:ROUTE.ampMin+(1-ROUTE.ampMin)*Math.random()})}});
+  if(hits.length)waves.push({t0:now,hits});
+  e.routeAt=now;e.holdUntil=now+cols.length*ROUTE.cellMs+ROUTE.settle;
+}
+FILM.hooks.show=(t,key,instant)=>{if(instant||key.startsWith('s:'))return;
+  for(const [id,w] of LIGHT[key]||[])if(w>=.6)route(id)};
+const smooth=t=>t<=0?0:t>=1?1:t*t*(3-2*t);
+function sweepFrame(now){
+  const life=SW.rise+SW.hold+SW.fall;
+  waves=waves.filter(w=>w.hits.some(h=>now-w.t0-h.at<life));
+  for(const c of SWC)c.v=0;
+  for(const w of waves)for(const h of w.hits){const t=now-w.t0-h.at;if(t<0||t>=life)continue;
+    const e=t<SW.rise?smooth(t/SW.rise):t<SW.rise+SW.hold?1:1-smooth((t-SW.rise-SW.hold)/SW.fall);
+    const c=SWC[h.ci];c.v=Math.max(c.v,h.amp*e)}            // overlapping waves never add up: the stronger one wins
+  for(const c of SWC){const v=Math.min(1,c.v);if(Math.abs(v-(c.o||0))>.004){c.d.style.opacity=v.toFixed(3);c.o=v}}
+}
+
+/* ================= Kamera: Medienfläche ↔ ganze Wand ================= */
+const view=document.getElementById('view'),world=document.getElementById('world'),zoomEl=document.getElementById('zoom');
+const M=WAND.MEDIA,MED={x:M.c0*CW,y:M.y0*CH,w:(M.c1-M.c0+1)*CW,h:(M.y1-M.y0+1)*CH};
+let zT=0,zC=0;
+function camera(){
+  const vw=view.clientWidth,vh=view.clientHeight,pad=24;
+  const s0=Math.min((vw-2*pad)/MED.w,(vh-2*pad)/MED.h),s1=Math.min((vw-2*pad)/WW,(vh-2*pad)/WH);
+  const s=s0*Math.pow(s1/s0,zC);
+  const k=(s0/s-1)/(s0/s1-1||1);               // 0 at media, 1 at full wall – linear in visible width
+  const cx=(MED.x+MED.w/2)+((WW/2)-(MED.x+MED.w/2))*k,cy=(MED.y+MED.h/2)+((WH/2)-(MED.y+MED.h/2))*k;
+  world.style.transform=`translate(${vw/2-cx*s}px,${vh/2-cy*s}px) scale(${s})`;
+}
+(function camLoop(){zC+=(zT-zC)*.12;if(Math.abs(zT-zC)<1e-4)zC=zT;camera();requestAnimationFrame(camLoop)})();
+const setZoom=z=>{zT=Math.max(0,Math.min(1,z));zoomEl.value=zT};
+zoomEl.oninput=e=>{zT=+e.target.value};
+document.getElementById('zMedia').onclick=()=>setZoom(0);
+document.getElementById('zWall').onclick=()=>setZoom(1);
+view.addEventListener('wheel',e=>{e.preventDefault();setZoom(zT+e.deltaY*.0012)},{passive:false});
+addEventListener('resize',camera);
+
+/* ================= HUD ================= */
+const {BEATS,MOMENTS}=FILM;
+let infoHead='';
+function info(B){
+  FILM.BEATS.forEach(b=>b._routed=false);
+  const inM=BEATS.filter(b=>b.m===B.m),k=inM.indexOf(B)+1;
+  infoHead=`<b>${MOMENTS[B.m]}</b> · Schritt ${k}/${inM.length} — ${B.t} · Register: ${B.reg}${B.warn?` · <span class="warn">⚠ ${B.warn}</span>`:''}`;
+  document.querySelectorAll('[data-m]').forEach(b=>b.classList.toggle('on',+b.dataset.m===B.m));
+}
+FILM.hooks.beat=info;
+let lastLit='';
+function litInfo(){
+  const on=Object.values(EX).filter(e=>e.level>.5).sort((a,b)=>b.level-a.level).map(e=>`${e.o.id} ${e.o.name.replace(/\s*\(.*\)/,'')}`);
+  const s=infoHead+`<br><span class="lit">Licht: ${on.length?on.join(' · '):'Grundlicht'}</span>`;
+  if(s!==lastLit){document.getElementById('info').innerHTML=s;lastLit=s}
+}
+const mBox=document.getElementById('moments');
+MOMENTS.forEach((m,i)=>{const b=document.createElement('button');b.dataset.m=i;b.textContent=i?'M'+i:'Intro';b.title=m;b.onclick=()=>FILM.jump(BEATS.findIndex(x=>x.m===i));mBox.appendChild(b)});
+(function bar(){const B=BEATS[FILM.cur];if(B&&FILM.playing){const k=Math.min(1,(performance.now()-FILM.beatStart)/FILM.durOf(B));document.getElementById('bar').style.width=((FILM.cur+k)/BEATS.length*100)+'%'}requestAnimationFrame(bar)})();
+function total(){const sec=FILM.totalSec();document.getElementById('tempo').title='Kapitel-Länge ≈ '+Math.floor(sec/60)+':'+String(sec%60).padStart(2,'0')+' min'}
+document.getElementById('play').onclick=e=>{FILM.setPlaying(!FILM.playing);e.target.textContent=FILM.playing?'Pause':'Play'};
+document.getElementById('prev').onclick=()=>FILM.jump(FILM.cur-1);
+document.getElementById('next').onclick=()=>FILM.next();
+document.getElementById('tempo').onclick=e=>{const T=[0.75,1,1.25,1.5];FILM.setTempo(T[(T.indexOf(FILM.tempo)+1)%T.length]);e.target.textContent='Standzeit ×'+String(FILM.tempo).replace('.',',');total()};
+document.getElementById('pics').onclick=e=>{PICS=document.body.classList.toggle('pics');e.target.classList.toggle('on',PICS);if(PICS)Object.values(EX).forEach(x=>{x.pb=null;x.nm.style.color=''})};
+addEventListener('keydown',e=>{if(e.key==='i')document.getElementById('pics').click()});
+document.getElementById('labels').onclick=e=>{e.target.classList.toggle('on',!document.body.classList.toggle('nolabels'))};
+document.getElementById('fs').onclick=()=>{document.body.classList.add('clean');document.documentElement.requestFullscreen?.();setTimeout(camera,60)};
+document.addEventListener('fullscreenchange',()=>{if(!document.fullscreenElement)document.body.classList.remove('clean');setTimeout(camera,60)});
+document.getElementById('inv').onclick=e=>{e.target.classList.toggle('on',document.body.classList.toggle('inv'))};
+addEventListener('keydown',e=>{if(e.key==='n')document.getElementById('inv').click()});
+addEventListener('keydown',e=>{if(e.key===' '){e.preventDefault();document.getElementById('play').click()}if(e.key==='ArrowRight')FILM.next();if(e.key==='ArrowLeft')FILM.jump(FILM.cur-1);
+  if(e.key>='0'&&e.key<='6')FILM.jump(BEATS.findIndex(x=>x.m===+e.key));if(e.key==='+')setZoom(zT-.1);if(e.key==='-')setZoom(zT+.1);
+  if(e.key==='h'){document.body.classList.toggle('clean');setTimeout(camera,60)}});
+if(warn.length)console.warn('Wand-Layout:',warn);
+const M2=[FILM.BEATS.findIndex(b=>b.m===2),FILM.BEATS.map(b=>b.m).lastIndexOf(2)];
+document.getElementById('section').onclick=e=>{const on=!FILM.range;FILM.setRange(on?M2:null);e.target.classList.toggle('on',on);
+  e.target.textContent=on?'Testschleife M2':'Ganzes Kapitel';if(on)FILM.jump(M2[0])};
+total();FILM.setRange(M2);FILM.start();setTimeout(()=>FILM.jump(M2[0]),350);requestAnimationFrame(lights);
+</script>
+</body>
+</html>

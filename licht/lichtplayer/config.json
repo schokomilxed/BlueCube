@@ -1,0 +1,16 @@
+{
+  "loop_s": 272.153,
+  "fps": 40,
+  "protocol": "artnet",
+  "artnet": { "target": "255.255.255.255", "port": 6454 },
+  "sacn":   { "target": "multicast", "port": 5568, "priority": 100, "source": "Blauer Kubus" },
+  "gamma": 1.0,
+  "light_offset_ms": 0,
+  "video": {
+    "launch": false,
+    "command": ["mpv", "--fs", "--loop-file=inf", "--no-osc", "--input-ipc-server=/tmp/mpvsocket", "blauer_kubus_loop.mp4"],
+    "ipc": "",
+    "resync_s": 2.0,
+    "max_drift_ms": 40
+  }
+}
