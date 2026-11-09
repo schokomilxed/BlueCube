@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Kapitel 2 Fahrdynamik</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,400;0,500;0,600;0,700;1,500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="film.css">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;background:var(--bg);color:#eee;font-family:Barlow,"DIN Next","Helvetica Neue",Arial,sans-serif;overflow:hidden}
+#wrap{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px}
+#viewport{position:relative}
+#ui{display:flex;flex-wrap:wrap;justify-content:center;gap:6px;align-items:center;font-size:13px;color:#aaa;max-width:calc(100vw - 32px)}
+#ui button{background:#2a2a2e;color:#ddd;border:1px solid #3a3a3f;border-radius:6px;padding:6px 11px;font:inherit;cursor:pointer;white-space:nowrap}
+#ui button.on{background:#6b2a8c;border-color:#8a3fb0;color:#fff}
+#info{font-size:13px;color:#aaa;text-align:center;max-width:calc(100vw - 32px);line-height:1.5;min-height:40px}
+#info b{color:#c79be0;font-weight:600}
+#info .spot{color:#ffd166}
+#info .warn{color:#ff8a65}
+#bar{position:absolute;left:0;bottom:-6px;height:3px;background:#8a3fb0;width:0}
+body.clean #ui,body.clean #bar,body.clean #info{display:none}
+</style>
+</head>
+<body>
+<div id="wrap">
+  <div id="viewport"><div id="stage"></div><div id="bar"></div></div>
+  <div id="info"></div>
+  <div id="ui">
+    <button id="play">Pause</button>
+    <button id="prev">◀</button><button id="next">▶</button>
+    <span id="moments"></span>
+    <button id="tempo">Standzeit ×1</button>
+    <button id="inv">Invertieren</button>
+      <button id="look">Look: Skizze</button>
+    <button id="fs">Vollbild</button>
+  </div>
+</div>
+
+<script src="choreo.js"></script>
+<script src="film.js"></script>
+<script>
+const {W,H,BEATS,MOMENTS}=FILM;
+const stage=document.getElementById('stage');
+
+function info(B){
+  const inM=BEATS.filter(b=>b.m===B.m),k=inM.indexOf(B)+1;
+  document.getElementById('info').innerHTML=`<b>${MOMENTS[B.m]}</b> · Schritt ${k}/${inM.length} — ${B.t}<br>Register: ${B.reg} · <span class="spot">Spot: ${B.spot}</span>${B.warn?` · <span class="warn">⚠ ${B.warn}</span>`:''}`;
+  document.querySelectorAll('[data-m]').forEach(b=>b.classList.toggle('on',+b.dataset.m===B.m));
+}
+FILM.hooks.beat=info;
+const mBox=document.getElementById('moments');
+MOMENTS.forEach((m,i)=>{const b=document.createElement('button');b.dataset.m=i;b.textContent=i?'M'+i:'Intro';b.title=m;b.onclick=()=>FILM.jump(BEATS.findIndex(x=>x.m===i));mBox.appendChild(b)});
+(function bar(){const B=BEATS[FILM.cur];if(B&&FILM.playing){const k=Math.min(1,(performance.now()-FILM.beatStart)/FILM.durOf(B));document.getElementById('bar').style.width=((FILM.cur+k)/BEATS.length*100)+'%'}requestAnimationFrame(bar)})();
+function fit(){const clean=document.body.classList.contains('clean');const s=Math.min((innerWidth-(clean?0:40))/W,(innerHeight-(clean?0:130))/H);stage.style.transform=`scale(${s})`;const vp=document.getElementById('viewport');vp.style.width=W*s+'px';vp.style.height=H*s+'px'}
+addEventListener('resize',fit);fit();
+function total(){const sec=FILM.totalSec();document.getElementById('tempo').title='Kapitel-Länge ≈ '+Math.floor(sec/60)+':'+String(sec%60).padStart(2,'0')+' min'}
+document.getElementById('play').onclick=e=>{FILM.setPlaying(!FILM.playing);e.target.textContent=FILM.playing?'Pause':'Play'};
+document.getElementById('prev').onclick=()=>FILM.jump(FILM.cur-1);
+document.getElementById('next').onclick=()=>FILM.next();
+document.getElementById('tempo').onclick=e=>{const T=[0.75,1,1.25,1.5];FILM.setTempo(T[(T.indexOf(FILM.tempo)+1)%T.length]);e.target.textContent='Standzeit ×'+String(FILM.tempo).replace('.',',');total()};
+document.getElementById('look').onclick=e=>{const on=document.body.classList.toggle('bento');const r=document.documentElement.style;
+  r.setProperty('--gap',on?'16px':'2px');r.setProperty('--radius',on?'22px':'0px');r.setProperty('--pad',on?'16px':'0px');
+  e.target.textContent='Look: '+(on?'Bento':'Skizze');FILM.relayout()};
+document.getElementById('fs').onclick=()=>{document.body.classList.add('clean');document.documentElement.requestFullscreen?.();fit()};
+document.addEventListener('fullscreenchange',()=>{if(!document.fullscreenElement)document.body.classList.remove('clean');setTimeout(fit,50)});
+document.getElementById('inv').onclick=e=>{e.target.classList.toggle('on',document.body.classList.toggle('inv'))};
+addEventListener('keydown',e=>{if(e.key==='n')document.getElementById('inv').click()});
+addEventListener('keydown',e=>{if(e.key===' '){e.preventDefault();document.getElementById('play').click()}if(e.key==='ArrowRight')document.getElementById('next').click();if(e.key==='ArrowLeft')document.getElementById('prev').click();
+  if(e.key>='0'&&e.key<='6')FILM.jump(BEATS.findIndex(x=>x.m===+e.key));if(e.key==='b')document.getElementById('look').click();if(e.key==='h'){document.body.classList.toggle('clean');fit()}});
+total();FILM.start();
+</script>
+</body>
+</html>

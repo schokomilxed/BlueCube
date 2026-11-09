@@ -1,0 +1,75 @@
+/* Bento-Film · gemeinsame Stile für Film- und Wand-Vorschau */
+:root{
+  --bg:#1b1b1d; --tile-a:#f4f4f4; --tile-b:#dedede; --ink:#141414; --line:#c9c9c9; --dark:#151517;
+  --ease:cubic-bezier(.77,0,.18,1); --step:.85s;
+  --gap:2px; --radius:0px; --pad:0px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+#stage{position:absolute;left:0;top:0;width:1680px;height:900px;transform-origin:0 0;background:var(--line);overflow:hidden}
+body.bento #stage{background:#d6d6d6}
+
+.tile{position:absolute;overflow:hidden;border-radius:var(--radius);
+  background:radial-gradient(120% 120% at 30% 25%,var(--tile-a),var(--tile-b));
+  transition:left var(--step) var(--ease),top var(--step) var(--ease),width var(--step) var(--ease),height var(--step) var(--ease),border-radius .6s ease;
+  will-change:left,top,width,height}
+body.bento .tile{box-shadow:0 10px 30px rgba(0,0,0,.12)}
+body.bento .tile.collapsed{box-shadow:none}
+
+.layer{position:absolute;inset:0;opacity:0;transition:opacity .35s ease}
+.layer.on{opacity:1;transition:opacity .5s ease}
+/* media enters with an axis-aligned wipe, never a diagonal scale */
+.layer.media-l{opacity:1;clip-path:inset(0 100% 0 0);transition:clip-path .35s ease}
+.layer.media-l.on{clip-path:inset(0 0 0 0);transition:clip-path .9s var(--ease)}
+.layer.dark{background:var(--dark);color:#f2f2f2}
+
+/* text blocks: children rise in one after another */
+.layer.txt{padding:46px 44px;display:flex;flex-direction:column;justify-content:center;color:var(--ink)}
+.layer.txt.dark{color:#f2f2f2}
+.layer.txt.top{justify-content:flex-start}
+.layer.txt.bot{justify-content:flex-end}
+.layer.txt>*{opacity:0;transform:translateY(28px);transition:opacity .4s ease,transform .4s ease}
+.layer.txt.on>*{opacity:1;transform:none;transition:opacity .7s ease,transform .9s var(--ease)}
+.layer.txt.on>*:nth-child(2){transition-delay:.12s}
+.layer.txt.on>*:nth-child(3){transition-delay:.24s}
+.layer.txt.on>*:nth-child(4){transition-delay:.36s}
+
+.kick{font-weight:600;font-size:20px;letter-spacing:.12em;text-transform:uppercase;opacity:.6;margin-bottom:18px}
+.h{font-weight:700;letter-spacing:.01em;line-height:1.06;text-transform:uppercase}
+.h.xxl{font-size:150px;line-height:.95}
+.h.xl{font-size:96px}
+.h.l{font-size:64px}
+.h.m{font-size:46px}
+.h.s{font-size:36px}
+.meta{font-weight:600;font-size:24px;text-transform:uppercase;margin-top:20px;line-height:1.25}
+.q{font-weight:500;font-size:26px;line-height:1.38}
+.q.l{font-size:32px}
+.n{font-weight:500;font-style:italic;font-size:38px;line-height:1.25}
+.n.l{font-size:58px;line-height:1.18}
+.n.s{font-size:30px}
+.num{font-weight:700;font-size:110px;line-height:1;letter-spacing:-.01em}
+.num.s{font-size:84px}
+.unit{font-weight:600;font-size:26px;text-transform:uppercase;margin-top:14px;line-height:1.2}
+.rule{width:56px;height:4px;background:currentColor;margin:22px 0}
+
+/* media */
+.media{position:absolute;inset:0;overflow:hidden;background:#000}
+.media img,.media video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transform:scale(1.02)}
+.media.contain img{object-fit:contain}
+.media.white{background:#fff}
+.layer.on .media.kb img{animation:kb 10s ease-out forwards}
+@keyframes kb{from{transform:scale(1.02)}to{transform:scale(1.1)}}
+.media .chip{position:absolute;left:28px;bottom:26px;background:#f4f4f4;color:#141414;font-weight:700;font-size:22px;letter-spacing:.06em;text-transform:uppercase;padding:9px 14px}
+.sil .media{background:#111}
+.sil .media img{filter:grayscale(1) contrast(1.15) brightness(.42)}
+.sheen::after{content:"";position:absolute;inset:-20%;background:linear-gradient(105deg,transparent 40%,rgba(255,255,255,.38) 50%,transparent 60%);transform:translateX(-120%)}
+.layer.on .sheen::after{animation:sheen 2.4s ease-in-out 1.4s forwards}
+@keyframes sheen{to{transform:translateX(120%)}}
+.fire::after{content:"";position:absolute;inset:0;mix-blend-mode:screen;background:radial-gradient(60% 80% at 45% 70%,rgba(255,140,20,.55),transparent 70%);opacity:0}
+.layer.on .fire::after{animation:flick 1.3s steps(1) infinite}
+@keyframes flick{0%{opacity:.25}13%{opacity:.6}27%{opacity:.3}41%{opacity:.75}55%{opacity:.4}69%{opacity:.65}83%{opacity:.2}}
+canvas.fx{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+
+/* Invertieren: weiße Textfelder werden dunkel mit heller Schrift; die Erzählerin-Felder tauschen ins Helle, damit die Register unterscheidbar bleiben */
+body.inv{--tile-a:#202227;--tile-b:#141518;--ink:#eef0f3;--line:#2c2f36;--dark:#ececee}
+body.inv .layer.txt.dark{color:#141414}
+body.inv .media .chip{background:#141518;color:#eef0f3}

@@ -1,0 +1,244 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Living Grid Bremse</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#1b1b1d; --tile-a:#f4f4f4; --tile-b:#dedede; --ink:#141414; --line:#c9c9c9;
+  --accent:#6b2a8c; --ease:cubic-bezier(.77,0,.18,1);
+  --gap:2px; --radius:0px; --pad:0px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;background:var(--bg);color:#eee;font-family:Barlow,"DIN Next","Helvetica Neue",Arial,sans-serif;overflow:hidden}
+#wrap{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px}
+#viewport{position:relative}
+#stage{position:absolute;left:0;top:0;width:1440px;height:1080px;transform-origin:0 0;background:var(--line);overflow:hidden}
+body.bento #stage{background:#d6d6d6}
+
+.tile{position:absolute;overflow:hidden;border-radius:var(--radius);
+  background:radial-gradient(120% 120% at 30% 25%,var(--tile-a),var(--tile-b));
+  transition:left var(--step) var(--ease),top var(--step) var(--ease),width var(--step) var(--ease),height var(--step) var(--ease),border-radius .6s ease;
+  will-change:left,top,width,height}
+:root{--step:.85s}
+body.bento .tile{box-shadow:0 10px 30px rgba(0,0,0,.12)}
+body.bento .tile.collapsed{box-shadow:none}
+
+.layer{position:absolute;inset:0;opacity:0;transition:opacity .35s ease}
+.layer.on{opacity:1;transition:opacity .5s ease}
+/* media enters with an axis-aligned wipe, never a diagonal scale */
+.layer.media-l{opacity:1;clip-path:inset(0 100% 0 0);transition:clip-path .35s ease}
+.layer.media-l.wipe-y{clip-path:inset(100% 0 0 0)}
+.layer.media-l.on{clip-path:inset(0 0 0 0);transition:clip-path .9s var(--ease)}
+.layer.txt{padding:46px 44px;display:flex;flex-direction:column;justify-content:center;color:var(--ink)}
+.layer.txt.top{justify-content:flex-start}
+
+/* line reveal */
+.ln{display:block;overflow:hidden}
+.ln>span{display:inline-block;transform:translateY(105%);transition:transform .9s var(--ease)}
+.layer.on .ln>span{transform:none}
+
+.h{font-weight:700;letter-spacing:.01em;line-height:1.08;text-transform:uppercase}
+.h.xl{font-size:76px}
+.h.l{font-size:52px}
+.h.m{font-size:40px}
+.sub{font-weight:600;font-size:30px;line-height:1.2;text-transform:uppercase;margin-top:26px}
+.yr{font-weight:500;font-size:28px;margin-top:10px}
+.body{font-weight:500;font-size:26px;line-height:1.38}
+.body.s{font-size:23px}
+.num{font-weight:700;font-size:96px;line-height:1;letter-spacing:-.01em}
+.num.xxl{font-size:150px}
+.unit{font-weight:600;font-size:28px;text-transform:uppercase;margin-top:12px;line-height:1.15}
+
+/* media */
+.media{position:absolute;inset:0;overflow:hidden;background:#000}
+.media img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transform:scale(1.02)}
+.layer.on .media img{animation:kb 9s ease-out forwards}
+@keyframes kb{from{transform:scale(1.02)}to{transform:scale(1.12)}}
+.sheen::after{content:"";position:absolute;inset:-20%;background:linear-gradient(105deg,transparent 40%,rgba(255,255,255,.38) 50%,transparent 60%);transform:translateX(-120%)}
+.layer.on .sheen::after{animation:sheen 2.4s ease-in-out 1.6s forwards}
+@keyframes sheen{to{transform:translateX(120%)}}
+.fire::after{content:"";position:absolute;inset:0;mix-blend-mode:screen;
+  background:radial-gradient(60% 80% at 45% 70%,rgba(255,140,20,.55),transparent 70%);opacity:0}
+.layer.on .fire::after{animation:flick 1.3s steps(1) infinite}
+@keyframes flick{0%{opacity:.25}13%{opacity:.6}27%{opacity:.3}41%{opacity:.75}55%{opacity:.4}69%{opacity:.65}83%{opacity:.2}}
+.layer.on .fire img{animation:kbfast 8s ease-out forwards,shake .18s linear infinite}
+@keyframes kbfast{from{transform:scale(1.05)}to{transform:scale(1.22)}}
+@keyframes shake{0%{translate:0 0}25%{translate:1px -1px}50%{translate:-1px 1px}75%{translate:1px 1px}}
+canvas.sparks{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+
+/* ui */
+#ui{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;align-items:center;font-size:13px;color:#aaa;max-width:calc(100vw - 32px)}
+#ui button{white-space:nowrap}
+#ui button{background:#2a2a2e;color:#ddd;border:1px solid #3a3a3f;border-radius:6px;padding:7px 12px;font:inherit;cursor:pointer}
+#ui button.on{background:#6b2a8c;border-color:#8a3fb0;color:#fff}
+#chap{margin-left:10px;letter-spacing:.04em}
+#chap b{color:#c79be0}
+#bar{position:absolute;left:0;bottom:-6px;height:3px;background:#8a3fb0;width:0}
+body.clean #ui,body.clean #bar{display:none}
+</style>
+</head>
+<body>
+<div id="wrap">
+  <div id="viewport"><div id="stage"></div><div id="bar"></div></div>
+  <div id="ui">
+    <button id="play">Pause</button>
+    <button data-p="0">01</button><button data-p="1">02</button><button data-p="2">03</button><button data-p="3">04</button>
+    <button id="look">Look: Skizze</button>
+    <button id="fs">Vollbild</button>
+    <span id="chap"></span>
+  </div>
+</div>
+
+<script>
+const W=1440,H=1080,COLS=3,ROWS=2;
+const L=(...lines)=>lines.map(t=>`<span class="ln"><span>${t}</span></span>`).join('');
+
+// Content per slot & phase. Slot ids: A,B,C (morph through all phases), D,E (appear in 02 and 04)
+// Content per slot & phase. Slots are frames; content is mapped so that every
+// transition can be done by pushing frames along ONE axis at a time.
+// Rects are cell coords [x0,y0,x1,y1]; x0==x1 or y0==y1 means collapsed against an edge.
+const PHASES=[
+ {name:'01 — Charakterzug',sub:'Intro & Key Takeaway',dur:8200,tiles:{
+   A:{r:[0,0,1,1],html:`<div class="layer txt top"><div class="h xl">${L('Bugatti','Chiron')}</div><div class="sub">${L('3D gedruckte','Bremse')}</div><div class="yr">${L('2018')}</div></div>`},
+   B:{r:[0,1,1,2],html:`<div class="layer txt"><div class="body">${L('Ich bin ein','technologischer','Grenzgänger. Meine','komplexe Geometrie','entsteht aus Titan.')}</div></div>`},
+   C:{r:[1,0,3,2],html:`<div class="layer media-l"><div class="media sheen"><img src="assets/p1_bremse.jpg" style="object-fit:contain;background:#000"></div></div>`},
+   D:{r:[1,2,2,2]},E:{r:[2,2,3,2]},
+ }},
+ {name:'02 — Steckbrief',sub:'Daten & Eigenschaften',dur:8600,tiles:{
+   A:{r:[0,0,1,1],html:`<div class="layer txt"><div class="h l">${L('Leichter.','Komplexer.','Belastbarer.')}</div></div>`},
+   C:{r:[1,0,3,1],html:`<div class="layer media-l"><div class="media sheen"><img src="assets/p2_detail.jpg"></div></div>`},
+   B:{r:[0,1,1,2],html:`<div class="layer txt"><div class="body s">${L('Man hat mich nicht','gegossen, sondern','Schicht für Schicht','aufgebaut. Ich bin','deutlich leichter als das','vergleichbare','Aluminiumbauteil – und','für extreme Belastungen','ausgelegt.')}</div></div>`},
+   D:{r:[1,1,2,2],html:`<div class="layer txt top"><div class="num"><span data-count="2.9" data-fmt="dec">0,0</span> KG</div><div class="unit">${L('Titan')}</div></div>`},
+   E:{r:[2,1,3,2],html:`<div class="layer txt top"><div class="num" data-count="2213" data-fmt="int">0</div><div class="unit">${L('Gedruckte','Schichten')}</div></div>`},
+ }},
+ {name:'03 — Konflikt',sub:'Performance mit Video',dur:8600,tiles:{
+   A:{r:[0,0,2,1],html:`<div class="layer txt"><div class="h m">${L('Bei über')}</div><div class="num xxl"><span data-count="400" data-fmt="int">0</span> KM/H</div><div class="h m" style="margin-top:10px">${L('muss ich bremsen.')}</div></div>`},
+   C:{r:[2,0,3,1],html:`<div class="layer txt"><div class="body">${L('Ich kämpfe gegen Masse','und Hitze. Ich muss','standhalten, ohne','unnötig schwer zu','werden.')}</div></div>`},
+   B:{r:[0,1,3,2],html:`<div class="layer media-l"><div class="media fire"><img src="assets/p3_feuer.jpg"><canvas class="sparks"></canvas></div></div>`},
+   D:{r:[3,1,3,2]},E:{r:[3,1,3,2]},
+ }},
+ {name:'04 — Beziehung',sub:'Kontext & Impact',dur:9000,tiles:{
+   A:{r:[0,0,2,1],html:`<div class="layer media-l"><div class="media"><img src="assets/p4_auto.jpg"></div></div>`},
+   C:{r:[2,0,3,1],html:`<div class="layer txt"><div class="h m">${L('Von Höchst-','geschwindig-','keit zu','Kontrolle.')}</div></div>`},
+   B:{r:[0,1,1,2],html:`<div class="layer txt"><div class="body">${L('Ich zeige die andere','Seite extremer','Performance: Wie kommt','ein Fahrzeug sicher','wieder zum Stillstand?')}</div></div>`},
+   D:{r:[1,1,2,2],html:`<div class="layer txt"><div class="body">${L('Zwischen Fahrdynamik,','Sicherheit und','Motorsport verbinde','ich den Rekord mit der','Herausforderung,','Geschwindigkeit zu','beherrschen.')}</div></div>`},
+   E:{r:[2,1,3,2],html:`<div class="layer media-l"><div class="media"><img src="assets/p4_rad.jpg"></div></div>`},
+ }},
+];
+const SLOTS=['A','B','C','D','E'];
+
+const stage=document.getElementById('stage');
+const tiles={};
+SLOTS.forEach(id=>{
+  const t=document.createElement('div');t.className='tile';
+  PHASES.forEach((p,pi)=>{ const s=p.tiles[id]; if(s&&s.html){ const w=document.createElement('div');w.innerHTML=s.html;const l=w.firstElementChild;l.dataset.phase=pi;t.appendChild(l);} });
+  stage.appendChild(t);tiles[id]=t;
+  t._r=PHASES[0].tiles[id].r.slice();
+});
+
+function gap(){return parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--gap'))}
+function pad(){return parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--pad'))}
+function place(t,r){
+  const g=gap(),p=pad(),cw=(W-2*p-(COLS-1)*g)/COLS,ch=(H-2*p-(ROWS-1)*g)/ROWS;
+  const w=Math.max(0,(r[2]-r[0])*cw+(r[2]-r[0]-1)*g),h=Math.max(0,(r[3]-r[1])*ch+(r[3]-r[1]-1)*g);
+  t.style.left=p+r[0]*(cw+g)+'px';t.style.top=p+r[1]*(ch+g)+'px';t.style.width=w+'px';t.style.height=h+'px';
+  t.classList.toggle('collapsed',w===0||h===0);
+}
+SLOTS.forEach(id=>place(tiles[id],tiles[id]._r));
+
+// counters
+function countUp(el){
+  const to=parseFloat(el.dataset.count),fmt=el.dataset.fmt,t0=performance.now()+400,d=1600;
+  const f=v=>fmt==='dec'?v.toFixed(1).replace('.',','):Math.round(v).toLocaleString('de-DE');
+  el.textContent=f(0);
+  (function step(now){const k=Math.min(1,Math.max(0,(now-t0)/d));el.textContent=f(to*(1-Math.pow(1-k,3)));if(k<1&&cur===el._ph)requestAnimationFrame(step)})(performance.now());
+}
+
+// sparks for phase 03
+let sparkRAF=null;
+function sparks(cv){
+  cancelAnimationFrame(sparkRAF);
+  const ctx=cv.getContext('2d');let ps=[];
+  const loop=()=>{
+    const w=cv.width=cv.clientWidth,h=cv.height=cv.clientHeight;
+    for(let i=0;i<6;i++)ps.push({x:w*(.42+Math.random()*.12),y:h*(.55+Math.random()*.2),vx:(Math.random()*2-0.6)*9,vy:-Math.random()*9-2,l:1});
+    ctx.globalCompositeOperation='lighter';
+    ps=ps.filter(p=>p.l>0);
+    for(const p of ps){p.x+=p.vx;p.y+=p.vy;p.vy+=.35;p.l-=.022;
+      ctx.strokeStyle=`rgba(255,${150+Math.random()*80|0},40,${p.l})`;ctx.lineWidth=2;
+      ctx.beginPath();ctx.moveTo(p.x,p.y);ctx.lineTo(p.x-p.vx*1.6,p.y-p.vy*1.6);ctx.stroke();}
+    if(cur===2)sparkRAF=requestAnimationFrame(loop);
+  };loop();
+}
+
+const STEP=850;
+let cur=-1,timer=null,steps=[],playing=true,phaseStart=0;
+function later(fn,ms){const id=setTimeout(fn,ms);steps.push(id)}
+
+function go(pi){
+  steps.forEach(clearTimeout);steps=[];clearTimeout(timer);
+  const P=PHASES[pi];cur=pi;
+
+  // 1) old text out; old images stay inside their frames while the grid moves
+  const clearOld=media=>SLOTS.forEach(id=>tiles[id].querySelectorAll('.layer.on').forEach(l=>{
+    if(+l.dataset.phase!==pi&&l.classList.contains('media-l')===media)l.classList.remove('on');
+  }));
+  clearOld(false);
+
+  // 2) move frames: first all horizontal changes, then all vertical — never both at once
+  const targets={};SLOTS.forEach(id=>targets[id]=P.tiles[id].r);
+  const needX=SLOTS.some(id=>targets[id][0]!==tiles[id]._r[0]||targets[id][2]!==tiles[id]._r[2]);
+  const needY=SLOTS.some(id=>targets[id][1]!==tiles[id]._r[1]||targets[id][3]!==tiles[id]._r[3]);
+  let t=250;
+  if(needX){later(()=>SLOTS.forEach(id=>{const r=tiles[id]._r;r[0]=targets[id][0];r[2]=targets[id][2];place(tiles[id],r)}),t);t+=STEP+80}
+  if(needY){later(()=>SLOTS.forEach(id=>{const r=tiles[id]._r;r[1]=targets[id][1];r[3]=targets[id][3];place(tiles[id],r)}),t);t+=STEP+80}
+
+  // 3) new content in, once the grid has settled
+  later(()=>{clearOld(true);SLOTS.forEach((id,i)=>{
+    const l=tiles[id].querySelector(`.layer[data-phase="${pi}"]`);if(!l)return;
+    l.querySelectorAll('img').forEach(im=>{im.style.animation='none';im.offsetWidth;im.style.animation=''});
+    setTimeout(()=>{
+      l.classList.add('on');
+      l.querySelectorAll('[data-count]').forEach(el=>{el._ph=pi;countUp(el)});
+      const cv=l.querySelector('canvas.sparks');if(cv)sparks(cv);
+    },i*90);
+  })},t);
+
+  document.querySelectorAll('[data-p]').forEach(b=>b.classList.toggle('on',+b.dataset.p===pi));
+  document.getElementById('chap').innerHTML=`<b>${P.name}</b> · ${P.sub}`;
+  phaseStart=performance.now();
+  if(playing)timer=setTimeout(()=>go((pi+1)%PHASES.length),P.dur);
+}
+
+// progress bar
+(function bar(){const P=PHASES[cur];if(P){const k=playing?Math.min(1,(performance.now()-phaseStart)/P.dur):null;if(k!==null)document.getElementById('bar').style.width=((cur+k)/PHASES.length*100)+'%'}requestAnimationFrame(bar)})();
+
+// scale stage to window
+function fit(){
+  const clean=document.body.classList.contains('clean');
+  const s=Math.min((innerWidth-(clean?0:40))/W,(innerHeight-(clean?0:90))/H);
+  stage.style.transform=`scale(${s})`;
+  const vp=document.getElementById('viewport');vp.style.width=W*s+'px';vp.style.height=H*s+'px';
+}
+addEventListener('resize',fit);fit();
+
+// ui
+document.getElementById('play').onclick=e=>{playing=!playing;e.target.textContent=playing?'Pause':'Play';if(playing)go(cur);else clearTimeout(timer)};
+document.querySelectorAll('[data-p]').forEach(b=>b.onclick=()=>go(+b.dataset.p));
+document.getElementById('look').onclick=e=>{
+  const on=document.body.classList.toggle('bento');const r=document.documentElement.style;
+  r.setProperty('--gap',on?'16px':'2px');r.setProperty('--radius',on?'22px':'0px');r.setProperty('--pad',on?'16px':'0px');
+  e.target.textContent='Look: '+(on?'Bento':'Skizze');SLOTS.forEach(id=>place(tiles[id],tiles[id]._r));
+};
+document.getElementById('fs').onclick=()=>{document.body.classList.add('clean');document.documentElement.requestFullscreen?.();fit()};
+document.addEventListener('fullscreenchange',()=>{if(!document.fullscreenElement)document.body.classList.remove('clean');setTimeout(fit,50)});
+addEventListener('keydown',e=>{if(e.key===' ')document.getElementById('play').click();if(e.key>='1'&&e.key<='4')go(+e.key-1);if(e.key==='b')document.getElementById('look').click();if(e.key==='h'){document.body.classList.toggle('clean');fit()}});
+
+setTimeout(()=>go(0),300);
+</script>
+</body>
+</html>
