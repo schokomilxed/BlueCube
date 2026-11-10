@@ -7,7 +7,7 @@ Arbeitsstand Atelier Brückner. Inhalt des Repos:
 | `story/` | Storyline (`Blauer_Kubus_Storyline.md`), Momentlisten Kapitel 1–4 (v1, noch alte 4-Kapitel-Struktur), Beispiel-Momentslides |
 | `docs/` | `Kundenabfolge_vs_unsere_Momente.pdf`: Abgleich der Kunden-Kapitel 1–8 mit unseren 27 Momenten, offene Punkte |
 | `mockup/` | HTML-Mockup Kapitel 2 (Wand, Film, Fach-Licht und Wellen), hier ohne eingebettete Medien |
-| `BentoGridStyle/` | Arbeitsordner der HTML-Mockups: `kapitel2/` (Quellen: film.js, choreo.js, wand-data.js, Assets), `BlauerKubus_Kapitel2_Wand.html` und `_Fahrdynamik.html` (Stand mit eingebetteten Medien), `LivingGrid_Bremse`, `animation/`, `BentoGridStyle.mp4` |
+| `BentoGridStyle/` | Arbeitsordner der HTML-Mockups: `kapitel2/` (Quellen: film.js, choreo.js, wand-data.js, Assets, Prüfer `tools/validate.js`; Details in `kapitel2/README.md`), `BlauerKubus_Kapitel2_Wand.html` und `_Fahrdynamik.html` (Stand mit eingebetteten Medien), `LivingGrid_Bremse`, `animation/`, `BentoGridStyle.mp4` |
 | `licht/lichtplayer/` | Player für Art-Net/sACN: `cues.csv`, `patch.csv`, `config.json`, README |
 | `licht/` | Excel-Cueliste (erste Minute), `Lichtvorschau_Cueliste.html` |
 | `licht/tools/` | Pipeline Mockup → Cues: `sample2.js` (Aufzeichnung), `bake.py` (Cues), `cues2.py`, `build_xlsx.py` |
