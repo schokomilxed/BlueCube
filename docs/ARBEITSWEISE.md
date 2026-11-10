@@ -33,14 +33,14 @@ Objekte werden immer über die **Kunden-Nr. (1–57)** benannt, nicht über Fach
 
 | Tabelle | ID | Inhalt |
 |---|---|---|
-| Exponate | `tbl9POWlpNEFKyFlp` | Kunden-Nr., Kundenkapitel, Fach-ID, Maße, Cluster, Texte, Sicherheitskommentar |
+| Exponate | `tbl9POWlpNEFKyFlp` | Kunden-Nr., Kundenkapitel, Fach-ID, Maße, Cluster, Texte, Fakten (Text von Renke) |
 | Medien | `tblCalNontccPQ6kp` | ein Clip oder Bild je Zeile: Status, Von/Bis, Quelle, Rechte, Datei lokal, Bildrate, Breite, Höhe |
 | Specs | `tbla9LSViHl9QFMUZ` | Zahl, Einheit, Label DE/EN, Quelle, Prüfstatus (Werte mit zwei Dezimalstellen speichern, beim Auslesen je nach Größe runden: 0–100 km/h in 2,25 s, aber 500 kW) |
 | Texte | `tblA9TC8t8fHNkCYA` | Typ, DE, EN, Status |
 | Szenen | `tblrZADeAl29MG8tx` | Ausschnitt, Von/Bis, Loop, Score, Kachelformat, „nehmen" |
 | Beats | `tbltwL4X66qWyJJsY` | Kapitel, Reihenfolge, Register, Dauer, Spot, Kachel-Layout |
 
-Der Sicherheitskommentar wird getrennt in **Specs** (Zahlen), **Texte** (Aussagen) und **Interna** (Beschaffungsnotizen, gehören nicht an die Wand).
+Das Feld „Fakten" (früher „Sicherheitskommentar", Text von Renke) wird getrennt in **Specs** (Zahlen), **Texte** (Aussagen) und **Interna** (Beschaffungsnotizen, gehören nicht an die Wand).
 
 Medien-Status: neu, URL fehlt, geprüft, heruntergeladen, getrimmt, freigegeben, verworfen, in Quelle entfernt. Eine Automation („Media Links einlesen (KI)") legt neue Zeilen nur aus Media Links an und fasst manuell angelegte Zeilen nicht an.
 
