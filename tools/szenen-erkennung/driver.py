@@ -10,6 +10,7 @@ def dur(p):
 todo=0
 for p in vids:
     obj=os.path.basename(os.path.dirname(p)); name=os.path.splitext(os.path.basename(p))[0]
+    if os.path.exists(os.path.join(OUT,obj,name+".szenen.json")): continue  # schon erkannt, nicht neu rechnen
     d=os.path.join(OUT,obj); os.makedirs(d,exist_ok=True)
     work=os.path.expanduser("~/sd/work/"+obj+"__"+re.sub(r'\W+','_',name))
     os.makedirs(work,exist_ok=True)
