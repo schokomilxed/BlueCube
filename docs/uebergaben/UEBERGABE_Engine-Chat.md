@@ -43,3 +43,10 @@ Zahlen: Airtable vom 11.11.2026, gezählt wurden verknüpfte Zeilen, nicht deren
 
 ## Offen, nicht in diesem Chat lösen
 Renkes Antworten zu vier Fakten-Zeilen, PCCB/PSCB-Nummerierung, Nr. 14 Kundenkapitel, Skoda Eiskratzer, XL1-Leistung in PS oder kW, Klartext für V2H/V2L/V2G, englische Übersetzungen der Texte, Ton.
+
+
+## Stand 12.11.2026 abends (ersetzt Abweichendes oben)
+- Plan bis zur Eröffnung 30.11.: `docs/PLAN_Eroeffnung.md`. V1+ statt Mosaik, „ein Ort für Bewegung", Generator für alle Kapitel, Engine ist einzige Zeitquelle (Loop-Länge 272,153 s ist keine Vorgabe mehr).
+- Render-Weg erprobt: `Blue Cube/BentoGridStyle/engine/tools/render.py` (Headless Chrome, Bild für Bild, 3840 × 2058, Teile parallel und verlustfrei zusammensetzbar). 2057 px ist ungerade und für H.264/H.265 4:2:0 ungeeignet.
+- **`cut_clips.py` verwirft bisher den Ton.** Clips künftig mit Ton schneiden (AAC/WAV beibehalten, neue Dateien, Bestehendes nicht überschreiben). Nr. 15: Kandidaten aus Quelle 3 (siehe Szenen-Übergabe).
+- Ton-Test Kapitel 3: `Blue Cube/BentoGridStyle/engine/_ton_test/` (KI-Bett + KI-Übergänge aus den Beat-Schritten, Originalton nur beim Hero, Bett währenddessen −9 dB). Klänge aus dem ElevenLabs-Free-Plan sind mit `_TEST_free` markiert und dürfen nicht in den Master. Rückmeldung Björn: Weg stimmt; Bewegungen zu vorsichtig vertont, nur der erste Schritt eines Beats klingt. Nächste Version: jeder Schritt mit Klang, Akzent auf der Ankunft; Bett und Effekte aus dem Originalton eines Hero-Exponats des Kapitels abgeleitet (Kapitel 3: ID. R, Übergang zu Diesel offen).

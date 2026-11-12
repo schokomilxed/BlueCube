@@ -2,6 +2,15 @@
 
 Neueste zuerst. Format: Datum · Entscheidung · Grund. Entscheidungen trifft Björn.
 
+## Stand 12.11.2026 (Council-Chat, abends)
+
+- **Eröffnung 30.11.2026.** Zeitplan, Grundsätze und offene Klärungen in `docs/PLAN_Eroeffnung.md`. Inhaltlicher Stopp 23.11.
+- **V1+ statt Mosaik:** V1 als Grundlage mit 2–3 zusätzlichen Unterteilungen. Grund: Mosaik überzeugt nicht.
+- **Ein Ort für Bewegung:** höchstens 1 Hero-Video und 1 Begleit-Clip gleichzeitig. Grund: viele parallele Szenen wirken chaotisch, nicht vielfältig.
+- **Generieren statt choreografieren:** alle Kapitel aus einem Generator mit den V1-Vorlagen und Airtable-Daten. Grund: Kundendaten kommen spät und ändern sich; das war von Anfang an der Grund für den generativen Ansatz.
+- **Engine ist die einzige Zeitquelle** für Bild, Licht und Ton-Cues; die 272,153 s des Lichtplayers sind keine Vorgabe mehr.
+- **Render-Durchstich bestanden:** Kapitel 3 V1 in 3840 × 2058 bei 30 fps, ca. 19 min Renderzeit. Befunde im Plan. Offen: Höhe 2057 ist für H.264/H.265 ungerade, Festwert in ARBEITSWEISE auf 2058 (oder 2056) ändern – Björn entscheidet.
+
 ## Stand 12.11.2026 (Texte-Chat, Nacht 11./12.11.)
 
 - **Ich-Zitate (Feld STORY_ICH in Exponate) für alle Objekte mit Kunden-Text geschrieben**: 57 Zitate, Nr. 0–57 außer Nr. 31. Kapitel 3 (Nr. 14–20) ist von Björn abgenommen, alle anderen sind Entwürfe zur Abnahme. Übersicht mit Szenen-Kandidaten als PDF auf der Synology: `Claude outputs/BlauerKubus_Ich-Zitate_Szenen_2026-11-11.pdf` (enthält Kundentexte, daher nicht im Git).
@@ -10,6 +19,7 @@ Neueste zuerst. Format: Datum · Entscheidung · Grund. Entscheidungen trifft Bj
 - **Regel Rückbezug:** Ein Zitat darf auf ein anderes Objekt anspielen, aber nur auf eines, das vorher erscheint (Reihenfolge Kunden-Nr., über Kapitelgrenzen erlaubt), als Antwort darauf. Das frühere Objekt wird dabei nicht kleiner gemacht. Grund: Jede Kachel muss auch ohne die späteren verständlich sein. Ändert sich die Reihenfolge im Film, Bezüge neu prüfen.
 - **Nr. 15 ID. R:** Zitat „Man wollte wissen, wozu ein Elektroantrieb im Motorsport fähig ist …" statt einer Variante mit Rückbezug auf den 919, weil die den 919 abwertete.
 - **Duktus:** Vom alten Prompt des Felds „Story-Baustein (AI) v2" übernommen: organisatorische Vermerke sind kein Inhalt, Ausschlüsse gelten hart, bei zu wenig Quelle „(zu wenig recherchiert)". Nicht übernommen: freie Nutzung von Allgemeinwissen für Zuspitzung, Charakterzug/Konflikt/Beziehung.
+- **STORY_ICH heißt jetzt STORY_ICH_DE** (Feld-ID unverändert `fldmTdbyuUAD7LAuk`), neues Feld **STORY_ICH_EN** (`fld60CyTcXBwYhkIQ`) mit englischer Fassung aller 57 Zitate (Entwurf von Claude, britisches Englisch, metrische Einheiten, „PS" beim Veyron beibehalten). 12.11. abends. Grund: Kunde nimmt DE und EN zusammen im Interface ab. Skripte bitte über Feld-ID, nicht über den Namen lesen.
 - **Abnahme der Ich-Zitate in Airtable** (12.11. vormittags): neues Feld „Zitat-Status" (Entwurf / überarbeiten / abgenommen) in Exponate, Kapitel 3 = abgenommen, Rest = Entwurf. Neues Lookup-Feld „Szenen-Vorschau" (Vorschaubilder der verknüpften Szenen, nach KI-Score). Im Interface „Inhalts- & Medienstatus" zwei neue Seiten: „Ich-Zitate & Szenen" (Durchsicht je Objekt, Zitat direkt bearbeitbar) und „Ich-Zitate Überblick" (Kennzahlen). Sichtbar für alle, die das Interface sehen (auch Renke/Kunde). Grund: ersetzt das PDF, bleibt aktuell.
 
 ## Stand 11.11.2026

@@ -30,3 +30,13 @@ Projekt: Blauer Kubus (BlueCube). Ziel dieses Chats: aus den Quellvideos pro Obj
 
 ## Offen (nicht in diesem Chat lösen)
 Renkes Antworten zu vier Fakten-Zeilen, PCCB/PSCB-Nummerierung, Nr. 14 Kundenkapitel, Skoda Eiskratzer, Codec und Playout-Software.
+
+
+## Stand 12.11.2026 abends: Ton-Bewertung je Szene ergänzen (keine neue Szenenerkennung)
+Die Szenengrenzen bleiben gültig; 47 von 48 Quellen haben Ton. Es fehlt nur eine Bewertung des Originaltons pro Szene, weil Originalton beim Hero künftig hörbar sein kann (siehe ENTSCHEIDUNGEN 12.11. abends).
+1. Für alle Szenen ab 5 s den Ton einordnen: Skript `tools/szenen-erkennung/ton_bewerten.py` (AudioSet-Klassifikator AST, CPU, ca. 1 s je Szene). Eingabe: Quelle als Mono-16-kHz-WAV + `<Video>.szenen.csv`. Ausgabe je Szene: Fahrzeug, Musik, Sprache (0–1), Lautheit (dBFS), Vorschlag ★ (Fahrzeug > 0,15, Musik < 0,3, Sprache < 0,3).
+2. Ergebnisse neben die Szenendateien legen: `Medien/_szenen/<NN>_<slug>/<Video>.ton.csv`.
+3. In der Tabelle Szenen Felder ergänzen: „Ton Fahrzeug", „Ton Musik", „Ton Sprache", „Lautheit", „Originalton-Vorschlag" (automatisch) und getrennt „Originalton-Status" (ungeprüft / gehört ok / abgelehnt, setzt nur Björn). Originalton-Rechte sind unabhängig von den Bildrechten.
+4. Bei der Kandidatenwahl (2–3 je Objekt) zählt guter Originalton als Kriterium neben der Bildqualität.
+- Der Klassifikator sortiert nur vor und irrt (Beispiel: 15.1.027 als „Sprache" eingeordnet). Elektrische Fahrzeuge erscheinen oft als „Whir"/„Hum", nicht als „Engine"; das ist in den Kategorien berücksichtigt.
+- Test 12.11.: Nr. 15 Quelle 3 (`20180706143134_720p.mp4`) hat in 15 von 16 Szenen ab 5 s sauberen Rennton (stark: 15.3.038, 15.3.001, 15.3.016). Kandidaten für Nr. 15 dort suchen.
