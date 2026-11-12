@@ -24,7 +24,7 @@ Dieser Chat ist der einzige, der Schema und Inhalte von Exponate, Medien, Specs 
 ## Offene Datenpunkte
 - Vier Zeilen im Feld „Fakten" bei Renke: Gewicht Karosserie 10 kg (Nr. 12), Wirkungsgrad 83 % Taxibetrieb (Nr. 13), Rekordzeit Nordschleife mit 369,4 km/h (Nr. 14), „Future is an Attitude" (Nr. 16).
 - PSCB steht auf Nr. 0 ohne Kapitel, Skoda Eiskratzer (Renke entscheidet).
-- XL1-Leistung ist als 75 PS gespeichert, Entscheidung PS oder kW offen. Klartext für V2H, V2L, V2G an der Wand.
+- Leistung steht immer als kW mit PS in Klammern (Feld „Format-Prüfung“ in Specs). Klartext für V2H, V2L, V2G an der Wand.
 - Specs-Status „Vorschlag" und Texte-Status „Entwurf" warten auf Björns Freigabe.
 
 ## Regeln
