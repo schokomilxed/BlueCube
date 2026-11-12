@@ -36,6 +36,6 @@ Dieser Chat ist der einzige, der Schema und Inhalte von Exponate, Medien, Specs 
 - Neue Entscheidungen am Ende in `docs/ENTSCHEIDUNGEN.md` eintragen, Björn committet.
 
 ## Stand der Daten
-- Airtable Base `appd9oVo78FNTrPDd`: Exponate `tbl9POWlpNEFKyFlp`, Medien `tblCalNontccPQ6kp`, Specs `tbla9LSViHl9QFMUZ`, Texte `tblA9TC8t8fHNkCYA`, Szenen `tblrZADeAl29MG8tx`, Beats `tbltwL4X66qWyJJsY`.
+- Airtable Base `appd9oVo78FNTrPDd`: Exponate `tbl9POWlpNEFKyFlp`, Medien `tblCalNontccPQ6kp`, Specs `tbla9LSViHl9QFMUZ`, Texte `tblA9TC8t8fHNkCYA`, Szenen `tblrZADeAl29MG8tx`, Beats `tbltwL4X66qWyJJsY`. Fächer `tblJerZ3C0jO4oSw8` (65 Fächer laut Siebdruck, feste Zuordnung Exponat → Fach, Feld „Prüfung" muss „ok" sein; bei jeder Fach- oder Exponatänderung mitpflegen).
 - Specs 46, Texte 48 (für 14 Objekte aus „Fakten" getrennt, übernommene Zeilen im Feld durchgestrichen).
 - Medien: 37 Quellvideos in `Medien/Quellen` (ohne `_original`; neu am 11.11.: Nr. 21, 23, 27, 28), alle Video-Zeilen mit Bildrate und Pixelmaßen. Szenenerkennung lief für die ersten 29, Ergebnisse nur auf der Synology. 39 neue Bild-Zeilen (Nr. 20, 22, 27, 28) am 11.11. angelegt.
