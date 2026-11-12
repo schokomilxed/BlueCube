@@ -11,7 +11,7 @@ Projekt: Blauer Kubus (BlueCube). Aufgabe dieses Chats: aus dem Kapitel-2-Mockup
 ## Was existiert
 - Ordner `Blue Cube/BentoGridStyle/kapitel2`: `choreo.js` (27 Beats in 6 Momenten, Schritte auf dem 7 × 5-Raster, eine Kachel bewegt sich pro Schritt nur auf einer Achse, Positionen P1–P8, neue Kacheln fahren aus eingeklappten Kanten ein), `film.js` und `film.css` (Bausteine img, vid, quo, nar, lab, fact, gfx, Lesezeit, Canvas-Effekte), `wand-data.js` (Snapshot Wand, Stand 15.10.), `wand.html` (Wand + Licht + Film), `_build.py` (baut eigenständige HTMLs), `tools/validate.js` (prüft die Choreografie).
 - Git-Repo `Documents/_GIT/BlueCube` (Spiegel mit docs/, story/, licht/, tools/). `docs/ARBEITSWEISE.md` beschreibt Datenmodell und Regeln.
-- Szenenerkennung ist gelaufen: `Blue Cube/Medien/_szenen/<NN>_<slug>/` (JSON/CSV mit Von/Bis/Dauer, Vorschaubilder). Alles nur Vorschlag, Rechte nicht geprüft.
+- Szenenerkennung ist vollständig gelaufen (48 Videos, 2.366 Szenen, davon 1.072 ab 5 s): `Blue Cube/Medien/_szenen/<NN>_<slug>/` (JSON/CSV mit Von/Bis/Dauer, Vorschaubilder). Alles nur Vorschlag, Rechte nicht geprüft.
 - Airtable Base `appd9oVo78FNTrPDd`: Exponate `tbl9POWlpNEFKyFlp`, Medien `tblCalNontccPQ6kp`, Specs `tbla9LSViHl9QFMUZ`, Texte `tblA9TC8t8fHNkCYA`, Szenen `tblrZADeAl29MG8tx` (leer), Beats `tbltwL4X66qWyJJsY`. Verknüpfungen immer über Record-IDs.
 
 ## Aufgaben in dieser Reihenfolge
@@ -22,10 +22,16 @@ Projekt: Blauer Kubus (BlueCube). Aufgabe dieses Chats: aus dem Kapitel-2-Mockup
 5. Erst danach: Render-Weg klären (Frame-Export, Codec), Licht und Cueliste anbinden.
 
 ## Testkapitel (von Björn bestätigt)
-Kundenkapitel 3 „Aus Hybriden wird Motorsport und Diesel", 8 Objekte: Nr. 14 Porsche 919, 15 ID. R, 16 RS Q e-tron, 17 Race Touareg, 18 Stanley, 19 V10 TDI haben Video, Specs und Texte. Nr. 20 (1.9 TDI) hat Bilder, Specs und Texte, aber kein Video. Nr. 31 (Nürburgring-Rundenzeit) hat noch keine Texte und keine Specs. Etwa 4 Minuten Film bei 30 s je Objekt.
-Platzhalter für fehlende Medien: die Bilder aus dem Feld „Abbildung" in Exponate (Anhänge, alle 8 Objekte haben 2–5 Stück). Das gilt für Nr. 20 und 31 komplett, für die anderen, wenn eine Szene fehlt. Platzhalter im Film sichtbar kennzeichnen (z. B. Rahmen oder Marker in der Vorschau), damit sie nicht für Endmaterial gehalten werden. Nicht jedes Bild trägt eine große Kachel: Dateinamen deuten auf kleine Quellen hin (z. B. 650 × 433 px bei Nr. 14), Auflösung prüfen.
-Fach-IDs der acht Objekte für die Lichtanbindung: 14 B-U-2, 15 B-R-3, 16 B-Q-5, 17 C-F-5, 18 B-F-4, 19 C-A-3, 20 C-C-3, 31 B-U-4.
+Kundenkapitel 3 „Aus Hybriden wird Motorsport und Diesel", 7 Objekte (Nr. 14–20; Nr. 31 ist laut Renke nach Kapitel 5 gewandert, siehe ENTSCHEIDUNGEN 11.11.): Nr. 14 Porsche 919 Rekuperator, 15 ID. R, 16 RS Q e-tron, 17 Race Touareg, 18 Stanley, 19 V10 TDI haben Video, Specs und Texte. Nr. 20 (1.9 TDI) hat Bilder, Specs, Texte und ein Video ohne Tonspur und ohne Schnitte (eine Szene). Etwa 3,5 Minuten Film bei 30 s je Objekt.
+Platzhalter für fehlende Medien: die Bilder aus dem Feld „Abbildung" in Exponate (Anhänge, alle Objekte haben 2–5 Stück). Sie gelten überall, wo eine Szene fehlt. Platzhalter im Film sichtbar kennzeichnen (z. B. Rahmen oder Marker in der Vorschau), damit sie nicht für Endmaterial gehalten werden. Nicht jedes Bild trägt eine große Kachel: Dateinamen deuten auf kleine Quellen hin (z. B. 650 × 433 px bei Nr. 14), Auflösung prüfen.
+Fach-IDs der sieben Objekte für die Lichtanbindung (Stand 11.11.): 14 B-U-2, 15 B-R-3, 16 B-Q-5, 17 C-F-5, 18 B-F-4, 19 C-A-3, 20 C-C-3. Ein Fachtausch bei Nr. 20 ist bei Renke angefragt, deshalb frisch aus Airtable lesen.
 Zahlen: Airtable vom 11.11.2026, gezählt wurden verknüpfte Zeilen, nicht deren Freigabe.
+
+## Ton (vorläufige Richtung, Stand 11.11.2026)
+- Im Raum gibt es Ton, Annahme Stereo. Richtung: Ambient-Bett je Kapitel oder Register, Effekte zu den Kachel-Übergängen und gelegentlich Originalton aus den Clips. Kein gesprochenes Zitat-Gespräch im Kern; als spätere Ergänzung für einzelne Momente denkbar.
+- Die Engine leitet Effekt-Cues aus den Beat-Schritten ab (gleiche Zeitbasis wie Bild und Art-Net-Licht). Pro Szene ein Schalter „Originalton" (ja/nein, Pegel); es ist höchstens eine Szene gleichzeitig hörbar, die übrigen werden abgesenkt.
+- 47 von 48 Quellvideos haben eine Tonspur (Stereo-AAC), das 1.9-TDI-Video nicht. Der Originalton ist nicht geprüft (Musik, Sprecher) und rechtlich nicht geklärt. Beim Trimmen der Clips den Ton behalten.
+- Offen: Lautsprecherzahl und Pegel, nahtloser Ambient-Loop auf die Filmlänge, Ton im Filmfile oder als eigene Datei im Playout, wer das Sounddesign macht.
 
 ## Regeln
 - Deutsch, kurz und konkret. Plan vor dem Bauen.

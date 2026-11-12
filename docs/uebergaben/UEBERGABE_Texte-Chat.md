@@ -44,3 +44,10 @@ Vorbild ist das Feld „Story-Baustein (AI) v2" (`fldEOYlj1p8nfOoiE`). Es liefer
 
 ## Hinweis zum Datenstand
 Die Story-Bausteine in Airtable sind als veraltet markiert und können vom Kunden-Text abweichen. Der Kunden-Text hat Vorrang. Kunden-Nr. 31 steht in Airtable derzeit als „schnellste Nürburgring-Rundenzeit der Geschichte" (Kapitel 3); Namen und Nummern vor dem Schreiben frisch prüfen.
+
+## Stand 12.11.2026
+- STORY_ICH ist für alle Objekte mit Kunden-Text gefüllt (Nr. 0–57 außer Nr. 31). Kapitel 3 abgenommen, Rest Entwurf zur Abnahme durch Björn.
+- Neue Regeln (Quellen, Kausalität, Rückbezug nur nach hinten) stehen in `docs/ENTSCHEIDUNGEN.md` unter 12.11.2026 und gelten zusätzlich zu den Regeln oben.
+- Kapitel 3 umfasst nur Nr. 14–20; Nr. 31 (PCCB) gehört zu Kapitel 5 (siehe ENTSCHEIDUNGEN 11.11.).
+- Nächste Schritte: Abnahme der übrigen Kapitel, dann Übernahme in die Tabelle Texte, dann Englisch.
+
