@@ -15,6 +15,12 @@ Neueste zuerst. Format: Datum · Entscheidung · Grund. Entscheidungen trifft Bj
 - **Die Medienfläche erzählt die Geschichte zum Exponat, sie zeigt nicht das Exponat noch einmal** (Pokal, Bremsscheibe, Spoiler stehen im Regal; auf der Wand z. B. der Chiron). Neue Felder in Exponate: „Herobild" (Anhang, `fldMiuEiBQK9DP8eu`), „Herobild geprüft" (Checkbox), „Herobild-Hinweis" (Warnung). Vorschläge für Nr. 1–4, 14–20, 34–38 eingetragen, Björn prüft; 10 davon unter 1920 px oder mit besserem Motiv nachzuliefern (Hinweisfeld).
 - Offen: Untertitel-Texte DE/EN für 2.1, 2.2, 6.1–6.3 brauchen die Abnahme des Kunden.
 
+### Nachtrag 13.11.2026 (Council-Chat, nachmittags)
+- **Render-Fassungen:** Arbeitsfassungen 1920 breit, **30 fps**, mit Ton (`tools/render.py … --rw 1920`). 4K (3840, Vorgabe ohne `--rw`) nur zu Meilensteinen: 1:1-Test 18.11., inhaltlicher Stopp 23.11., Master; dazu einzelne 4K-Standbilder kritischer Momente.
+- **Renderzeit:** Engpass ist das Springen in den Clips (seek), nicht die Pixelzahl. Nächster Schritt: Clips vorab in Einzelbilder zerlegen; größere Renders auf dem Mac (mehr Kerne).
+- **Ton v2 (Kapitel 3, Test):** Jeder Schritt klingt (Zug über die Schrittdauer + Akzent bei Ankunft), Pegel nach bewegter Fläche; Akzente bei Öffnen, Vollbild, Rückfaltung. Klangthema aus dem ID.R-Originalton (Drone im Bett + Signatur am Kapitelanfang). Originalton nur beim größten Clip ≥ 4×3, nur Motor/Umgebung laut Klassifikator. Alle KI-Klänge `_TEST_free`, nicht für den Master.
+- **Herobild:** Vorschläge für alle übrigen Objekte in Airtable eingetragen, „Herobild geprüft“ bleibt bei Björn.
+
 ## Stand 12.11.2026 (Council-Chat, abends)
 
 - **Eröffnung 30.11.2026.** Zeitplan, Grundsätze und offene Klärungen in `docs/PLAN_Eroeffnung.md`. Inhaltlicher Stopp 23.11.
