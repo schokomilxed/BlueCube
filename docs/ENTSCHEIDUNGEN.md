@@ -2,6 +2,19 @@
 
 Neueste zuerst. Format: Datum · Entscheidung · Grund. Entscheidungen trifft Björn.
 
+## Stand 13.11.2026 (Council-Chat)
+
+- **Prinzip V1 statt festem Raster:** Das V1-Grundraster (8 Positionen auf 7 × 5 Modulen) ist der **Ruhepunkt**, in den jeder Teil zurückfaltet; Silhouetten der Objekte, Licht ruht. Die offenen Momente dazwischen sind **dynamisch und richten sich nach dem vorhandenen Footage**: Kachelgröße nach Quellauflösung (Hochskalierung höchstens 2,0), Hoch- oder Querformat nach Bildformat, Zahl der Bildkacheln nach Anzahl guter Szenen, Standzeit länger bei gutem Originalton, Platzhalter klein. Teilungen sind dort erlaubt (Begleit- und Detailkacheln), nicht im Grundraster. Grund: Mehr Teilung im Grundraster bringt nur 80 cm schmale Streifen und keine zusätzlichen textfähigen Kacheln (Vergleich `Blue Cube/BentoGridStyle/engine/v1plus/V1plus_Varianten.png`). Hat ein Teil weniger als 8 Objekte, darf der Generator Grundpositionen zusammenlegen.
+- **Film-Teile statt Umnummerieren:** neues Feld „Film-Teil" in Exponate (`fldg0vCqzHoxBVUKB`). Kunden-Nr. und Reihenfolge bleiben, die Kette der Ich-Zitate (Rückbezug nur nach hinten) bleibt intakt. Jeder Film-Teil bekommt ein eigenes Grundraster und einen Untertitel.
+  - Kapitel 6: 6.1 Rekordfahrten (Nr. 34–38), 6.2 Motorenkonzepte (39–44), 6.3 Motorsporttechnik für die Serie (45–48). Grund: Titel ist dreiteilig, die Kundenreihenfolge folgt ihm bereits; 15 Objekte am Stück wären zu lang.
+  - Kapitel 2: 2.1 Alternative Antriebe (Nr. 5–8), 2.2 Sparsamkeit (9–13). Untertitel in Filmreihenfolge, der Kapiteltitel des Kunden bleibt unverändert. Formel E (Nr. 6) ist Kontrapunkt in 2.1, Lohner-Porsche (Nr. 13) leitet als erster Hybrid zu Kapitel 3 über.
+  - Kapitel 1, 3, 4, 5, 7, 8 laufen ungeteilt (4–8 Objekte).
+- **Nr. 41 Corrado-Heckspoiler bleibt in 6.2** und grätscht als Figur zwischen die Motoren, mit Rückbezug auf die Spoiler von Veyron und Chiron. Ich-Zitat neu (DE/EN, Status Entwurf): „Kurz dazwischen: Was nützen all die Zylinder, wenn die Kraft nicht auf der Straße bleibt? …"
+- **Grundraster-Familie statt einem Layout** (Björn: „A will ich absolut nicht"): V1 (6–8 Objekte, eher hohe Formate), D (6–8 Objekte, eher breite Formate, waagrecht geteilt), V1-groß (4–5 Objekte). Auswahl per Regel aus Anzahl und Format der Herobilder, innerhalb eines Film-Teils gleich, Override in Airtable möglich. Belegung der Kacheln automatisch nach Bildformat und Auflösung. Ansicht: `Blue Cube/BentoGridStyle/engine/v1plus/Grundraster_Familie.png`.
+- **Freie Kachel im Ruhezustand trägt den Kapitel- bzw. Teiltitel als Text.**
+- **Die Medienfläche erzählt die Geschichte zum Exponat, sie zeigt nicht das Exponat noch einmal** (Pokal, Bremsscheibe, Spoiler stehen im Regal; auf der Wand z. B. der Chiron). Neue Felder in Exponate: „Herobild" (Anhang, `fldMiuEiBQK9DP8eu`), „Herobild geprüft" (Checkbox), „Herobild-Hinweis" (Warnung). Vorschläge für Nr. 1–4, 14–20, 34–38 eingetragen, Björn prüft; 10 davon unter 1920 px oder mit besserem Motiv nachzuliefern (Hinweisfeld).
+- Offen: Untertitel-Texte DE/EN für 2.1, 2.2, 6.1–6.3 brauchen die Abnahme des Kunden.
+
 ## Stand 12.11.2026 (Council-Chat, abends)
 
 - **Eröffnung 30.11.2026.** Zeitplan, Grundsätze und offene Klärungen in `docs/PLAN_Eroeffnung.md`. Inhaltlicher Stopp 23.11.
