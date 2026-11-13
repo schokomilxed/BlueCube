@@ -20,6 +20,9 @@ Neueste zuerst. Format: Datum · Entscheidung · Grund. Entscheidungen trifft Bj
 - **Renderzeit:** Engpass ist das Springen in den Clips (seek), nicht die Pixelzahl. Nächster Schritt: Clips vorab in Einzelbilder zerlegen; größere Renders auf dem Mac (mehr Kerne).
 - **Ton v2 (Kapitel 3, Test):** Jeder Schritt klingt (Zug über die Schrittdauer + Akzent bei Ankunft), Pegel nach bewegter Fläche; Akzente bei Öffnen, Vollbild, Rückfaltung. Klangthema aus dem ID.R-Originalton (Drone im Bett + Signatur am Kapitelanfang). Originalton nur beim größten Clip ≥ 4×3, nur Motor/Umgebung laut Klassifikator. Alle KI-Klänge `_TEST_free`, nicht für den Master.
 - **Herobild:** Vorschläge für alle übrigen Objekte in Airtable eingetragen, „Herobild geprüft“ bleibt bei Björn.
+- **Ton: Qualität vor Werkzeugkosten.** ElevenLabs auf Creator-Plan (kommerzielle Lizenz). Klänge ab jetzt master-fähig; Free-Test-Klänge (`_TEST_free`) werden ersetzt.
+- **Ton-Prinzip „Atmen“ in zwei Schichten:** (1) Grund-Atem im ganzen Film, gleiche Grammatik: Öffnen = einatmen (hell, steigend), Schließen = ausatmen (dunkel, fallend), Pegel nach bewegter Fläche. (2) Kapitelfarbe darüber: Material-Schicht, eigener Teppich (alle in D-Moll), Titelsignatur.
+- **Favoriten Hörprobe 1:** Öffnen Referenz E und Luft Q; Schließen Glas Q und Chor Q; Glas Q beidseitig; Feinmechanik (Welt 5) für Kapitel 4 (Qualität, Phaeton). Hörprobe 2 (Grund-Kombinationen + K3/K4-Farbe) unter `BentoGridStyle/engine/_ton/hoerprobe_kapitelfarbe/`.
 
 ## Stand 12.11.2026 (Council-Chat, abends)
 
