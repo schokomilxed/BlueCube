@@ -40,3 +40,28 @@ Die Szenengrenzen bleiben gültig; 47 von 48 Quellen haben Ton. Es fehlt nur ein
 4. Bei der Kandidatenwahl (2–3 je Objekt) zählt guter Originalton als Kriterium neben der Bildqualität.
 - Der Klassifikator sortiert nur vor und irrt (Beispiel: 15.1.027 als „Sprache" eingeordnet). Elektrische Fahrzeuge erscheinen oft als „Whir"/„Hum", nicht als „Engine"; das ist in den Kategorien berücksichtigt.
 - Test 12.11.: Nr. 15 Quelle 3 (`20180706143134_720p.mp4`) hat in 15 von 16 Szenen ab 5 s sauberen Rennton (stark: 15.3.038, 15.3.001, 15.3.016). Kandidaten für Nr. 15 dort suchen.
+
+## Stand 13.11.2026 (ersetzt die Angaben in „Stand" weiter oben)
+
+**Airtable · Szenen**
+- 51 Kandidaten, je 3 Vorschaubilder, Status „Kandidat", Rechte nicht geprüft. 48 aus Runde 1 und 2, dazu Nr. 15 K6–K8 aus Quelle 3 (20180706143134_720p, Rennton).
+- Ton-Felder bei allen Kandidaten gefüllt (Ton Fahrzeug, Ton Musik, Ton Sprache, Lautheit, Originalton-Vorschlag). Originalton-Status überall „ungeprüft", setzt nur Björn.
+- 49 Hörproben (MP3). Nr. 20 hat keine Tonspur.
+- Originalton-Vorschlag „ja": 15 K1, K2, K6–K8 · 16 K1, K3 · 18 K3 · 37 K1–K3.
+
+**Interface „Szenen-Kontaktbogen"**
+- Ebene oben Kundenkapitel 1–8, darunter Objekte.
+- Je Szene: Status-Buttons, Rechte-Häkchen, Originalton-Block mit Balken, Player und den Buttons ungeprüft / gehört ok / abgelehnt.
+- Quellcode: Medien/_szenen/_interface/kontaktbogen_2026-11-12_ton.tsx
+
+**Dateien**
+- Ton-Werte je Video: <Video>.ton.csv neben der Szenen-CSV, erzeugt mit tools/szenen-erkennung/ton_alle.py.
+- Hörproben: Medien/_szenen/_ton/hoerproben/
+- PDF Szenenvorschlag_alle_Stand-2026-11-11.pdf: ohne Ton und ohne Nr. 15 K6–K8.
+- Tagesstand: Medien/_szenen/STAND_2026-11-12_Ton.md
+
+**Offen**
+- Björn hört die Hörproben an und setzt den Originalton-Status.
+- PAT „SzenenVorschau" löschen.
+- Clips erst nach Freigabe trimmen.
+- Noch ohne Kandidaten: Nr. 6, 8–12 und das alte Ehra-Lessien-Video (480p).
