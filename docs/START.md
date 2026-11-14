@@ -2,6 +2,7 @@
 
 Jeder neue Chat und jede neue Person liest in dieser Reihenfolge:
 
+0. Projekt-Dokument `claude/STAND.md` im claude.ai-Projekt BlueCube (Verweis: `docs/STAND.md`) — **was gerade gilt**, wer was verantwortet, Logbuch der Änderungen. Zuerst lesen; nach Änderungen, die andere Chats betreffen, eine Logbuchzeile schreiben.
 1. `docs/ARBEITSWEISE.md` — Ziel, Zielwerte, Kapitelnummerierung, Datenmodell, Regeln.
 2. `docs/ENTSCHEIDUNGEN.md` — was entschieden wurde und was noch offen ist. Hat bei Widerspruch Vorrang vor älteren Texten.
 3. Die Übergabe des eigenen Strangs in `docs/uebergaben/` (Szenen oder Engine).
