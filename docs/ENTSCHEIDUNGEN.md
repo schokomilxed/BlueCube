@@ -2,6 +2,14 @@
 
 Neueste zuerst. Format: Datum · Entscheidung · Grund. Entscheidungen trifft Björn.
 
+## Stand 14.11.2026 (Council-Chat)
+
+- **Textebenen im Film: Ich-Zitat und TechSpecs** („Das Objekt spricht, die Zahl belegt“). Kein Erzählerin-Beat pro Objekt mehr. Grund: Die Erzählerin war ein Platzhalter aus dem alten Mockup (1. Satz Kunden-Text) und wiederholte das Ich-Zitat, das aus demselben Kunden-Text entstanden ist; in Kapitel 3 belegte sie rund 70 von 227 s. Klammer nur pro Kapitel bzw. Film-Teil (Titel/Untertitel, optional ein Satz). Aussagen ohne Zahl nur als Ersatz, wenn ein Objekt keine Spec hat.
+- **Ich-Zitat maßgeblich in Exponate `STORY_ICH_DE/EN`**, die Tabelle Texte nur für alles andere (Untertitel, Kapitelsätze, Aussagen, Labels). Zitate ändert nur der Texte-Chat. Schließt den offenen Punkt „Ich-Zitate in Tabelle Texte übernehmen“. Grund: Abnahme und Kunden-Workflow laufen bereits über STORY_ICH; Umzug vor dem 23.11. wäre nur Risiko.
+- **Ton-Richtung „Atmen“ konkret:** Einatmen = einzelner hoher Ton (Flageolett, Glocke oder Analog-Synth, Favorit Flageolett), Ausatmen = einzelner tiefer Bass (warmer Synth-Bass), je Schritt nur die führende Kachel, D-Moll pentatonisch, Hall weit. Verworfen: Glitch, Glas + Glitch, im Code synthetisierte Klänge. Referenzen (nur Stimmung): Trentemøller „Miss You“, Eskmo „Cloudlight“, The xx „Intro“.
+- **Arbeitsweise mehrerer Chats:** Projekt-Dokument `claude/STAND.md` ist der aktuelle Stand mit Zuständigkeiten und Logbuch; Projektanweisungen und -beschreibung neu, alte Kapitel-2-Mockup-Dateien aus dem Projekt entfernt.
+- **Herobild-Auswahl** als Interface-Seite in Airtable: Klick auf ein Bild aus Abbildung/Bilder-Medien setzt das Herobild und „geprüft“.
+
 ## Stand 13.11.2026 (Council-Chat)
 
 - **Prinzip V1 statt festem Raster:** Das V1-Grundraster (8 Positionen auf 7 × 5 Modulen) ist der **Ruhepunkt**, in den jeder Teil zurückfaltet; Silhouetten der Objekte, Licht ruht. Die offenen Momente dazwischen sind **dynamisch und richten sich nach dem vorhandenen Footage**: Kachelgröße nach Quellauflösung (Hochskalierung höchstens 2,0), Hoch- oder Querformat nach Bildformat, Zahl der Bildkacheln nach Anzahl guter Szenen, Standzeit länger bei gutem Originalton, Platzhalter klein. Teilungen sind dort erlaubt (Begleit- und Detailkacheln), nicht im Grundraster. Grund: Mehr Teilung im Grundraster bringt nur 80 cm schmale Streifen und keine zusätzlichen textfähigen Kacheln (Vergleich `Blue Cube/BentoGridStyle/engine/v1plus/V1plus_Varianten.png`). Hat ein Teil weniger als 8 Objekte, darf der Generator Grundpositionen zusammenlegen.
