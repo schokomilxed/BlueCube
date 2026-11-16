@@ -2,6 +2,16 @@
 
 Neueste zuerst. Format: Datum · Entscheidung · Grund. Entscheidungen trifft Björn.
 
+## Stand 15.11.2026 (Council-Chat, aus dem Logbuch übertragen)
+
+- **Grundraster – vorläufig entschieden:** Familie V1 / D / V1-groß, ergänzt um V1-6 (5 Objekte), V1-7 (6), V1-9 (8) und V1-dicht (9). Wahl nach Anzahl und Format der Herobilder, gleiche obere Reihe wie V1, genau eine freie Kachel für den Titel. Stand wie in `make_kapitel.py` (Block `FAM`) und Übersicht `grundraster_alle.png`. Grund: Mit nur drei Rastern hätte z. B. D bei 5 Objekten drei freie Titelkacheln gehabt; ein festes Einheitsraster ist ausdrücklich nicht gewollt.
+- **Titelkachel nach Lesbarkeit:** Titel überall in derselben Schriftgröße, ohne Worttrennung. Lange Titel bekommen breite Kacheln, der Ort ist frei. Ersetzt den Zwischenstand „einheitlich 2 × 3 oben rechts“ vom selben Tag. Grund: Gemeint war Lesbarkeit, nicht ein fester Ort.
+- **Kein Größensprung bei Texten:** Texte behalten in Übergängen Schriftgröße und Lage, die Kachel klappt darüber zu bzw. auf. Grund: Texte wurden zu Beginn der Übergänge schlagartig klein.
+- **Kapitelsatz:** je Kundenkapitel und Film-Teil ein „Wir“-Satz (die Objekte sprechen gemeinsam), nach dem Grundraster in der Titelkachel; bei Film-Teilen folgt der Teil-Satz direkt danach in derselben Kachel. Texte als Entwurf in der Tabelle Texte, Abnahme offen.
+- **Feedback über Frame.io:** Arbeitsfassungen liegen als Versionsstapel im Frame.io-Projekt, Kapitel- und Teilmarken als ▶/▷-Kommentare. Ein eigener Review-Chat liest die Kommentare, ordnet sie Kapitel, Kunden-Nr. und Beat zu und beantragt die Änderung beim zuständigen Chat. Grundsätzliches geht als offene Entscheidung an Björn. Die Engine meldet fertige Renders im Logbuch. Grund: ein Abnahmekanal für Björn und später den Kunden, der Feedback mit Zeitstempel und Zeichnung maschinenlesbar macht.
+- **Ton:** Ton für alle 8 Kapitel nach dem Prinzip „Atmen“ aus den Engine-Cues, Teppich und Signatur je Kapitel. Originalton bleibt in der regulären Fassung draußen, bis Björn ihn gehört hat („gehört ok“).
+- Im Versuch, nicht entschieden: Herobild als Vollbild mit Zitat als Overlay-Kachel (nur Objekte ohne Hero-Clip, Beispiel Kapitel 1).
+
 ## Stand 14.11.2026 (Council-Chat)
 
 - **Textebenen im Film: Ich-Zitat und TechSpecs** („Das Objekt spricht, die Zahl belegt“). Kein Erzählerin-Beat pro Objekt mehr. Grund: Die Erzählerin war ein Platzhalter aus dem alten Mockup (1. Satz Kunden-Text) und wiederholte das Ich-Zitat, das aus demselben Kunden-Text entstanden ist; in Kapitel 3 belegte sie rund 70 von 227 s. Klammer nur pro Kapitel bzw. Film-Teil (Titel/Untertitel, optional ein Satz). Aussagen ohne Zahl nur als Ersatz, wenn ein Objekt keine Spec hat.
