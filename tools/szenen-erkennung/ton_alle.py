@@ -63,7 +63,8 @@ for i, (c, out, v) in enumerate(jobs, 1):
     print(f"[{i}/{len(jobs)}] {os.path.basename(v)[:60]}  ({len(rows)} Szenen)  noch ca. {eta:.0f} min", flush=True)
 
 # 2) Kandidaten aus Airtable: genaues Fenster + Hörprobe
-K = json.load(open(f"{TON}/kandidaten.json")); out = f"{TON}/kandidaten.ton.csv"
+KN = os.environ.get("KAND", "kandidaten")
+K = json.load(open(f"{TON}/{KN}.json")); out = f"{TON}/{KN}.ton.csv"
 if not os.path.exists(out):
     print(f"Kandidaten: {len(K)} …", flush=True); cache = {}
     with open(out + '.tmp', 'w', newline='') as f:
